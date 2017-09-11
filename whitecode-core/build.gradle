@@ -1,0 +1,9 @@
+archivesBaseName = 'whitecode-core'
+dependencies {
+	compile('org.springframework.boot:spring-boot-starter')
+	compile('org.springframework.boot:spring-boot-starter-web')
+	compile('org.springframework.boot:spring-boot-starter-data-jpa')
+	compile('mysql:mysql-connector-java')
+	compile('com.alibaba:druid-spring-boot-starter:1.1.3')
+	compile('org.springframework.boot:spring-boot-devtools')
+}

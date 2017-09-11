@@ -1,0 +1,2 @@
+rootProject.name = 'WhiteCode'
+include "whitecode-core"
