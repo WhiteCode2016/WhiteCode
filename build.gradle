@@ -20,21 +20,22 @@ allprojects {
     repositories {
         mavenCentral()
     }
-
+    group 'com.whitecode'
+    version '1.0-SNAPSHOT'
 }
 
+/**
+ * subprojects配置所有子项目的共同设置
+ * 比如共同的插件、repositories、依赖版本以及依赖配置
+ */
 subprojects {
     apply plugin: 'java'
     apply plugin: 'eclipse'
     apply plugin: 'org.springframework.boot'
 
-    version = '0.0.1-SNAPSHOT'
     sourceCompatibility = 1.8
 
     dependencies {
         testCompile('org.springframework.boot:spring-boot-starter-test')
     }
 }
-group 'com.whitecode'
-version '1.0-SNAPSHOT'
-

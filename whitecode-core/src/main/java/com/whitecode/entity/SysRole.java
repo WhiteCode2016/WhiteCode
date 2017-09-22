@@ -1,5 +1,7 @@
 package com.whitecode.entity;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
+
 import javax.persistence.*;
 import java.util.List;
 
@@ -21,7 +23,7 @@ public class SysRole {
     // 是否可用,如果不可用将不会添加给用户
     private Boolean available = Boolean.FALSE;
     // 角色 -- 权限关系：多对多关系;
-    @ManyToMany(fetch = FetchType.EAGER)
+    @ManyToMany(fetch= FetchType.EAGER)
     @JoinTable(name = "SysRolePermission", joinColumns = {@JoinColumn(name = "roleId")}, inverseJoinColumns = {@JoinColumn(name = "permissionId")})
     private List<SysPermission> permissions;
 
@@ -62,6 +64,7 @@ public class SysRole {
         this.available = available;
     }
 
+    @JsonBackReference // 防止Json无限循环
     public List<SysPermission> getPermissions() {
         return permissions;
     }
@@ -70,11 +73,12 @@ public class SysRole {
         this.permissions = permissions;
     }
 
-    public List<SysUser> getUserInfos() {
+    @JsonBackReference
+    public List<SysUser> getSysUsers() {
         return sysUsers;
     }
 
-    public void setUserInfos(List<SysUser> sysUsers) {
+    public void setSysUsers(List<SysUser> sysUsers) {
         this.sysUsers = sysUsers;
     }
 }

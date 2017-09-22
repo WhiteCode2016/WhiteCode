@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.whitecode.dao.mapper.SysUserMapper">
+    <sql id="selectColumns">
+        SELECT
+            su.uid,
+            su.username,
+            su.password,
+            su.state
+        FROM sys_user su
+    </sql>
+    <!-- 1、根据userId获取用户 -->
+    <select id="getUserById" resultType="SysUser">
+        <include refid="selectColumns" />
+        WHERE su.uid = #{userId}
+    </select>
+
+    <!-- 2、获取所有用户 -->
+    <select id="getUsers" resultType="SysUser">
+        <include refid="selectColumns" />
+    </select>
+
+</mapper>

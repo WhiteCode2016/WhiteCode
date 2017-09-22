@@ -1,6 +1,7 @@
 package com.whitecode.service;
 
 import com.whitecode.entity.SysUser;
+import org.apache.ibatis.annotations.Param;
 
 /**
  * 用户Service接口（增删改查）
@@ -9,4 +10,6 @@ import com.whitecode.entity.SysUser;
 public interface SysUserService {
     /** 根据username查询用户信息 */
     public SysUser findByUsername(String username);
+
+    public SysUser getUserById(Integer userId);
 }

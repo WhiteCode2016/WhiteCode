@@ -1,6 +1,7 @@
 package com.whitecode.service.impl;
 
 import com.whitecode.dao.SysUserRepository;
+import com.whitecode.dao.mapper.SysUserMapper;
 import com.whitecode.entity.SysUser;
 import com.whitecode.service.SysUserService;
 import org.springframework.stereotype.Service;
@@ -16,9 +17,16 @@ public class SysUserServiceImpl implements SysUserService {
 
     @Resource
     private SysUserRepository sysUserRepository;
+    @Resource
+    private SysUserMapper sysUserMapper;
 
     @Override
     public SysUser findByUsername(String username) {
         return sysUserRepository.findByUsername(username);
+    }
+
+    @Override
+    public SysUser getUserById(Integer userId) {
+        return sysUserMapper.getUserById(userId);
     }
 }

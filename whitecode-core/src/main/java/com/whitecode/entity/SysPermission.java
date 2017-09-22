@@ -105,4 +105,5 @@ public class SysPermission implements Serializable {
     public void setRoles(List<SysRole> roles) {
         this.roles = roles;
     }
+
 }
