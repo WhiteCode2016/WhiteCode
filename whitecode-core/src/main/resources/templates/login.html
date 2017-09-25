@@ -4,25 +4,29 @@
     <meta charset="UTF-8" />
     <title>Title</title>
     <script>
-        function changeCode(){
-            $("#kaptcha-img").attr("src", "/kaptcha.jpg");
+        function refreshCaptcha(){
+            $("#kaptcha-img").attr("src", "/kaptcha.jpg?t=" + Math.floor(Math.random() * 100));
         }
     </script>
 </head>
 <body>
-<!--<h4 th:if="${message != null}" th:text="${message}"></h4>-->
-<!--<form th:action="@{/login}" method="post" id="loginForm">-->
-    <!--<p>账号：<input type="text" name="username" value="admin"/></p>-->
-    <!--<p>密码：<input type="text" name="password" value="123"/></p>-->
-    <!--<p><input type="submit" value="登录" id="btn_submit"/></p>-->
-<!--</form>-->
+<!--<h4 th:if="${message != null}" th:text="${message}"></h4>
+<form th:action="@{/login}" method="post" id="loginForm">
+    <p>账号：<input type="text" name="username" value="admin"/></p>
+    <p>密码：<input type="text" name="password" value="123"/></p>
+    <p><input type="checkbox" name="rememberMe" />记住我</p>
+    <p><input type="submit" value="登录"/></p>
+</form>-->
 <form method="post" id="loginForm">
     <p>账号：<input type="text" name="username" value="admin"/></p>
     <p>密码：<input type="text" name="password" value="123"/></p>
     <div><label> 验证码 : <input type="text" name="captcha" placeholder="验证码"/> </label></div>
-    <div><img style="width: 10%; display: inline;" th:src="@{/kaptcha.jpg}" title="点击切换" onclick="changeCode();"  id="kaptcha-img"/></div>
+    <div><img style="width: 10%; display: inline;" th:src="@{/kaptcha.jpg}" title="点击切换" id="kaptcha-img"/></div>
+    <div><a onclick="refreshCaptcha()">看不清?换一个试试</a></div>
+    <p><input type="checkbox" name="rememberMe" />记住我</p>
     <p><input type="button" value="登录" id="btn_submit"/></p>
 </form>
+<a th:href="@{/logout}">退出</a>
 <script src="http://libs.baidu.com/jquery/2.0.0/jquery.min.js"></script>
 <script>
     $("#btn_submit").click(function () {
@@ -32,9 +36,9 @@
            data: $("#loginForm").serialize(),
            success: function (data) {
                alert(JSON.stringify(data));
+               window.open("/index","_self");
            }
        });
-
     });
 </script>
 </body>

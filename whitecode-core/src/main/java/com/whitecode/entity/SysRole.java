@@ -3,6 +3,7 @@ package com.whitecode.entity;
 import com.fasterxml.jackson.annotation.JsonBackReference;
 
 import javax.persistence.*;
+import java.io.Serializable;
 import java.util.List;
 
 /**
@@ -11,7 +12,7 @@ import java.util.List;
  */
 @Entity
 @Table(name = "sys_role")
-public class SysRole {
+public class SysRole implements Serializable {
     @Id
     @GeneratedValue
     // 编号

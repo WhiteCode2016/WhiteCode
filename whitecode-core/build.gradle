@@ -16,4 +16,7 @@ dependencies {
 	// 验证码插件
 //	compile('com.octo.captcha:jcaptcha:2.0-alpha-1')
 	compile('com.github.penggle:kaptcha:2.3.2')
+
+	compile('org.apache.shiro:shiro-ehcache:1.2.3')
+	compile('org.springframework:spring-context-support')
 }

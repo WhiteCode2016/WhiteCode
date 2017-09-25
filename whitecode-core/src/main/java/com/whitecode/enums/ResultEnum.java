@@ -10,7 +10,8 @@ public enum ResultEnum {
     LOGIN_SUCCESS(600,"登录成功"),
     LOGIN_ACCOUNT_ERROR(601, "该用户不存在"),
     LOGIN_PASSWORD_ERROR(602,"登录密码错误"),
-    LOGIN_LOCK_ERROR(603,"该用户被锁定")
+    LOGIN_LOCK_ERROR(603,"该用户被锁定"),
+    CAPTCHA_ERROR(604,"验证码错误")
     ;
 
     // 错误代码

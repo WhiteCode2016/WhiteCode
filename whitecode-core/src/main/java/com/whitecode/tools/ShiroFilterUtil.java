@@ -11,6 +11,7 @@ import java.io.PrintWriter;
 import java.util.Map;
 
 /**
+ * Shiro 工具类
  * Created by White on 2017/9/22.
  */
 public class ShiroFilterUtil {
