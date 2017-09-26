@@ -11,7 +11,16 @@ public enum ResultEnum {
     LOGIN_ACCOUNT_ERROR(601, "该用户不存在"),
     LOGIN_PASSWORD_ERROR(602,"登录密码错误"),
     LOGIN_LOCK_ERROR(603,"该用户被锁定"),
-    CAPTCHA_ERROR(604,"验证码错误")
+    CAPTCHA_ERROR(604,"验证码错误"),
+
+
+    EMAIL_SEND_SUCCESS(700,"邮件发送成功"),
+    EMAIL_SEND_ERROR(701,"邮件发送出错"),
+    EMAIL_EMPTY(702,"请输入用户名或邮箱"),
+    EMAIL_NOT_EXIST(703,"用户名或邮箱不存在"),
+    EMAIL_LINK_NOT_FULL(704,"链接不完整，请重新生成"),
+    EMIAL_LINK_MATCH_USER(705, "无法找到匹配用户，请重新申请找回密码"),
+    EMAIL_LINK_EXPIRED(706,"链接已经过期")
     ;
 
     // 错误代码

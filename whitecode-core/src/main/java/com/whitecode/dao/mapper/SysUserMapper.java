@@ -26,4 +26,10 @@ public interface SysUserMapper {
      * @return
      */
     List<SysUser> getUsers();
+
+    /**
+     * 更新用户信息
+     * @param sysUser
+     */
+    void updateUser(SysUser sysUser);
 }

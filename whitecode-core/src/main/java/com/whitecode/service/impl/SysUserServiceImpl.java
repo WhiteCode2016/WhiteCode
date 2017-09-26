@@ -29,4 +29,9 @@ public class SysUserServiceImpl implements SysUserService {
     public SysUser getUserById(Integer userId) {
         return sysUserMapper.getUserById(userId);
     }
+
+    @Override
+    public void updateUser(SysUser sysUser) {
+        sysUserMapper.updateUser(sysUser);
+    }
 }

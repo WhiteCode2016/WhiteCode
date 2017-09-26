@@ -6,7 +6,9 @@
             su.uid,
             su.username,
             su.password,
-            su.state
+            su.state,
+            su.email,
+            su.secretKey
         FROM sys_user su
     </sql>
     <!-- 1、根据userId获取用户 -->
@@ -19,5 +21,14 @@
     <select id="getUsers" resultType="SysUser">
         <include refid="selectColumns" />
     </select>
+
+    <!-- 3、更新用户信息-->
+    <update id="updateUser">
+        UPDATE sys_user
+        <set>
+            secret_key = #{secretKey}
+        </set>
+        WHERE uid = #{uid}
+    </update>
 
 </mapper>

@@ -31,6 +31,12 @@ public class SysUser implements Serializable{
     // 2:用户被锁定
     @Column(name = "state")
     private byte state;
+    // 邮箱
+    @Column(name = "mail")
+    private String email;
+    // 密钥（用于密码找回）
+    @Column(name = "secretKey")
+    private String secretKey;
     @ManyToMany(fetch= FetchType.EAGER)//立即从数据库中进行加载数据;
     @JoinTable(name = "SysUserRole", joinColumns = { @JoinColumn(name = "uid") }, inverseJoinColumns ={@JoinColumn(name = "roleId") })
     private List<SysRole> roleList;// 一个用户具有多个角色
@@ -73,6 +79,22 @@ public class SysUser implements Serializable{
 
     public void setState(byte state) {
         this.state = state;
+    }
+
+    public String getEmail() {
+        return email;
+    }
+
+    public void setEmail(String email) {
+        this.email = email;
+    }
+
+    public String getSecretKey() {
+        return secretKey;
+    }
+
+    public void setSecretKey(String secretKey) {
+        this.secretKey = secretKey;
     }
 
     public List<SysRole> getRoleList() {

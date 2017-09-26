@@ -10,6 +10,8 @@ import org.apache.ibatis.annotations.Param;
 public interface SysUserService {
     /** 根据username查询用户信息 */
     public SysUser findByUsername(String username);
-
+    /** 根据userId查询用户信息 */
     public SysUser getUserById(Integer userId);
+    /** 更新用户信息 */
+    public void updateUser(SysUser sysUser);
 }

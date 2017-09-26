@@ -49,6 +49,7 @@ public class ShiroConfiguration {
 
         // authc:所有url都必须认证通过才可以访问; anon:所有url都都可以匿名访问
         filterChainDefinitionMap.put("/kaptcha.jpg", "anon");
+        filterChainDefinitionMap.put("/common/**", "anon");
 //        filterChainDefinitionMap.put("/login", "loginFilter");
         // 添加“记住我”过滤器user
         filterChainDefinitionMap.put("/", "user");

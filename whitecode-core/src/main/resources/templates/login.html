@@ -25,6 +25,8 @@
     <div><a onclick="refreshCaptcha()">看不清?换一个试试</a></div>
     <p><input type="checkbox" name="rememberMe" />记住我</p>
     <p><input type="button" value="登录" id="btn_submit"/></p>
+    <hr/>
+    <a th:href="@{/findPassword}">找回密码?</a>
 </form>
 <a th:href="@{/logout}">退出</a>
 <script src="http://libs.baidu.com/jquery/2.0.0/jquery.min.js"></script>
