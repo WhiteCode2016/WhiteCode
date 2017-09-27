@@ -54,7 +54,9 @@ public class ShiroFilterUtil {
             response.setCharacterEncoding("UTF-8");//设置编码
             response.setContentType("application/json");//设置返回类型
             out = response.getWriter();
-            out.println(JSONObject.fromObject(jsonResult).toString());//输出
+//            out.println(JSONObject.fromObject(jsonResult).toString());//输出
+            // 使用jackson转化对象,通过@JsonInclude注解方便过滤 NULL字段
+            out.println(JacksonUtil.obj2json(jsonResult));
         } catch (Exception e) {
             logger.info("输出JSON出错");
         }finally{

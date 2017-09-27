@@ -6,9 +6,9 @@
             su.uid,
             su.username,
             su.password,
-            su.state,
+            su.status,
             su.email,
-            su.secretKey
+            su.secret_key
         FROM sys_user su
     </sql>
     <!-- 1、根据userId获取用户 -->

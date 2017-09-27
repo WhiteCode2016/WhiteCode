@@ -44,7 +44,9 @@ public class LoginFilter extends FormAuthenticationFilter{
             jsonResult = JsonResultUtil.error(ResultEnum.LOGIN_ACCOUNT_ERROR);
         } else if ("LockedAccountException".equals(message)) {
             jsonResult = JsonResultUtil.error(ResultEnum.LOGIN_LOCK_ERROR);
-        }else if ("CaptchaException".equals(message)) {
+        } else if ("DisabledAccountException".equals(message)) {
+            jsonResult = JsonResultUtil.error(ResultEnum.LOGIN_DISABLED_ERROR);
+        } else if ("CaptchaException".equals(message)) {
             jsonResult = JsonResultUtil.error(ResultEnum.CAPTCHA_ERROR);
         } else {
             jsonResult = JsonResultUtil.error(ResultEnum.UNKONW_ERROR);

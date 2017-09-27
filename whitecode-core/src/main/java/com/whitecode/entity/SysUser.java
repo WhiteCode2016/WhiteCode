@@ -1,6 +1,7 @@
 package com.whitecode.entity;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import com.whitecode.enums.StatusEnum;
 
 import javax.persistence.*;
 import java.io.Serializable;
@@ -22,20 +23,18 @@ public class SysUser implements Serializable{
     // 名称（昵称或者真实姓名）
     @Column(name = "name")
     private String name;
-    // 密码;
+    // 密码
     @Column(name = "password")
     private String password;
     // 用户状态
-    // 0:创建未认证（比如没有激活，没有输入验证码等等）--等待验证的用户
-    // 1:正常状态
-    // 2:用户被锁定
-    @Column(name = "state")
-    private byte state;
+    @Column(name = "status")
+    @Enumerated(EnumType.STRING)
+    private StatusEnum status;
     // 邮箱
     @Column(name = "mail")
     private String email;
     // 密钥（用于密码找回）
-    @Column(name = "secretKey")
+    @Column(name = "secret_key")
     private String secretKey;
     @ManyToMany(fetch= FetchType.EAGER)//立即从数据库中进行加载数据;
     @JoinTable(name = "SysUserRole", joinColumns = { @JoinColumn(name = "uid") }, inverseJoinColumns ={@JoinColumn(name = "roleId") })
@@ -73,12 +72,12 @@ public class SysUser implements Serializable{
         this.password = password;
     }
 
-    public byte getState() {
-        return state;
+    public StatusEnum getStatus() {
+        return status;
     }
 
-    public void setState(byte state) {
-        this.state = state;
+    public void setStatus(StatusEnum status) {
+        this.status = status;
     }
 
     public String getEmail() {

@@ -1,5 +1,7 @@
 package com.whitecode.common;
 
+import com.fasterxml.jackson.annotation.JsonInclude;
+
 /**
  * 返回结果信息类
  * Created by White on 2017/9/21.
@@ -10,6 +12,8 @@ public class JsonResult<T> {
     // 提示信息
     private String message;
     // 具体的内容
+    // 支持JackSon，过滤 NULL 字段
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     private T data;
 
     public Integer getCode() {

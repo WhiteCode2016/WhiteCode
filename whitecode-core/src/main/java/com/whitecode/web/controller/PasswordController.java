@@ -7,6 +7,9 @@ import com.whitecode.service.SysUserService;
 import com.whitecode.tools.EmailUtil;
 import com.whitecode.tools.GenerateLinkUtil;
 import com.whitecode.tools.JsonResultUtil;
+import io.swagger.annotations.ApiImplicitParam;
+import io.swagger.annotations.ApiImplicitParams;
+import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -27,6 +30,8 @@ public class PasswordController {
     @Autowired
     private SysUserService sysUserService;
 
+    @ApiOperation(value = "根据账户或邮箱地址发送重置密码邮件")
+    @ApiImplicitParam(name = "username",value = "账户或邮箱地址",required = true, dataType = "String", paramType = "query")
     @RequestMapping(value = "/findPassword", method = RequestMethod.GET)
     public JsonResult forgetPass(@RequestParam("username") String username){
         SysUser user = sysUserService.findByUsername(username);
@@ -48,7 +53,11 @@ public class PasswordController {
             return JsonResultUtil.error(ResultEnum.EMAIL_SEND_ERROR);
         }
     }
-
+    @ApiOperation(value = "判断生成的重置密码邮件链接是否有效")
+    @ApiImplicitParams({
+            @ApiImplicitParam(name = "userName", value = "账户或邮箱地址", required = true, dataType = "String", paramType = "query"),
+            @ApiImplicitParam(name = "checkCode", value = "加密字符串", required = true, dataType = "String", paramType = "query")
+    })
     @RequestMapping(value = "/resetPassword",method = RequestMethod.GET)
     public JsonResult checkResetLink(@RequestParam("userName") String userName, @RequestParam("checkCode")String checkCode, HttpServletRequest request) {
         SysUser sysUser = sysUserService.findByUsername(userName);

@@ -9,6 +9,7 @@ import java.util.Date;
 import java.util.Properties;
 
 /**
+ * 邮件工具类（重设密码、激活账户）
  * Created by White on 2017/9/26.
  */
 public class EmailUtil {

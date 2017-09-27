@@ -4,6 +4,7 @@ import com.whitecode.common.JsonResult;
 import com.whitecode.enums.ResultEnum;
 
 /**
+ * 自定义JSON结果封装工具类
  * Created by White on 2017/9/21.
  */
 public class JsonResultUtil {

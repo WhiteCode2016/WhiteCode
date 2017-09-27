@@ -18,7 +18,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 public class HomeController {
     private static final Logger logger = LoggerFactory.getLogger(HomeController.class);
 
-    @RequestMapping(value = {"/","/index"})
+    @RequestMapping(value = {"/","/index"}, method = RequestMethod.GET)
     public String index(){
         return "/index";
     }
@@ -80,10 +80,9 @@ public class HomeController {
         return "/login";
     }
 
-    @RequestMapping("/403")
+    @RequestMapping(value = "/403", method = RequestMethod.GET)
     public String unauthorizedRole(){
         System.out.println("------没有权限-------");
         return "403";
     }
-
 }

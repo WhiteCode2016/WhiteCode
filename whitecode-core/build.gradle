@@ -2,22 +2,31 @@ archivesBaseName = 'whitecode-core'
 dependencies {
 	compile('org.springframework.boot:spring-boot-starter')
 	compile('org.springframework.boot:spring-boot-starter-web')
+	compile('org.springframework.boot:spring-boot-devtools')
 	compile('org.springframework.boot:spring-boot-starter-data-jpa')
 	compile('org.springframework.boot:spring-boot-starter-thymeleaf')
+	compile('net.sourceforge.nekohtml:nekohtml:1.9.22')
 	compile('org.springframework.boot:spring-boot-starter-mail')
+	compile('org.springframework.boot:spring-boot-starter-amqp')
+
 	compile('org.mybatis.spring.boot:mybatis-spring-boot-starter:1.1.1')
+	compile('com.github.pagehelper:pagehelper:4.1.6')
 	compile('mysql:mysql-connector-java')
 	compile('com.alibaba:druid-spring-boot-starter:1.1.3')
-	compile('org.springframework.boot:spring-boot-devtools')
+
 	compile('org.apache.shiro:shiro-spring:1.4.0')
-	compile('net.sourceforge.nekohtml:nekohtml:1.9.22')
-	compile('com.github.pagehelper:pagehelper:4.1.6')
+	compile('org.apache.shiro:shiro-ehcache:1.2.3')
+	compile('org.springframework:spring-context-support')
+
 	compile('net.sf.json-lib:json-lib:2.4:jdk15')
-	compile('org.json:json:20160810')
+//	compile('org.json:json:20160810')
+
 	// 验证码插件
 //	compile('com.octo.captcha:jcaptcha:2.0-alpha-1')
 	compile('com.github.penggle:kaptcha:2.3.2')
 
-	compile('org.apache.shiro:shiro-ehcache:1.2.3')
-	compile('org.springframework:spring-context-support')
+	// Swagger2 RESTFUL API文档
+	compile('io.springfox:springfox-swagger2:2.7.0')
+	compile('io.springfox:springfox-swagger-ui:2.7.0')
+
 }

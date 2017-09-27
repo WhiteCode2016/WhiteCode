@@ -3,6 +3,7 @@ package com.whitecode.shiro;
 import com.whitecode.entity.SysPermission;
 import com.whitecode.entity.SysRole;
 import com.whitecode.entity.SysUser;
+import com.whitecode.enums.StatusEnum;
 import com.whitecode.service.SysUserService;
 import org.apache.shiro.authc.*;
 import org.apache.shiro.authz.AuthorizationInfo;
@@ -11,7 +12,6 @@ import org.apache.shiro.realm.AuthorizingRealm;
 import org.apache.shiro.subject.PrincipalCollection;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-
 import javax.annotation.Resource;
 
 /**
@@ -58,11 +58,14 @@ public class SystemShiroRealm extends AuthorizingRealm {
         // 通过username从数据库中查找用户
         SysUser sysUser = sysUserService.findByUsername(username);
         if (sysUser == null) {
-            throw new UnknownAccountException("账号不存在");
-        }else if (!password.equals(sysUser.getPassword())) {
-            throw new IncorrectCredentialsException("密码不正确");
+            throw new UnknownAccountException();
+        } else if (!password.equals(sysUser.getPassword())) {
+            throw new IncorrectCredentialsException();
+        } else if (sysUser.getStatus() == StatusEnum.LOCKED) {
+            throw new LockedAccountException();
+        } else if (sysUser.getStatus() == StatusEnum.DISABLED) {
+            throw new DisabledAccountException();
         }
-
         SimpleAuthenticationInfo authenticationInfo = new SimpleAuthenticationInfo(
                 sysUser, // 用户名
                 sysUser.getPassword(), // 密码
