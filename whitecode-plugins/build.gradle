@@ -1,0 +1,12 @@
+archivesBaseName = 'whitecode-plugins'
+dependencies {
+    // 模块包含
+    compile(
+            project(':whitecode-core')
+    )
+    // rabbitmq框架
+    compile('org.springframework.boot:spring-boot-starter-amqp')
+    // WebMagic爬虫框架
+    compile('us.codecraft:webmagic-core:0.7.3')
+    compile('us.codecraft:webmagic-extension:0.7.3')
+}

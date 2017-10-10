@@ -106,7 +106,7 @@ public class ShiroConfiguration {
     /**
      * ###########################记住密码相关配置###########################
      */
-    // cookie对象;
+    // cookie对象
     @Bean
     public SimpleCookie rememberMeCookie() {
         logger.info("ShiroConfiguration.rememberMeCookie()");
@@ -117,7 +117,7 @@ public class ShiroConfiguration {
         return simpleCookie;
     }
 
-    // cookie管理器;
+    // cookie管理器
     @Bean
     public CookieRememberMeManager cookieRememberMeManager() {
         logger.info("ShiroConfiguration.rememberMeManager()");

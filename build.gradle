@@ -38,4 +38,10 @@ subprojects {
     dependencies {
         testCompile('org.springframework.boot:spring-boot-starter-test')
     }
+
+    // 去除重复的jar包
+    configurations {
+        all*.exclude group: 'org.slf4j', module: 'slf4j-log4j12'
+    }
 }
+

@@ -23,8 +23,7 @@ public enum ResultEnum {
     EMAIL_NOT_EXIST(703,"用户名或邮箱不存在"),
     EMAIL_LINK_NOT_FULL(704,"链接不完整，请重新生成"),
     EMIAL_LINK_MATCH_USER(705, "无法找到匹配用户，请重新申请找回密码"),
-    EMAIL_LINK_EXPIRED(706,"链接已经过期")
-    ;
+    EMAIL_LINK_EXPIRED(706,"链接已经过期");
 
     // 错误代码
     private Integer code;

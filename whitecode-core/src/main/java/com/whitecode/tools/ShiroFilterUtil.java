@@ -1,7 +1,6 @@
 package com.whitecode.tools;
 
 import com.whitecode.common.JsonResult;
-import net.sf.json.JSONObject;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import javax.servlet.ServletRequest;
@@ -36,7 +35,8 @@ public class ShiroFilterUtil {
             response.setCharacterEncoding("UTF-8");//设置编码
             response.setContentType("application/json");//设置返回类型
             out = response.getWriter();
-            out.println(JSONObject.fromObject(resultMap).toString());//输出
+//            out.println(JSONObject.fromObject(resultMap).toString());//输出
+            out.println(JacksonUtil.obj2json(resultMap));
         } catch (Exception e) {
             logger.info("输出JSON出错");
         }finally{

@@ -20,7 +20,7 @@ import javax.servlet.http.HttpServletRequest;
 import java.util.UUID;
 
 /**
- * 处理邮箱找回密码
+ * 邮箱找回密码控制器
  * Created by White on 2017/9/26.
  */
 @RestController

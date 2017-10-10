@@ -1,2 +1,4 @@
 rootProject.name = 'WhiteCode'
 include "whitecode-core"
+include 'whitecode-plugins'
+
