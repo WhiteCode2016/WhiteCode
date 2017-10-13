@@ -11,7 +11,7 @@ import java.util.List;
  * 用户Mapper接口（增删改查）
  * Created by White on 2017/9/12.
  */
-//@Mapper
+@Mapper
 public interface SysUserMapper {
     /**
      * 根据userId获取用户

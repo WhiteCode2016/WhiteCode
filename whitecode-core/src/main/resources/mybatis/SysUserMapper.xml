@@ -7,7 +7,7 @@
             su.username,
             su.password,
             su.status,
-            su.email,
+            su.mail,
             su.secret_key
         FROM sys_user su
     </sql>

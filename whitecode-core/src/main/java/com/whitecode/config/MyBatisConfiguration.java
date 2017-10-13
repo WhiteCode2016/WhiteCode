@@ -13,7 +13,7 @@ import java.util.Properties;
  * Created by White on 2017/9/12.
  */
 @Configuration
-@MapperScan("com.whitecode.dao.mapper")
+//@MapperScan("com.whitecode.dao.mapper")
 public class MyBatisConfiguration {
     private static final Logger logger = LoggerFactory.getLogger(MyBatisConfiguration.class);
 

@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+    <head>
+        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+        <title>任务管理</title>
+        <link href="https://cdn.bootcss.com/bootstrap/3.3.5/css/bootstrap.min.css" rel="stylesheet"/>
+        <link href="http://fontawesome.io/assets/font-awesome/css/font-awesome.css" rel="stylesheet"/>
+        <style type="text/css">
+            .table-margin-top {
+                margin-top: 15px;
+            }
+        </style>
+    </head>
+    <body>
+        <div class="container" style="margin-top: 20px;">
+            <a th:href="@{/common/quartz/quartzAdd}" class="btn btn-success" role="button">添加任务</a>
+            <table class="table table-bordered table-margin-top">
+                <thead>
+                    <tr>
+                        <th>任务名称</th>
+                        <th>任务分组</th>
+                        <th>任务描述</th>
+                        <th>创建时间</th>
+                        <th>更新时间</th>
+                        <th>任务表达式</th>
+                        <th>执行类</th>
+                        <th>执行方法</th>
+                        <th>操作</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr th:each="job,jobStat : ${scheduleJobList}">
+                        <td th:text="${job.jobName}"></td>
+                        <td th:text="${job.jobGroup}"></td>
+                        <td th:text="${job.jobDesc}"></td>
+                        <td th:text="${job.createTime}"></td>
+                        <td th:text="${job.updateTime}"></td>
+                        <td th:text="${job.cronExpression}"></td>
+                        <td th:text="${job.beanClass}"></td>
+                        <td th:text="${job.executeMethod}"></td>
+                        <td>
+                            <button class="btn btn-primary btn-sm" th:onclick="'javascript:executeJob(\''+${job.jobName}+'\',\''+${job.jobGroup}+'\',\''+${job.jobId}+'\');'">立即执行</button>
+                            <button class="btn btn-primary btn-sm" th:onclick="'javascript:pauseJob(\''+${job.jobId}+'\');'">暂停</button>
+                            <button class="btn btn-primary btn-sm" th:onclick="'javascript:resumeJob(\''+${job.jobId}+'\');'">恢复</button>
+                            <a class="btn btn-primary btn-sm" th:href="@{'/common/quartz/delete?jobId='+${job.jobId}}">删除</a>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+        <script src="https://cdn.bootcss.com/jquery/3.2.1/jquery.min.js"></script>
+        <script type="text/javascript">
+            function executeJob(name,group,id){
+                $.ajax({
+                    type: "POST",
+                    url: "/common/quartz/executeJob",
+                    data: {
+                        jobName : name,
+                        jobGroup : group,
+                        jobId : id
+                    },
+                    success:function(data){
+                        alert("定时任务已执行，执行结果请查看详情！");
+                    }
+                });
+            }
+            function pauseJob(id){
+                $.ajax({
+                    type: "POST",
+                    url: "/common/quartz/pause",
+                    data: {
+                        jobId : id
+                    },
+                    success:function(data){
+                        alert("定时任务已暂停");
+                    }
+                });
+            }
+            function resumeJob(id){
+                $.ajax({
+                    type: "POST",
+                    url: "/common/quartz/resume",
+                    data: {
+                        jobId : id
+                    },
+                    success:function(data){
+                        alert("定时任务已恢复");
+                    }
+                });
+            }
+        </script>
+    </body>
+</html>

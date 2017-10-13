@@ -6,6 +6,7 @@ import us.codecraft.webmagic.Spider;
 import us.codecraft.webmagic.processor.PageProcessor;
 
 /**
+ * 新浪博客文章爬取
  * Created by White on 2017/9/29.
  */
 public class SinaBlogProcessor implements PageProcessor {

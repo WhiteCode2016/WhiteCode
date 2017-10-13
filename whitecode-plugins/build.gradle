@@ -4,9 +4,12 @@ dependencies {
     compile(
             project(':whitecode-core')
     )
-    // rabbitmq框架
+    // Rabbitmq框架
     compile('org.springframework.boot:spring-boot-starter-amqp')
     // WebMagic爬虫框架
     compile('us.codecraft:webmagic-core:0.7.3')
     compile('us.codecraft:webmagic-extension:0.7.3')
+    // Quartz任务框架
+    compile('org.quartz-scheduler:quartz:2.3.0')
+    compile('org.quartz-scheduler:quartz-jobs:2.3.0')
 }
