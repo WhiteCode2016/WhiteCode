@@ -19,6 +19,8 @@ public class CustomPipeline implements Pipeline {
     @Override
     public void process(ResultItems resultItems, Task task) {
         WeatherDetail weather = resultItems.get("weather");
+        // 获取城市代码
+        String stationCode = resultItems.get("stationCode").toString();
         try {
             logger.info(JacksonUtil.obj2json(weather));
         } catch (Exception e) {

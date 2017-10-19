@@ -14,14 +14,18 @@
     <body>
         <div class="container" style="margin-top: 20px;">
             <a th:href="@{/common/quartz/quartzAdd}" class="btn btn-success" role="button">添加任务</a>
+            <a th:href="@{/common/quartz/startAll}" class="btn btn-primary" role="button">启动所有触发器</a>
+            <a th:href="@{/common/quartz/pauseAll}" class="btn btn-primary" role="button">暂停所有触发器</a>
             <table class="table table-bordered table-margin-top">
                 <thead>
                     <tr>
                         <th>任务名称</th>
                         <th>任务分组</th>
+                        <th>状态</th>
+                        <th>类型</th>
                         <th>任务描述</th>
-                        <th>创建时间</th>
-                        <th>更新时间</th>
+                       <!-- <th>创建时间</th>
+                        <th>更新时间</th>-->
                         <th>任务表达式</th>
                         <th>执行类</th>
                         <th>执行方法</th>
@@ -32,9 +36,11 @@
                     <tr th:each="job,jobStat : ${scheduleJobList}">
                         <td th:text="${job.jobName}"></td>
                         <td th:text="${job.jobGroup}"></td>
+                        <td th:text="${job.jobStatus}"></td>
+                        <td th:text="${job.jobType}"></td>
                         <td th:text="${job.jobDesc}"></td>
-                        <td th:text="${job.createTime}"></td>
-                        <td th:text="${job.updateTime}"></td>
+                      <!--  <td th:text="${job.createTime}"></td>
+                        <td th:text="${job.updateTime}"></td>-->
                         <td th:text="${job.cronExpression}"></td>
                         <td th:text="${job.beanClass}"></td>
                         <td th:text="${job.executeMethod}"></td>
@@ -60,7 +66,7 @@
                         jobId : id
                     },
                     success:function(data){
-                        alert("定时任务已执行，执行结果请查看详情！");
+                        console.log("定时任务已执行，执行结果请查看详情！");
                     }
                 });
             }
@@ -72,7 +78,7 @@
                         jobId : id
                     },
                     success:function(data){
-                        alert("定时任务已暂停");
+                        console.log("定时任务已暂停");
                     }
                 });
             }
@@ -84,7 +90,7 @@
                         jobId : id
                     },
                     success:function(data){
-                        alert("定时任务已恢复");
+                        console.log("定时任务已恢复");
                     }
                 });
             }

@@ -8,36 +8,24 @@
     </head>
     <body>
         <div class="container" style="margin-top: 20px;">
-            <form th:action="@{/common/quartz/add}" method="post" class="form-horizontal" id="dataFrom">
-                <div class="form-group">
-                    <label class="col-sm-2 control-label">任务编号</label>
-                    <div class="col-sm-8">
-                        <input type="text" name="jobId" class="form-control"/>
-                    </div>
-                </div>
+            <form th:action="@{/common/quartz/edit}" method="post" class="form-horizontal" id="dataForm">
+                <input type="hidden" name="jobId" th:value="${scheduleJob.jobId}"/>
                 <div class="form-group">
                     <label class="col-sm-2 control-label">任务名称</label>
                     <div class="col-sm-8">
-                        <input type="text" name="jobName" class="form-control"/>
+                        <input type="text" name="jobName" class="form-control" th:value="${scheduleJob.jobName}"/>
                     </div>
                 </div>
                 <div class="form-group">
                     <label class="col-sm-2 control-label">任务分组</label>
                     <div class="col-sm-8">
-                        <input type="text" name="jobGroup" class="form-control"/>
+                        <input type="text" name="jobGroup" class="form-control" th:value="${scheduleJob.jobGroup}"/>
                     </div>
                 </div>
                 <div class="form-group">
                     <label class="col-sm-2 control-label">时间表达式</label>
                     <div class="col-sm-8">
-                        <input type="text" name="cronExpression" class="form-control"/>
-                    </div>
-                </div>
-                <div class="form-group">
-                    <label class="col-sm-2 control-label">时间表达式</label>
-                    <div class="col-sm-8">
-                        <input type="radio" name="jobType" value="ASYNC"/>异步
-                        <input type="radio" name="jobType"  value="SYNC"/>同步
+                        <input type="text" name="cronExpression" class="form-control" th:value="${scheduleJob.cronExpression}"/>
                     </div>
                 </div>
                 <div class="form-group">
@@ -61,7 +49,7 @@
                 <div class="form-group">
                     <div class="col-sm-offset-2 col-sm-10">
                         <!--<button type="submit" class="btn btn-primary">保存</button>-->
-                        <button type="button" class="btn btn-primary" th:onclick="'javascript:addJob();'">保存</button>
+                        <button type="button" class="btn btn-primary" th:onclick="'javascript:editJob();'">保存</button>
                         <a href="list-schedule-job.shtml" class="btn btn-default" role="button">返回</a>
                     </div>
                 </div>
@@ -70,11 +58,11 @@
         <script src="https://cdn.bootcss.com/jquery/3.2.1/jquery.min.js"></script>
         <script src="https://cdn.bootcss.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>
         <script>
-            function addJob(){
+            function editJob(){
                 $.ajax({
                     type: "POST",
-                    url: "/common/quartz/add",
-                    data: $("#dataFrom").serialize(),
+                    url: "/common/quartz/update",
+                    data: $("#dataForm").serialize(),
                     success:function(data){
                         window.open("/common/quartz/quartzList", "_self");
                     }

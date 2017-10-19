@@ -1,4 +1,4 @@
-package com.whitecode.rabbitmq;
+package com.whitecode.rabbitmq.example.helloWorld;
 
 import com.rabbitmq.client.Channel;
 import com.rabbitmq.client.Connection;

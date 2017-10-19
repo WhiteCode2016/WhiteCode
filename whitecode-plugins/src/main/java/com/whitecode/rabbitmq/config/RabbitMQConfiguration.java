@@ -1,4 +1,4 @@
-package com.whitecode.rabbitmq;
+package com.whitecode.rabbitmq.config;
 
 import org.springframework.amqp.core.Queue;
 import org.springframework.context.annotation.Bean;
