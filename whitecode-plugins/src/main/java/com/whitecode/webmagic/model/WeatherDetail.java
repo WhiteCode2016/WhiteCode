@@ -7,14 +7,14 @@ import java.util.List;
  * Created by White on 2017/9/29.
  */
 public class WeatherDetail {
-    private Long id;
+    private String id;
     private List<Weather2Day> weather2Days;
 
-    public Long getId() {
+    public String getId() {
         return id;
     }
 
-    public void setId(Long id) {
+    public void setId(String id) {
         this.id = id;
     }
 

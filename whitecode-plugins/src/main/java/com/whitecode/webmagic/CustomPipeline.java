@@ -21,6 +21,7 @@ public class CustomPipeline implements Pipeline {
         WeatherDetail weather = resultItems.get("weather");
         // 获取城市代码
         String stationCode = resultItems.get("stationCode").toString();
+        weather.setId(stationCode);
         try {
             logger.info(JacksonUtil.obj2json(weather));
         } catch (Exception e) {
