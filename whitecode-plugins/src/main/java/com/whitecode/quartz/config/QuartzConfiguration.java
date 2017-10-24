@@ -2,6 +2,7 @@ package com.whitecode.quartz.config;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.core.io.ClassPathResource;
@@ -18,10 +19,10 @@ public class QuartzConfiguration {
     private static final Logger logger = LoggerFactory.getLogger(QuartzConfiguration.class);
 
     @Bean(name = "scheduler")
-    public SchedulerFactoryBean schedulerFactory(DataSource dataSource) throws IOException {
+    public SchedulerFactoryBean schedulerFactory(@Qualifier("masterDataSource") DataSource masterDataSource) throws IOException {
         logger.info("schedulerFactoryBean init...");
         SchedulerFactoryBean factoryBean = new SchedulerFactoryBean();
-        factoryBean.setDataSource(dataSource);
+        factoryBean.setDataSource(masterDataSource);
         factoryBean.setConfigLocation(new ClassPathResource("quartz.properties"));
         factoryBean.setSchedulerName("ClusterScheduler");
         // 延时启动

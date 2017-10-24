@@ -32,10 +32,10 @@
     </settings>
 
     <!-- 实体类,简称 -设置别名 -->
-    <typeAliases>
+   <!-- <typeAliases>
         <typeAlias alias="SysUser" type="com.whitecode.entity.SysUser" />
         <typeAlias alias="SysRole" type="com.whitecode.entity.SysRole" />
         <typeAlias alias="SysPermission" type="com.whitecode.entity.SysPermission" />
-    </typeAliases>
+    </typeAliases>-->
 
 </configuration>

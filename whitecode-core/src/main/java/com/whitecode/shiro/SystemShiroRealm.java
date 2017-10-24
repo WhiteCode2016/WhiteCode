@@ -12,6 +12,8 @@ import org.apache.shiro.realm.AuthorizingRealm;
 import org.apache.shiro.subject.PrincipalCollection;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.context.annotation.Lazy;
+
 import javax.annotation.Resource;
 
 /**
@@ -22,6 +24,7 @@ public class SystemShiroRealm extends AuthorizingRealm {
     private static final Logger logger = LoggerFactory.getLogger(SystemShiroRealm.class);
 
     @Resource
+    @Lazy // 解决@Cachable失效问题
     private SysUserService sysUserService;
 
     /**

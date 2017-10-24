@@ -4,8 +4,8 @@ import com.whitecode.dao.SysUserRepository;
 import com.whitecode.dao.mapper.SysUserMapper;
 import com.whitecode.entity.SysUser;
 import com.whitecode.service.SysUserService;
+import org.springframework.cache.annotation.Cacheable;
 import org.springframework.stereotype.Service;
-
 import javax.annotation.Resource;
 
 /**
@@ -21,7 +21,9 @@ public class SysUserServiceImpl implements SysUserService {
     private SysUserMapper sysUserMapper;
 
     @Override
+    @Cacheable(value = "sysUser1")
     public SysUser findByUsername(String username) {
+        System.out.println("无缓存的时候调用这里---数据库查询");
         return sysUserRepository.findByUsername(username);
     }
 
