@@ -13,9 +13,9 @@ import java.util.Map;
  * Shiro 工具类
  * Created by White on 2017/9/22.
  */
-public class ShiroFilterUtil {
+public class ShiroFilterUtils {
 
-    private static final Logger logger = LoggerFactory.getLogger(ShiroFilterUtil.class);
+    private static final Logger logger = LoggerFactory.getLogger(ShiroFilterUtils.class);
 
     // 判断是否为ajax请求
     public static boolean isAjax(ServletRequest request) {
@@ -36,7 +36,7 @@ public class ShiroFilterUtil {
             response.setContentType("application/json");//设置返回类型
             out = response.getWriter();
 //            out.println(JSONObject.fromObject(resultMap).toString());//输出
-            out.println(JacksonUtil.obj2json(resultMap));
+            out.println(JacksonUtils.obj2json(resultMap));
         } catch (Exception e) {
             logger.info("输出JSON出错");
         }finally{
@@ -56,7 +56,7 @@ public class ShiroFilterUtil {
             out = response.getWriter();
 //            out.println(JSONObject.fromObject(jsonResult).toString());//输出
             // 使用jackson转化对象,通过@JsonInclude注解方便过滤 NULL字段
-            out.println(JacksonUtil.obj2json(jsonResult));
+            out.println(JacksonUtils.obj2json(jsonResult));
         } catch (Exception e) {
             logger.info("输出JSON出错");
         }finally{

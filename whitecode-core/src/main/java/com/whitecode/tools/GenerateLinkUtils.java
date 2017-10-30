@@ -12,8 +12,8 @@ import javax.servlet.http.HttpServletRequest;
  * 用户名/邮箱地址+随机数进行MD5加密
  * Created by White on 2017/9/26.
  */
-public class GenerateLinkUtil {
-    private static final Logger logger = LoggerFactory.getLogger(GenerateLinkUtil.class);
+public class GenerateLinkUtils {
+    private static final Logger logger = LoggerFactory.getLogger(GenerateLinkUtils.class);
 
     /**
      * 生成帐户激活链接
@@ -38,7 +38,7 @@ public class GenerateLinkUtil {
     public static String generateCheckcode(SysUser sysUser) {
         String username = sysUser.getUsername();
         String secretKey = sysUser.getSecretKey();
-        return EncryptUtil.md5(username + "&" + secretKey);
+        return EncryptUtils.md5(username + "&" + secretKey);
     }
 
 

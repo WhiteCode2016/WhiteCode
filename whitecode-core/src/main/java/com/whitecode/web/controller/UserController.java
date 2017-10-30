@@ -4,7 +4,7 @@ import com.whitecode.common.JsonResult;
 import com.whitecode.entity.SysUser;
 import com.whitecode.enums.ResultEnum;
 import com.whitecode.service.SysUserService;
-import com.whitecode.tools.JsonResultUtil;
+import com.whitecode.tools.JsonResultUtils;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -31,9 +31,9 @@ public class UserController {
     public JsonResult getUserById(@PathVariable("userId") Integer userId) {
         try {
             SysUser sysUser = sysUserService.getUserById(userId);
-            return JsonResultUtil.success(sysUser, ResultEnum.SUCCESS);
+            return JsonResultUtils.success(sysUser, ResultEnum.SUCCESS);
         }catch (Exception e) {
-            return JsonResultUtil.error();
+            return JsonResultUtils.error();
         }
     }
 }

@@ -13,8 +13,8 @@ import java.security.MessageDigest;
  * 加密工具类（md5，sha，base64）
  * Created by White on 2017/9/26.
  */
-public class EncryptUtil {
-    private static final Logger logger = LoggerFactory.getLogger(EncryptUtil.class);
+public class EncryptUtils {
+    private static final Logger logger = LoggerFactory.getLogger(EncryptUtils.class);
 
     /**
      * MD5 加密

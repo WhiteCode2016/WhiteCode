@@ -4,8 +4,8 @@ import com.google.code.kaptcha.Constants;
 import com.whitecode.common.JsonResult;
 import com.whitecode.enums.ResultEnum;
 import com.whitecode.shiro.CustomUsernamePassordToken;
-import com.whitecode.tools.JsonResultUtil;
-import com.whitecode.tools.ShiroFilterUtil;
+import com.whitecode.tools.JsonResultUtils;
+import com.whitecode.tools.ShiroFilterUtils;
 import com.whitecode.web.exception.CaptchaException;
 import org.apache.shiro.authc.AuthenticationException;
 import org.apache.shiro.authc.AuthenticationToken;
@@ -32,44 +32,44 @@ public class LoginFilter extends FormAuthenticationFilter{
     // 处理登录失败
     @Override
     protected boolean onLoginFailure(AuthenticationToken token, AuthenticationException e, ServletRequest request, ServletResponse response) {
-        if (!ShiroFilterUtil.isAjax(request)) {
+        if (!ShiroFilterUtils.isAjax(request)) {
             setFailureAttribute(request, e);
             return Boolean.TRUE;
         }
         JsonResult jsonResult = new JsonResult();
         String message = e.getClass().getSimpleName();
         if ("IncorrectCredentialsException".equals(message)) {
-            jsonResult = JsonResultUtil.error(ResultEnum.LOGIN_PASSWORD_ERROR);
+            jsonResult = JsonResultUtils.error(ResultEnum.LOGIN_PASSWORD_ERROR);
         } else if ("UnknownAccountException".equals(message)) {
-            jsonResult = JsonResultUtil.error(ResultEnum.LOGIN_ACCOUNT_ERROR);
+            jsonResult = JsonResultUtils.error(ResultEnum.LOGIN_ACCOUNT_ERROR);
         } else if ("LockedAccountException".equals(message)) {
-            jsonResult = JsonResultUtil.error(ResultEnum.LOGIN_LOCK_ERROR);
+            jsonResult = JsonResultUtils.error(ResultEnum.LOGIN_LOCK_ERROR);
         } else if ("DisabledAccountException".equals(message)) {
-            jsonResult = JsonResultUtil.error(ResultEnum.LOGIN_DISABLED_ERROR);
+            jsonResult = JsonResultUtils.error(ResultEnum.LOGIN_DISABLED_ERROR);
         } else if ("CaptchaException".equals(message)) {
-            jsonResult = JsonResultUtil.error(ResultEnum.CAPTCHA_ERROR);
+            jsonResult = JsonResultUtils.error(ResultEnum.CAPTCHA_ERROR);
         } else {
-            jsonResult = JsonResultUtil.error(ResultEnum.UNKONW_ERROR);
+            jsonResult = JsonResultUtils.error(ResultEnum.UNKONW_ERROR);
         }
-        ShiroFilterUtil.out(response,jsonResult);
+        ShiroFilterUtils.out(response,jsonResult);
         return Boolean.FALSE;
     }
 
     // 处理登录成功
     @Override
     protected boolean onLoginSuccess(AuthenticationToken token, Subject subject, ServletRequest request, ServletResponse response) throws Exception {
-        if (!ShiroFilterUtil.isAjax(request)) {
+        if (!ShiroFilterUtils.isAjax(request)) {
            issueSuccessRedirect(request, response);
             return Boolean.TRUE;
         }
-        ShiroFilterUtil.out(response,JsonResultUtil.success(ResultEnum.LOGIN_SUCCESS));
+        ShiroFilterUtils.out(response, JsonResultUtils.success(ResultEnum.LOGIN_SUCCESS));
         return Boolean.FALSE;
     }
 
     // 登录
     @Override
     protected boolean executeLogin(ServletRequest request, ServletResponse response) throws Exception {
-        if (!ShiroFilterUtil.isAjax(request)) {
+        if (!ShiroFilterUtils.isAjax(request)) {
             return Boolean.TRUE;
         }
         CustomUsernamePassordToken token = createToken(request,response);

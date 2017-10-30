@@ -12,7 +12,7 @@ import java.util.Properties;
  * 邮件工具类（重设密码、激活账户）
  * Created by White on 2017/9/26.
  */
-public class EmailUtil {
+public class EmailUtils {
 
     /**
      * 注册成功后,向用户发送帐户激活链接的邮件
@@ -26,7 +26,7 @@ public class EmailUtil {
             message.setSentDate(new Date());
             message.setFrom(new InternetAddress(WhiteContants.SYSTEM_MAIL));
             message.setRecipient(Message.RecipientType.TO, new InternetAddress(user.getEmail()));
-            message.setContent("<a href='" + GenerateLinkUtil.generateActivateLink(user)+"'>点击激活帐户</a>","text/html;charset=utf-8");
+            message.setContent("<a href='" + GenerateLinkUtils.generateActivateLink(user)+"'>点击激活帐户</a>","text/html;charset=utf-8");
             // 发送邮件
             Transport.send(message);
         } catch (Exception e) {
@@ -44,7 +44,7 @@ public class EmailUtil {
             message.setSentDate(new Date());
             message.setFrom(new InternetAddress(WhiteContants.SYSTEM_MAIL));
             message.setRecipient(Message.RecipientType.TO, new InternetAddress(user.getEmail()));
-            message.setContent("要使用新的密码, 请使用以下链接启用密码:<br/><a href='" + GenerateLinkUtil.generateResetPwdLink(user) +"'>点击重新设置密码</a>","text/html;charset=utf-8");
+            message.setContent("要使用新的密码, 请使用以下链接启用密码:<br/><a href='" + GenerateLinkUtils.generateResetPwdLink(user) +"'>点击重新设置密码</a>","text/html;charset=utf-8");
             // 发送邮件
             Transport.send(message);
         } catch (Exception e) {

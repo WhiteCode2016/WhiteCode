@@ -6,7 +6,7 @@ import com.fasterxml.jackson.databind.ObjectMapper;
  * Jackson 工具类
  * Created by White on 2017/9/27.
  */
-public class JacksonUtil {
+public class JacksonUtils {
     private final static ObjectMapper objectMapper = new ObjectMapper();
 
     /**

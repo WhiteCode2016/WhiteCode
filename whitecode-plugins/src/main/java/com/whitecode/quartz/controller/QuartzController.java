@@ -3,7 +3,7 @@ package com.whitecode.quartz.controller;
 import com.whitecode.common.JsonResult;
 import com.whitecode.quartz.model.ScheduleJob;
 import com.whitecode.quartz.service.QuartzJobService;
-import com.whitecode.tools.JsonResultUtil;
+import com.whitecode.tools.JsonResultUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -29,7 +29,7 @@ public class QuartzController {
     @ResponseBody
     public JsonResult addQuartz(@ModelAttribute("scheduleJob") ScheduleJob scheduleJob) {
         quartzJobService.insertJob(scheduleJob);
-        return JsonResultUtil.success();
+        return JsonResultUtils.success();
     }
 
     /**
@@ -41,7 +41,7 @@ public class QuartzController {
     @ResponseBody
     public JsonResult updateQuartz(@ModelAttribute("scheduleJob") ScheduleJob scheduleJob) {
         quartzJobService.updateJob(scheduleJob);
-        return JsonResultUtil.success();
+        return JsonResultUtils.success();
     }
 
     /**
@@ -53,7 +53,7 @@ public class QuartzController {
     @ResponseBody
     public JsonResult pauseQuartz(@RequestParam("jobId") String jobId) {
         quartzJobService.pauseJob(jobId);
-        return JsonResultUtil.success();
+        return JsonResultUtils.success();
     }
 
     /**
@@ -65,7 +65,7 @@ public class QuartzController {
     @ResponseBody
     public JsonResult resumeQuartz(@RequestParam("jobId") String jobId){
         quartzJobService.resumeJob(jobId);
-        return JsonResultUtil.success();
+        return JsonResultUtils.success();
     }
 
     /**
@@ -76,8 +76,8 @@ public class QuartzController {
     @RequestMapping(value = "/stop", method = { RequestMethod.POST, RequestMethod.GET })
     @ResponseBody
     public JsonResult stopQuartz(@RequestParam("jobId") String jobId){
-        quartzJobService.resumeJob(jobId);
-        return JsonResultUtil.success();
+        quartzJobService.stopJob(jobId);
+        return JsonResultUtils.success();
     }
 
     /**
@@ -89,7 +89,19 @@ public class QuartzController {
     @ResponseBody
     public JsonResult deleteQuartz(@RequestParam("jobId") String jobId){
         quartzJobService.deleteJob(jobId);
-        return JsonResultUtil.success();
+        return JsonResultUtils.success();
+    }
+
+    /**
+     * 立即执行定时任务
+     * @param scheduleJob
+     * @return
+     */
+    @RequestMapping(value = "executeJob",method = { RequestMethod.GET, RequestMethod.POST })
+    @ResponseBody
+    public JsonResult excuteJob(ScheduleJob scheduleJob) {
+        quartzJobService.runOnce(scheduleJob.getJobId());
+        return JsonResultUtils.success();
     }
 
     /**
@@ -100,7 +112,7 @@ public class QuartzController {
     @ResponseBody
     public JsonResult startAllQuartz(){
         quartzJobService.startAllTrigger();
-        return JsonResultUtil.success();
+        return JsonResultUtils.success();
     }
 
     /**
@@ -111,10 +123,10 @@ public class QuartzController {
     @ResponseBody
     public JsonResult pauseAllQuartz(){
         quartzJobService.pauseAllTrigger();
-        return JsonResultUtil.success();
+        return JsonResultUtils.success();
     }
 
-    //***************************************************************************
+    //******************************* View ********************************************
 
     @RequestMapping("/quartzList")
     public String listJob(Model model) {
@@ -134,15 +146,5 @@ public class QuartzController {
         return "/quartz_edit";
     }
 
-    /**
-     * 立即执行定时任务
-     * @param scheduleJob
-     * @return
-     */
-    @RequestMapping(value = "executeJob",method = { RequestMethod.GET, RequestMethod.POST })
-    @ResponseBody
-    public JsonResult excuteJob(ScheduleJob scheduleJob) {
-        quartzJobService.runOnce(scheduleJob.getJobId());
-        return JsonResultUtil.success();
-    }
+
 }

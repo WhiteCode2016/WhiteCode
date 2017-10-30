@@ -6,12 +6,16 @@ import com.whitecode.quartz.model.ScheduleJob;
 import com.whitecode.quartz.service.QuartzJobService;
 import org.apache.commons.collections.CollectionUtils;
 import org.quartz.*;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import java.util.List;
 
 @Service
 public class QuartzJobServiceImpl implements QuartzJobService {
+    private static final Logger logger = LoggerFactory.getLogger(QuartzJobServiceImpl.class);
+
     @Autowired
     private QuartzJobMapper quartzJobMapper;
 
@@ -33,7 +37,6 @@ public class QuartzJobServiceImpl implements QuartzJobService {
         quartzManager.createScheduleJob(scheduleJob);
         //添加到表task_detail
         quartzJobMapper.insertJob(scheduleJob);
-
     }
 
     @Override
@@ -54,7 +57,7 @@ public class QuartzJobServiceImpl implements QuartzJobService {
 
     @Override
     public void initScheduleJob() {
-        System.out.println("=============== init ==========");
+        logger.info("Schedule init...");
         // 获取所有的jobs
         List<ScheduleJob> scheduleJobList = quartzJobMapper.getAllJobs();
         if (!CollectionUtils.isEmpty(scheduleJobList)) {

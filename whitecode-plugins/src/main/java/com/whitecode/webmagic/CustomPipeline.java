@@ -1,6 +1,6 @@
 package com.whitecode.webmagic;
 
-import com.whitecode.tools.JacksonUtil;
+import com.whitecode.tools.JacksonUtils;
 import com.whitecode.webmagic.model.WeatherDetail;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -23,7 +23,7 @@ public class CustomPipeline implements Pipeline {
         String stationCode = resultItems.get("stationCode").toString();
         weather.setId(stationCode);
         try {
-            logger.info(JacksonUtil.obj2json(weather));
+            logger.info(JacksonUtils.obj2json(weather));
         } catch (Exception e) {
             e.printStackTrace();
         }

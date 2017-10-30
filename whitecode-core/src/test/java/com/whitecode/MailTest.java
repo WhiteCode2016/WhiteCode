@@ -1,7 +1,7 @@
 package com.whitecode;
 
 import com.whitecode.entity.SysUser;
-import com.whitecode.tools.GenerateLinkUtil;
+import com.whitecode.tools.GenerateLinkUtils;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -45,7 +45,7 @@ public class MailTest {
             message.setSentDate(new Date());
             message.setFrom(new InternetAddress("18855971263@163.com"));
             message.setRecipient(MimeMessage.RecipientType.TO, new InternetAddress("18855971263@163.com"));
-            message.setContent("要使用新的密码, 请使用以下链接启用密码:<br/><a href='" + GenerateLinkUtil.generateResetPwdLink(user) +"'>点击重新设置密码</a>","text/html;charset=utf-8");
+            message.setContent("要使用新的密码, 请使用以下链接启用密码:<br/><a href='" + GenerateLinkUtils.generateResetPwdLink(user) +"'>点击重新设置密码</a>","text/html;charset=utf-8");
             // 发送邮件
             Transport.send(message);
         } catch (Exception e) {

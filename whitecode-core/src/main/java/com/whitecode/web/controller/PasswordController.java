@@ -4,9 +4,9 @@ import com.whitecode.common.JsonResult;
 import com.whitecode.entity.SysUser;
 import com.whitecode.enums.ResultEnum;
 import com.whitecode.service.SysUserService;
-import com.whitecode.tools.EmailUtil;
-import com.whitecode.tools.GenerateLinkUtil;
-import com.whitecode.tools.JsonResultUtil;
+import com.whitecode.tools.EmailUtils;
+import com.whitecode.tools.GenerateLinkUtils;
+import com.whitecode.tools.JsonResultUtils;
 import io.swagger.annotations.ApiImplicitParam;
 import io.swagger.annotations.ApiImplicitParams;
 import io.swagger.annotations.ApiOperation;
@@ -37,9 +37,9 @@ public class PasswordController {
         SysUser user = sysUserService.findByUsername(username);
         // 判断用户的输入是否正确
         if (username.equals("")) {
-            return JsonResultUtil.error(ResultEnum.EMAIL_EMPTY);
+            return JsonResultUtils.error(ResultEnum.EMAIL_EMPTY);
         } else if (user == null) {
-            return JsonResultUtil.error(ResultEnum.EMAIL_NOT_EXIST);
+            return JsonResultUtils.error(ResultEnum.EMAIL_NOT_EXIST);
         }
         // 生成密钥
         String secretKey = UUID.randomUUID().toString();
@@ -47,10 +47,10 @@ public class PasswordController {
         // 保存到数据库，方便校验
         sysUserService.updateUser(user);
         try {
-            EmailUtil.sendResetPasswordEmail(sysUserService.findByUsername(username));
-            return JsonResultUtil.success(ResultEnum.EMAIL_SEND_SUCCESS);
+            EmailUtils.sendResetPasswordEmail(sysUserService.findByUsername(username));
+            return JsonResultUtils.success(ResultEnum.EMAIL_SEND_SUCCESS);
         }catch (Exception e) {
-            return JsonResultUtil.error(ResultEnum.EMAIL_SEND_ERROR);
+            return JsonResultUtils.error(ResultEnum.EMAIL_SEND_ERROR);
         }
     }
     @ApiOperation(value = "判断生成的重置密码邮件链接是否有效")
@@ -63,13 +63,13 @@ public class PasswordController {
         SysUser sysUser = sysUserService.findByUsername(userName);
         // 判断生成的链接地址是否有效
         if (checkCode.equals("") || userName.equals("")) {
-            return JsonResultUtil.error(ResultEnum.EMAIL_LINK_NOT_FULL);
+            return JsonResultUtils.error(ResultEnum.EMAIL_LINK_NOT_FULL);
         } else if (sysUser == null) {
-            return JsonResultUtil.error(ResultEnum.EMIAL_LINK_MATCH_USER);
-        } else if (!GenerateLinkUtil.verifyCheckcode(sysUser, request)) {
-            return JsonResultUtil.error(ResultEnum.EMAIL_LINK_EXPIRED);
+            return JsonResultUtils.error(ResultEnum.EMIAL_LINK_MATCH_USER);
+        } else if (!GenerateLinkUtils.verifyCheckcode(sysUser, request)) {
+            return JsonResultUtils.error(ResultEnum.EMAIL_LINK_EXPIRED);
         }
-        return JsonResultUtil.success();
+        return JsonResultUtils.success();
     }
 
 }

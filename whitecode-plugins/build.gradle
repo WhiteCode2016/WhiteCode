@@ -13,4 +13,9 @@ dependencies {
     compile('org.quartz-scheduler:quartz:2.2.1')
     compile('org.quartz-scheduler:quartz-jobs:2.2.1')
     compile('com.quartzdesk:quartzdesk-api:3.0.1')
+    // Poi数据导入/导出插件
+    compile('org.apache.poi:poi:3.17')
+    compile('org.apache.poi:poi-scratchpad:3.17')
+    compile('org.apache.poi:poi-ooxml:3.17')
+    compile('org.apache.poi:poi-ooxml-schemas:3.17')
 }
