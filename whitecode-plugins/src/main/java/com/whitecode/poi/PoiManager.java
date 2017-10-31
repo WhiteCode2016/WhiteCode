@@ -25,7 +25,7 @@ public class PoiManager<T> {
 
     /**
      * 按模板导出.doc文档
-     * @param tmpFlie 模板文档路径
+     * @param tmpFlie 模板文档路径（template.doc）
      * @param contentMap 文档内容
      * @param exportFile 导出文档路径
      * @throws Exception
@@ -45,6 +45,30 @@ public class PoiManager<T> {
         OutputStream outputStream = new FileOutputStream(exportFile);
         outputStream.write(byteArrayOutputStream.toByteArray());
         outputStream.close();
+    }
+
+    /**
+     * 按照模板导出.xls/.xlsx文档
+     * @param tempFilePath
+     * @param exportFilePath
+     * @throws Exception
+     */
+    public static void exportExcelByTemplate(String tempFilePath,Map<String,String> contentMap,String exportFilePath) throws Exception {
+        if (tempFilePath != null && !tempFilePath.equals("")) {
+//            String ext = filePath.substring(filePath.lastIndexOf(".") + 1, filePath.length());
+            // 获取文件后缀名
+            String ext = tempFilePath.substring(tempFilePath.lastIndexOf("."));
+            if (!ext.equals(EXCEL2003) && !ext.equals(EXCEL2007)) {
+                logger.info("文件后缀名不是.xls或.xlsx");
+                return;
+            }
+        }
+        InputStream inputStream = new FileInputStream(tempFilePath);
+        Workbook workbook = WorkbookFactory.create(inputStream);
+        Sheet sheet = workbook.getSheetAt(0);
+        for (Map.Entry<String,String> entry : contentMap.entrySet()) {
+            System.out.println(entry.getKey());
+        }
     }
 
     /**
@@ -338,12 +362,13 @@ public class PoiManager<T> {
                 Row row = sheet.getRow(rowNum);
                 if (row != null) {
                     // 进行入库操作
-                    System.out.println(row.getCell(0));
-                    System.out.println(row.getCell(1));
+//                    System.out.println(row.getCell(0));
+//                    System.out.println(row.getCell(1));
+                    System.out.println(getValue(row.getCell(0)));
+                    System.out.println(getValue(row.getCell(1)));
                 }
             }
         }
-
     }
 
     /**
@@ -357,10 +382,14 @@ public class PoiManager<T> {
             return String.valueOf(cell.getNumericCellValue());
         } else if (cellType.equals(CellType.BOOLEAN)) {
             return String.valueOf(cell.getBooleanCellValue());
-        } else if (cellType.equals(cellType.STRING)) {
+        } else if (cellType.equals(CellType.STRING)) {
             return cell.getStringCellValue();
-        }else {
-            return null;
+        } else if (cellType.equals(CellType.BLANK)) {
+            return "";
+        } else if (cellType.equals(CellType.FORMULA)) {
+            return cell.getCellFormula();
+        } else {
+            return "";
         }
     }
 }
