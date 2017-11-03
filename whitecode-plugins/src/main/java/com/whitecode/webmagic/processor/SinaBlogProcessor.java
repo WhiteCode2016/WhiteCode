@@ -1,4 +1,4 @@
-package com.whitecode.webmagic;
+package com.whitecode.webmagic.processor;
 
 import us.codecraft.webmagic.Page;
 import us.codecraft.webmagic.Site;

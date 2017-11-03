@@ -1,7 +1,7 @@
 package com.whitecode.webmagic.controller;
 
-import com.whitecode.webmagic.ZhiHuPipeline;
-import com.whitecode.webmagic.ZhihuProcessor;
+import com.whitecode.webmagic.pipeline.ZhiHuPipeline;
+import com.whitecode.webmagic.processor.ZhihuProcessor;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import us.codecraft.webmagic.Spider;

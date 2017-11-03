@@ -1,6 +1,7 @@
-package com.whitecode.webmagic;
+package com.whitecode.webmagic.processor;
 
 import com.whitecode.webmagic.model.ZhiHuUser;
+import com.whitecode.webmagic.pipeline.ZhiHuPipeline;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import us.codecraft.webmagic.Page;

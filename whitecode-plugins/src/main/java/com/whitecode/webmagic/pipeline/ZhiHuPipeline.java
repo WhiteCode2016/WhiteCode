@@ -1,4 +1,4 @@
-package com.whitecode.webmagic;
+package com.whitecode.webmagic.pipeline;
 
 import com.whitecode.webmagic.model.ZhiHuUser;
 import us.codecraft.webmagic.ResultItems;

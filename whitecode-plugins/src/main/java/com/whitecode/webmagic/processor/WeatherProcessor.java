@@ -1,7 +1,8 @@
-package com.whitecode.webmagic;
+package com.whitecode.webmagic.processor;
 
 import com.whitecode.webmagic.model.Weather2Day;
 import com.whitecode.webmagic.model.WeatherDetail;
+import com.whitecode.webmagic.pipeline.WheatherPipeline;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import us.codecraft.webmagic.Page;
@@ -64,7 +65,7 @@ public class WeatherProcessor implements PageProcessor{
         startTime = System.currentTimeMillis();
         Spider.create(new WeatherProcessor())
                 .addUrl("http://www.weather.com.cn/weather/101060101.shtml")
-                .addPipeline(new CustomPipeline())
+                .addPipeline(new WheatherPipeline())
                 .thread(1)
                 .run();
         endTime = System.currentTimeMillis();

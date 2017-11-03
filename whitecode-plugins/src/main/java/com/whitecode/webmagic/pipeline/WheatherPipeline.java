@@ -1,4 +1,4 @@
-package com.whitecode.webmagic;
+package com.whitecode.webmagic.pipeline;
 
 import com.whitecode.tools.JacksonUtils;
 import com.whitecode.webmagic.model.WeatherDetail;
@@ -12,9 +12,9 @@ import us.codecraft.webmagic.pipeline.Pipeline;
  * 自定义Pipeline，用户来处理获取的天气数据
  * Created by White on 2017/9/29.
  */
-public class CustomPipeline implements Pipeline {
+public class WheatherPipeline implements Pipeline {
 
-    private static final Logger logger = LoggerFactory.getLogger(CustomPipeline.class);
+    private static final Logger logger = LoggerFactory.getLogger(WheatherPipeline.class);
 
     @Override
     public void process(ResultItems resultItems, Task task) {
