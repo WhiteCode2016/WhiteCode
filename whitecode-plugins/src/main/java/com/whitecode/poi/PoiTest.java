@@ -50,7 +50,8 @@ public class PoiTest {
 //        poiUtil.exportExcel("job信息",headers,columns,scheduleJobs,outputStream,"yyyy-MM-dd",5);
 
         PoiManager poiUtil = new PoiManager();
-        poiUtil.importExcel("C:/Users/White/Downloads/C-DL007-1710301.xlsx");
+//        poiUtil.importExcel("C:/Users/White/Downloads/C-DL007-1710301.xlsx");
+        poiUtil.importExcelTest("C:/Users/White/Downloads/C-DL007-1710301.xlsx");
 
 //        String tempFilePath = "C:/Users/White/Downloads/template.xlsx";
 //        String expotFilePath = "E:/temp/result.xlsx";

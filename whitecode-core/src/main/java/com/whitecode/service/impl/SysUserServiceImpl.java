@@ -12,7 +12,7 @@ import javax.annotation.Resource;
  * 用户（增删改查）实现类
  * Created by White on 2017/9/8.
  */
-@Service
+@Service("sysUserService")
 public class SysUserServiceImpl implements SysUserService {
 
     @Resource

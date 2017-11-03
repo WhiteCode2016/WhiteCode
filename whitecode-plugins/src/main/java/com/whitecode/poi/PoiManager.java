@@ -364,8 +364,8 @@ public class PoiManager<T> {
                     // 进行入库操作
 //                    System.out.println(row.getCell(0));
 //                    System.out.println(row.getCell(1));
-                    System.out.println(getValue(row.getCell(0)));
-                    System.out.println(getValue(row.getCell(1)));
+                    System.out.println(getCellValue(row.getCell(0)));
+                    System.out.println(getCellValue(row.getCell(1)));
                 }
             }
         }
@@ -376,7 +376,7 @@ public class PoiManager<T> {
      * @param cell
      * @return
      */
-    private String getValue(Cell cell) {
+    private String getCellValue(Cell cell) {
         CellType cellType = cell.getCellTypeEnum();
         if (cellType.equals(CellType.NUMERIC)) {
             return String.valueOf(cell.getNumericCellValue());
@@ -391,6 +391,119 @@ public class PoiManager<T> {
         } else {
             return "";
         }
+    }
+
+    /**
+     * 获取合并单元格的值
+     * @param sheet
+     * @param row
+     * @param column
+     * @return
+     */
+    private String getMergedRegionValue(Sheet sheet,int row,int column) {
+        int sheetMergeCount = sheet.getNumMergedRegions();
+        for (int i = 0; i < sheetMergeCount;i++) {
+            CellRangeAddress rangeAddress = sheet.getMergedRegion(i);
+            int firstColumn = rangeAddress.getFirstColumn();
+            int lastColumn = rangeAddress.getLastColumn();
+            int firstRow = rangeAddress.getFirstRow();
+            int lastRow = rangeAddress.getLastRow();
+            if (row >= firstRow && row <= lastRow) {
+                if (column >= firstColumn && column <= lastColumn) {
+                    Row nRow = sheet.getRow(firstRow);
+                    Cell nCell = nRow.getCell(firstColumn);
+                    return getCellValue(nCell);
+                }
+            }
+        }
+        return null;
+    }
+
+    /**
+     * 判断是否合并了行
+     * @param sheet
+     * @param row
+     * @param column
+     * @return
+     */
+    private boolean isMergedRow(Sheet sheet,int row,int column) {
+        int sheetMergeCount = sheet.getNumMergedRegions();
+        for (int i = 0; i < sheetMergeCount;i++) {
+            CellRangeAddress rangeAddress = sheet.getMergedRegion(i);
+            int firstColumn = rangeAddress.getFirstColumn();
+            int lastColumn = rangeAddress.getLastColumn();
+            int firstRow = rangeAddress.getFirstRow();
+            int lastRow = rangeAddress.getLastRow();
+            if (row == firstRow && row == lastRow) {
+                if (column >= firstColumn && column <= lastColumn) {
+                    return true;
+                }
+            }
+        }
+        return false;
+    }
+
+    /**
+     * 判断指定的单元格是否是合并单元格
+     * @param sheet
+     * @param row 行下标
+     * @param column 列下标
+     * @return
+     */
+    private boolean isMergedRegion(Sheet sheet,int row ,int column) {
+
+        int sheetMergeCount = sheet.getNumMergedRegions();
+        for (int i = 0; i < sheetMergeCount; i++) {
+
+            CellRangeAddress range = sheet.getMergedRegion(i);
+            int firstColumn = range.getFirstColumn();
+            int lastColumn = range.getLastColumn();
+            int firstRow = range.getFirstRow();
+            int lastRow = range.getLastRow();
+            if(row > firstRow && row < lastRow){
+                if(column > firstColumn && column < lastColumn){
+                    return true;
+                }
+            }
+        }
+        return false;
+    }
+
+    /**
+     * 判断sheet页中是否含有合并单元格
+     * @param sheet
+     * @return
+     */
+    private boolean hasMerged(Sheet sheet) {
+        return sheet.getNumMergedRegions() > 0 ? true : false;
+    }
+
+    /**
+     * 解析Excel测试案例
+     * @param filePath
+     * @throws Exception
+     */
+    public void importExcelTest(String filePath) throws Exception {
+        InputStream inputStream = new FileInputStream(filePath);
+        Workbook workbook = WorkbookFactory.create(inputStream);
+        // 遍历sheet
+//        for (int sheetNum = 0; sheetNum < workbook.getNumberOfSheets(); sheetNum++) {
+            Sheet sheet = workbook.getSheetAt(4);
+           logger.info( sheet.getSheetName());
+            // 遍历每个sheet的行数
+            for (int rowNum = 0; rowNum < sheet.getLastRowNum(); rowNum++) {
+                Row row = sheet.getRow(rowNum);
+                for (Cell cell : row) {
+                    boolean isMerge = isMergedRegion(sheet,rowNum,cell.getColumnIndex());
+                    if (isMerge) {
+                        String rs = getMergedRegionValue(sheet,row.getRowNum(),cell.getColumnIndex());
+                        System.out.println(rs);
+                    }else {
+                        System.out.println(getCellValue(cell)+"");
+                    }
+                }
+            }
+//        }
     }
 }
 

@@ -3,6 +3,8 @@ package com.whitecode.dubbo.provide;
 import com.alibaba.dubbo.config.ApplicationConfig;
 import com.alibaba.dubbo.config.ProtocolConfig;
 import com.alibaba.dubbo.config.RegistryConfig;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.context.annotation.Bean;
 
 /**
@@ -10,6 +12,8 @@ import org.springframework.context.annotation.Bean;
  * Created by White on 2017/10/31.
  */
 public class DubboBaseConfig {
+    private static final Logger logger = LoggerFactory.getLogger(DubboBaseConfig.class);
+
     @Bean
     public ApplicationConfig application() {
         ApplicationConfig applicationConfig = new ApplicationConfig();

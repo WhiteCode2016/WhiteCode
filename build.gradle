@@ -45,5 +45,10 @@ subprojects {
     configurations {
         all*.exclude group: 'org.slf4j', module: 'slf4j-log4j12'
     }
+
+    // 列出模块下所有的jar
+    task listJars(description: 'Display all compile jars.') << {
+        configurations.compile.each { File file -> println file.name }
+    }
 }
 

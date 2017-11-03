@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.whitecode.webmagic.dao.mapper.ZhiHuUserMapper">
+    <!-- 添加job -->
+    <insert id="addZhiHuUser">
+        INSERT INTO zhihu_user(
+          zh_name,
+          zh_answers,
+          zh_asks,
+          zh_posts,
+          zh_columns,
+          zh_pins
+        )VALUES (#{zHName},#{zHAnswers},#{zHAsks},#{zHPosts},#{zHColumns},#{zHPins})
+    </insert>
+
+    <select id="findByName" resultType="com.whitecode.webmagic.model.ZhiHuUser">
+        SELECT * FROM zhihu_user WHERE zh_name = #{zHName}
+    </select>
+</mapper>
