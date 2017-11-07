@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.whitecode.dao.mapper.ZhiHuUserMapper">
+    <insert id="addZhiHuUser">
+        INSERT INTO zhihu_user(
+          zh_name,
+          zh_answers,
+          zh_asks,
+          zh_posts,
+          zh_columns,
+          zh_pins
+        )VALUES (#{zhName},#{zhAnswers},#{zhAsks},#{zhPosts},#{zhColumns},#{zhPins})
+    </insert>
+
+    <select id="findByName" resultType="com.whitecode.entity.ZhiHuUser">
+        SELECT * FROM zhihu_user WHERE zh_name = #{zHName}
+    </select>
+
+    <select id="getZhiHuUsers" resultType="com.whitecode.entity.ZhiHuUser">
+        SELECT * FROM zhihu_user
+    </select>
+</mapper>

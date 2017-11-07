@@ -1,0 +1,10 @@
+archivesBaseName = 'whitecode-dubbo'
+dependencies {
+	// 模块包含
+	compile(
+			project(':whitecode-core')
+	)
+	// Dubbo
+	compile('com.alibaba:dubbo:2.5.6')
+	compile('com.101tec:zkclient:0.10')
+}

@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.whitecode.dao.mapper.QuartzJobMapper">
+    <sql id="selectColumns">
+        SELECT
+            job_id,
+            job_name,
+            job_group,
+            job_status,
+             job_type,
+            cron_expression,
+            bean_class,
+            execute_method,
+            job_desc,
+            create_time, 
+            update_time
+        FROM task_detail
+    </sql>
+
+    <!-- 获取所有的Jobs -->
+    <select id="getAllJobs" resultType="com.whitecode.entity.ScheduleJob">
+        <include refid="selectColumns" />
+    </select>
+    <!-- 根据jobId获取job -->
+    <select id="getJobById" resultType="com.whitecode.entity.ScheduleJob">
+        <include refid="selectColumns" />
+        WHERE job_id = #{jobId}
+    </select>
+    <!-- 添加job -->
+    <insert id="insertJob">
+        INSERT INTO task_detail(
+          job_id,
+          job_name,
+          job_group,
+          job_status,
+          job_type,
+          cron_expression,
+          bean_class,
+          execute_method,
+          job_desc,
+          create_time,
+          update_time
+        )VALUES (#{jobId},#{jobName},#{jobGroup},#{jobStatus},#{jobType},#{cronExpression},#{beanClass},#{executeMethod},#{jobDesc},#{createTime},#{updateTime})
+    </insert>
+    <!-- 更新job -->
+    <update id="updateJob">
+      UPDATE task_detail
+      <set>
+          cron_expression = #{ cronExpression}
+      </set>
+      WHERE job_id = #{jobId}
+    </update>
+    <!-- 删除job -->
+    <delete id="deleteJob">
+        DELETE FROM task_detail WHERE job_id = #{jobId}
+    </delete>
+</mapper>

@@ -1,26 +1,9 @@
 archivesBaseName = 'whitecode-plugins'
 dependencies {
-    // 模块包含
-    compile(
-            project(':whitecode-core')
-    )
-    // Rabbitmq框架
-    compile('org.springframework.boot:spring-boot-starter-amqp')
-    // WebMagic爬虫框架
-    compile('us.codecraft:webmagic-core:0.7.3')
-    compile('us.codecraft:webmagic-extension:0.7.3')
-    // Quartz任务框架
-    compile('org.quartz-scheduler:quartz:2.2.1')
-    compile('org.quartz-scheduler:quartz-jobs:2.2.1')
-    compile('com.quartzdesk:quartzdesk-api:3.0.1')
-    // Poi数据导入/导出插件
-    compile('org.apache.poi:poi:3.17')
-    compile('org.apache.poi:poi-scratchpad:3.17')
-    compile('org.apache.poi:poi-ooxml:3.17')
-    compile('org.apache.poi:poi-ooxml-schemas:3.17')
-    // Dubbo
-    compile('com.alibaba:dubbo:2.5.6')
-//    compile('org.apache.zookeeper:zookeeper:3.4.10:pom')
-    compile('com.101tec:zkclient:0.10')
-
+	// 模块包含
+	compile(
+			project(':whitecode-core')
+	)
+	// Rabbitmq框架
+	compile('org.springframework.boot:spring-boot-starter-amqp')
 }
