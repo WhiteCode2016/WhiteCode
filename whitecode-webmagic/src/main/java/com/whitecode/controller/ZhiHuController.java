@@ -4,10 +4,15 @@ import com.whitecode.entity.ZhiHuUser;
 import com.whitecode.service.ZhiHuService;
 import com.whitecode.webmagic.pipeline.ZhiHuPipeline;
 import com.whitecode.webmagic.processor.ZhihuProcessor;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
+import us.codecraft.webmagic.Spider;
+
 import java.util.List;
 
 /**
@@ -16,6 +21,7 @@ import java.util.List;
 @Controller
 @RequestMapping("/common/zhihu")
 public class ZhiHuController {
+    private static final Logger logger = LoggerFactory.getLogger(ZhiHuController.class);
 
     @Autowired
     private ZhihuProcessor zhihuProcessor;
@@ -24,15 +30,10 @@ public class ZhiHuController {
     @Autowired
     private ZhiHuService zhiHuService;
 
-    @RequestMapping("/start")
+    @RequestMapping(value = "/start",method = RequestMethod.GET)
     public String start() {
-       new Thread(() -> zhihuProcessor.start(zhihuProcessor,zhiHuPipeline)).start();
-       return "start";
-    }
-
-    @RequestMapping("/showDetail")
-    public String showDetail() {
-        return "/webmagic/show_detail";
+        new Thread(() -> zhihuProcessor.start(zhihuProcessor,zhiHuPipeline)).start();
+        return "/webmagic/webmagic_start";
     }
 
     @RequestMapping("/getZhiHuData")
@@ -40,4 +41,17 @@ public class ZhiHuController {
     public List<ZhiHuUser> getZhiHuData() {
         return zhiHuService.getZhiHuUsers();
     }
+
+    //--------------------------- View -------------------------------
+
+    @RequestMapping(value = "/webmagicStart",method = RequestMethod.GET)
+    public String webmagicStart() {
+        return "/webmagic/webmagic_start";
+    }
+
+    @RequestMapping(value = "/showDetail",method = RequestMethod.GET)
+    public String showDetail() {
+        return "/webmagic/show_detail";
+    }
+
 }

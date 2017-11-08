@@ -46,8 +46,8 @@
                         <td th:text="${job.executeMethod}"></td>
                         <td>
                             <button class="btn btn-primary btn-sm" th:onclick="'javascript:executeJob(\''+${job.jobName}+'\',\''+${job.jobGroup}+'\',\''+${job.jobId}+'\');'">立即执行</button>
-                            <button class="btn btn-primary btn-sm" th:onclick="'javascript:pauseJob(\''+${job.jobId}+'\');'">暂停</button>
-                            <button class="btn btn-primary btn-sm" th:onclick="'javascript:resumeJob(\''+${job.jobId}+'\');'">恢复</button>
+                            <a class="btn btn-primary btn-sm" th:href="@{'/common/quartz/pause?jobId='+${job.jobId}}">暂停</a>
+                            <a class="btn btn-primary btn-sm" th:href="@{'/common/quartz/resume?jobId='+${job.jobId}}">恢复</a>
                             <a class="btn btn-primary btn-sm" th:href="@{'/common/quartz/delete?jobId='+${job.jobId}}">删除</a>
                         </td>
                     </tr>
@@ -67,30 +67,6 @@
                     },
                     success:function(data){
                         console.log("定时任务已执行，执行结果请查看详情！");
-                    }
-                });
-            }
-            function pauseJob(id){
-                $.ajax({
-                    type: "POST",
-                    url: "/common/quartz/pause",
-                    data: {
-                        jobId : id
-                    },
-                    success:function(data){
-                        console.log("定时任务已暂停");
-                    }
-                });
-            }
-            function resumeJob(id){
-                $.ajax({
-                    type: "POST",
-                    url: "/common/quartz/resume",
-                    data: {
-                        jobId : id
-                    },
-                    success:function(data){
-                        console.log("定时任务已恢复");
                     }
                 });
             }

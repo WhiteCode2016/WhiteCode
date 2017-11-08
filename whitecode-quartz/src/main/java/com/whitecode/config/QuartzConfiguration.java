@@ -1,8 +1,10 @@
 package com.whitecode.config;
 
+import org.quartz.Scheduler;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Qualifier;
+import org.springframework.beans.factory.config.PropertiesFactoryBean;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.core.io.ClassPathResource;
@@ -11,22 +13,23 @@ import org.springframework.scheduling.quartz.SchedulerFactoryBean;
 
 import javax.sql.DataSource;
 import java.io.IOException;
+import java.util.Properties;
 
 /**
  * Quartz任务调度配置
  * Created by White on 2017/9/8.
  */
 @Configuration
-@EnableScheduling
 public class QuartzConfiguration {
     private static final Logger logger = LoggerFactory.getLogger(QuartzConfiguration.class);
 
-    @Bean(name = "scheduler")
-    public SchedulerFactoryBean schedulerFactory(@Qualifier("masterDataSource") DataSource masterDataSource) throws IOException {
+    @Bean(name = "schedulerFactoryBean")
+    public SchedulerFactoryBean schedulerFactory(@Qualifier("masterDataSource") DataSource masterDataSource) throws Exception {
         logger.info("schedulerFactoryBean 初始化...");
         SchedulerFactoryBean factoryBean = new SchedulerFactoryBean();
         factoryBean.setDataSource(masterDataSource);
-        factoryBean.setConfigLocation(new ClassPathResource("config/quartz.properties"));
+//        factoryBean.setConfigLocation(new ClassPathResource("config/quartz.properties"));
+        factoryBean.setQuartzProperties(quartzProperties());
         factoryBean.setSchedulerName("ClusterScheduler");
         // 延时启动
         factoryBean.setStartupDelay(5);
@@ -38,16 +41,21 @@ public class QuartzConfiguration {
     }
 
     /**
-     * 加载quartz数据源配置
+     * 加载quartz.properties相关配置
      * @return
-     * @throws IOException
-     *//*
+     * @throws Exception
+     */
     @Bean
-    public Properties quartzProperties() throws IOException {
+    public Properties quartzProperties() throws Exception {
         PropertiesFactoryBean propertiesFactoryBean = new PropertiesFactoryBean();
-        propertiesFactoryBean.setLocation(new ClassPathResource("/quartz.properties"));
+        propertiesFactoryBean.setLocation(new ClassPathResource("config/quartz.properties"));
         propertiesFactoryBean.afterPropertiesSet();
         return propertiesFactoryBean.getObject();
     }
-    */
+
+    @Bean(name = "scheduler")
+    public Scheduler scheduler(@Qualifier("masterDataSource") DataSource masterDataSource) throws Exception {
+        return schedulerFactory(masterDataSource).getScheduler();
+    }
+
 }

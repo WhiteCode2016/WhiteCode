@@ -4,7 +4,7 @@ import com.whitecode.entity.ZhiHuUser;
 import com.whitecode.webmagic.pipeline.ZhiHuPipeline;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.stereotype.Component;
+import org.springframework.stereotype.Service;
 import us.codecraft.webmagic.Page;
 import us.codecraft.webmagic.Site;
 import us.codecraft.webmagic.Spider;
@@ -14,7 +14,7 @@ import us.codecraft.webmagic.processor.PageProcessor;
  * 爬取知乎用户信息
  * Created by White on 2017/11/3.
  */
-@Component
+@Service
 public class ZhihuProcessor implements PageProcessor {
     private static final Logger logger = LoggerFactory.getLogger(ZhihuProcessor.class);
     private Site site = Site.me().setTimeOut(20000).setRetryTimes(3).setSleepTime(2000).setCharset("UTF-8");
@@ -44,19 +44,11 @@ public class ZhihuProcessor implements PageProcessor {
         return site;
     }
 
-    public static void main(String[] args) {
-        long startTime, endTime;
-        logger.info("开始爬取...");
-        startTime = System.currentTimeMillis();
-        Spider.create(new ZhihuProcessor())
-                .addUrl("https://www.zhihu.com/search?type=people&q=java")
-                .addPipeline(new ZhiHuPipeline())
-                .thread(5)
-                .run();
-        endTime = System.currentTimeMillis();
-        logger.info("爬取结束，耗时约" + ((endTime - startTime) / 1000) + "秒");
-    }
-
+    /**
+     * 爬虫启动入口
+     * @param processor
+     * @param pipeline
+     */
     public void start(ZhihuProcessor processor, ZhiHuPipeline pipeline) {
         long startTime, endTime;
         logger.info("开始爬取...");
@@ -69,4 +61,5 @@ public class ZhihuProcessor implements PageProcessor {
         endTime = System.currentTimeMillis();
         logger.info("爬取结束，耗时约" + ((endTime - startTime) / 1000) + "秒");
     }
+
 }

@@ -52,10 +52,9 @@ public class QuartzController {
      * @return
      */
     @RequestMapping(value = "/pause", method = { RequestMethod.POST, RequestMethod.GET })
-    @ResponseBody
-    public ResponseEntity pauseQuartz(@RequestParam("jobId") String jobId) {
+    public String pauseQuartz(@RequestParam("jobId") String jobId) {
         quartzJobService.pauseJob(jobId);
-        return new ResponseEntity(HttpStatus.OK);
+        return "redirect:/common/quartz/quartzList";
     }
 
     /**
@@ -64,10 +63,9 @@ public class QuartzController {
      * @return
      */
     @RequestMapping(value = "/resume", method = { RequestMethod.POST, RequestMethod.GET })
-    @ResponseBody
-    public ResponseEntity resumeQuartz(@RequestParam("jobId") String jobId){
+    public String resumeQuartz(@RequestParam("jobId") String jobId){
         quartzJobService.resumeJob(jobId);
-        return new ResponseEntity(HttpStatus.OK);
+        return "redirect:/common/quartz/quartzList";
     }
 
     /**
@@ -76,10 +74,9 @@ public class QuartzController {
      * @return
      */
     @RequestMapping(value = "/stop", method = { RequestMethod.POST, RequestMethod.GET })
-    @ResponseBody
-    public ResponseEntity stopQuartz(@RequestParam("jobId") String jobId){
+    public String stopQuartz(@RequestParam("jobId") String jobId){
         quartzJobService.stopJob(jobId);
-        return new ResponseEntity(HttpStatus.OK);
+        return "redirect:/common/quartz/quartzList";
     }
 
     /**
@@ -88,10 +85,9 @@ public class QuartzController {
      * @return
      */
     @RequestMapping(value = "/delete", method = { RequestMethod.POST, RequestMethod.GET })
-    @ResponseBody
-    public ResponseEntity deleteQuartz(@RequestParam("jobId") String jobId){
+    public String deleteQuartz(@RequestParam("jobId") String jobId){
         quartzJobService.deleteJob(jobId);
-        return new ResponseEntity(HttpStatus.OK);
+        return "redirect:/common/quartz/quartzList";
     }
 
     /**

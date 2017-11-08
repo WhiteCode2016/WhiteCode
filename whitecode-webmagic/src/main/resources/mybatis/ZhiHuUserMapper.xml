@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.whitecode.dao.mapper.ZhiHuUserMapper">
+    <!-- 添加知乎用户 -->
     <insert id="addZhiHuUser">
         INSERT INTO zhihu_user(
           zh_name,
@@ -15,7 +16,7 @@
     <select id="findByName" resultType="com.whitecode.entity.ZhiHuUser">
         SELECT * FROM zhihu_user WHERE zh_name = #{zHName}
     </select>
-
+    <!-- 获取数据库中所有的知乎用户 -->
     <select id="getZhiHuUsers" resultType="com.whitecode.entity.ZhiHuUser">
         SELECT * FROM zhihu_user
     </select>
