@@ -1,9 +1,12 @@
 package com.whitecode.controller;
 
 import com.whitecode.entity.ZhiHuUser;
+import com.whitecode.entity.ZhiHuUserInfo;
 import com.whitecode.service.ZhiHuService;
 import com.whitecode.webmagic.pipeline.ZhiHuPipeline;
+import com.whitecode.webmagic.pipeline.ZhiHuPipelineTest;
 import com.whitecode.webmagic.processor.ZhihuProcessor;
+import com.whitecode.webmagic.processor.ZhihuProcessorTest;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -54,4 +57,40 @@ public class ZhiHuController {
         return "/webmagic/show_detail";
     }
 
+
+
+    @Autowired
+    private ZhihuProcessorTest zhihuProcessorTest;
+    @Autowired
+    private ZhiHuPipelineTest zhiHuPipelineTest;
+
+    @RequestMapping(value = "/startTest",method = RequestMethod.GET)
+    public String startTest() {
+//        new Thread(() -> zhihuProcessorTest.start(zhihuProcessorTest,zhiHuPipelineTest)).start();
+        zhihuProcessorTest.start(zhihuProcessorTest,zhiHuPipelineTest);
+        return "/webmagic/webmagic_start";
+    }
+
+    @RequestMapping(value = "/stopTest",method = RequestMethod.GET)
+    public String stopTest() {
+//        new Thread(() -> zhihuProcessorTest.start(zhihuProcessorTest,zhiHuPipelineTest)).start();
+        zhihuProcessorTest.stop(zhihuProcessorTest);
+        return "/webmagic/webmagic_start";
+    }
+
+    @RequestMapping(value = "/getZhiHuInfoByAnswerCountTop10")
+    @ResponseBody
+    public List<ZhiHuUserInfo> getZhiHuInfoByAnswerCountTop10() {
+        return zhiHuService.getZhiUserInfoByAnswerCountTop10();
+    }
+    @RequestMapping(value = "/getZhiHuInfoByArticlesCountTop10")
+    @ResponseBody
+    public List<ZhiHuUserInfo> getZhiHuInfoByArticlesCountTop10() {
+        return zhiHuService.getZhiUserInfoByArticlesCountTop10();
+    }
+    @RequestMapping(value = "/getZhiHuInfoByFollowerCountTop10")
+    @ResponseBody
+    public List<ZhiHuUserInfo> getZhiHuInfoByFollowerCountTop10() {
+        return zhiHuService.getZhiUserInfoByFollowerCountTop10();
+    }
 }

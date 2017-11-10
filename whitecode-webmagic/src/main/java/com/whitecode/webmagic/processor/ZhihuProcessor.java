@@ -28,13 +28,13 @@ public class ZhihuProcessor implements PageProcessor {
         if (page.getUrl().regex(SEARCH).match()) {
             page.addTargetRequests(page.getHtml().xpath(LIST_USER).links().all());
         } else {
-            String zHName = page.getHtml().xpath("//span[@class='ProfileHeader-name']/text()").get();
-            String zHAnswers = page.getHtml().xpath("//li[@aria-controls='Profile-answers']/a/span/text()").get();
-            String zHAsks = page.getHtml().xpath("//li[@aria-controls='Profile-asks']/a/span/text()").get();
-            String zHPosts = page.getHtml().xpath("//li[@aria-controls='Profile-posts']/a/span/text()").get();
-            String zHColumns = page.getHtml().xpath("//li[@aria-controls='Profile-columns']/a/span/text()").get();
-            String zHPins = page.getHtml().xpath("//li[@aria-controls='Profile-pins']/a/span/text()").get();
-            ZhiHuUser zhiHuUser = new ZhiHuUser(zHName,zHAnswers,zHAsks,zHPosts,zHColumns,zHPins);
+            String zhName = page.getHtml().xpath("//span[@class='ProfileHeader-name']/text()").get();
+            String zhAnswers = page.getHtml().xpath("//li[@aria-controls='Profile-answers']/a/span/text()").get();
+            String zhAsks = page.getHtml().xpath("//li[@aria-controls='Profile-asks']/a/span/text()").get();
+            String zhPosts = page.getHtml().xpath("//li[@aria-controls='Profile-posts']/a/span/text()").get();
+            String zhColumns = page.getHtml().xpath("//li[@aria-controls='Profile-columns']/a/span/text()").get();
+            String zhPins = page.getHtml().xpath("//li[@aria-controls='Profile-pins']/a/span/text()").get();
+            ZhiHuUser zhiHuUser = new ZhiHuUser(zhName,zhAnswers,zhAsks,zhPosts,zhColumns,zhPins);
             page.putField("zhiHuUser",zhiHuUser);
         }
     }

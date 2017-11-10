@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.whitecode.dao.mapper.ZhiHuUserInfoMapper">
+    <!-- 添加知乎用户 -->
+    <insert id="addZhiHuUserInfo">
+        INSERT INTO zhihu_user_info(
+          id,
+          name,
+          url_token,
+          answer_count,
+          articles_count,
+          follower_count
+        )VALUES (#{id},#{name},#{urlToken},#{answerCount},#{articlesCount},#{followerCount})
+    </insert>
+
+    <!-- 获取数据库中所有的知乎用户 -->
+    <select id="getZhiHuUserInfos" resultType="com.whitecode.entity.ZhiHuUserInfo">
+        SELECT * FROM zhihu_user_info
+    </select>
+    <!-- 获取知乎回答数前10用户 -->
+    <select id="getZhiUserInfoByAnswerCountTop10" resultType="com.whitecode.entity.ZhiHuUserInfo">
+        SELECT * FROM zhihu_user_info ORDER BY answer_count DESC limit 0,10
+    </select>
+    <!-- 获取知乎文章数前10用户 -->
+    <select id="getZhiUserInfoByArticlesCountTop10" resultType="com.whitecode.entity.ZhiHuUserInfo">
+        SELECT * FROM zhihu_user_info ORDER BY articles_count DESC limit 0,10
+    </select>
+    <!-- 获取知乎关注者数前10用户 -->
+    <select id="getZhiUserInfoByFollowerCountTop10" resultType="com.whitecode.entity.ZhiHuUserInfo">
+        SELECT * FROM zhihu_user_info ORDER BY follower_count DESC limit 0,10
+    </select>
+</mapper>
