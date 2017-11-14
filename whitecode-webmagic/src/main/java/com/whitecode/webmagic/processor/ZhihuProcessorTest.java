@@ -1,26 +1,37 @@
 package com.whitecode.webmagic.processor;
 
 import com.whitecode.entity.ZhiHuUserInfo;
+import com.whitecode.service.ProxyService;
 import com.whitecode.tool.WebmagicUtils;
 import com.whitecode.tools.JacksonUtils;
 import com.whitecode.webmagic.pipeline.ZhiHuPipelineTest;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import us.codecraft.webmagic.Page;
 import us.codecraft.webmagic.Site;
 import us.codecraft.webmagic.Spider;
+import us.codecraft.webmagic.downloader.HttpClientDownloader;
+import us.codecraft.webmagic.model.OOSpider;
 import us.codecraft.webmagic.processor.PageProcessor;
+import us.codecraft.webmagic.proxy.Proxy;
+import us.codecraft.webmagic.proxy.SimpleProxyProvider;
 import us.codecraft.webmagic.scheduler.FileCacheQueueScheduler;
-import us.codecraft.webmagic.scheduler.RedisScheduler;
-
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
+/**
+ * 爬取知乎用户信息（方式二）
+ */
 @Service
 public class ZhihuProcessorTest implements PageProcessor {
     private static final Logger logger = LoggerFactory.getLogger(ZhihuProcessorTest.class);
+
+    @Autowired
+    private ProxyService proxyService;
+
     private Site site = Site.me().setTimeOut(20000).setRetryTimes(3).setSleepTime(2000).setCharset("UTF-8")
             .addHeader("Accept-Encoding","/")
             .addHeader("authorization","Bearer 2|1:0|10:1510192359|4:z_c0|92:Mi4xTC1mYkF3QUFBQUFBTUlJd3F5bWtEQ1lBQUFCZ0FsVk41d0x4V2dDN2lqemgtXzRDcUZVWHI3U2pBWVlUSDVQSW5n|f9558ed9d84bb5a72174c4d1684ead0a80eb9a1c56e92ee04e2ab71eb132fc4c")
@@ -115,12 +126,15 @@ public class ZhihuProcessorTest implements PageProcessor {
     public void start(ZhihuProcessorTest processor, ZhiHuPipelineTest pipeline) {
         logger.info("开始爬取...");
         startTime = System.currentTimeMillis();
-        Spider spider = getSpider(processor);
-        spider.addUrl("https://www.zhihu.com/api/v4/members/excited-vczh/followees?" +
-                "include=data[*].answer_count,articles_count,gender,follower_count,is_followed" +
-                ",is_following,badge[?(type=best_answerer)].topics&offset=0&limit=20")
+
+        OOSpider.create(processor)
+                .addUrl("https://www.zhihu.com/api/v4/members/excited-vczh/followees?" +
+                        "include=data[*].answer_count,articles_count,gender,follower_count,is_followed" +
+                        ",is_following,badge[?(type=best_answerer)].topics&offset=0&limit=20")
                 .addPipeline(pipeline)
                 .setScheduler(new FileCacheQueueScheduler("E:/webmagicUrls"))
+                // 配置代理
+                .setDownloader(getProxyDownloader())
                 .thread(20)
                 .start();
     }
@@ -130,17 +144,22 @@ public class ZhihuProcessorTest implements PageProcessor {
      * @param processor
      */
     public void stop(ZhihuProcessorTest processor) {
-        getSpider(processor).stop();
+        OOSpider.create(processor).stop();
         endTime = System.currentTimeMillis();
         logger.info("爬取结束，耗时约" + ((endTime - startTime) / 1000) + "秒");
     }
 
     /**
-     * 获取spider
-     * @param processor
+     * 配置服务器代理
      * @return
      */
-    private Spider getSpider(ZhihuProcessorTest processor) {
-        return Spider.create(processor);
+    private HttpClientDownloader getProxyDownloader() {
+        HttpClientDownloader httpClientDownloader = new HttpClientDownloader();
+        httpClientDownloader.setProxyProvider(SimpleProxyProvider.from(
+                new Proxy("127.0.0.1",8080),
+                new Proxy("61.135.217.7",80),
+                new Proxy("117.78.37.198",8000),
+                new Proxy("118.254.142.42",53281)));
+        return httpClientDownloader;
     }
 }
