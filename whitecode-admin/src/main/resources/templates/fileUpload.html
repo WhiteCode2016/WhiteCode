@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8" />
+        <title>文件上传</title>
+        <link href="https://cdn.bootcss.com/webuploader/0.1.1/webuploader.css" rel="stylesheet" />
+        <link href="https://cdn.bootcss.com/bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet" />
+    </head>
+    <body>
+        <div id="uploader" class="wu-example">
+            <!--用来存放文件信息-->
+            <div id="thelist" class="uploader-list"></div>
+            <div class="btns">
+                <div id="picker">选择文件</div>
+                <button id="ctlBtn" class="btn btn-default">开始上传</button>
+            </div>
+        </div>
+        <script src="https://cdn.bootcss.com/jquery/3.2.1/jquery.min.js"></script>
+        <script src="https://cdn.bootcss.com/webuploader/0.1.1/webuploader.min.js"></script>
+        <script>
+            var $list = $('#thelist');
+            var $btn = $('#ctlBtn');
+            var chunkSize = 5 * 1024 * 1024;
+
+            // 实例化
+            var uploader = WebUploader.create({
+                // 选择文件的按钮。可选。
+                // 内部根据当前运行是创建，可能是input元素，也可能是flash.
+                pick: {
+                    id: '#picker'
+//                    multiple: false
+                },
+
+                // swf文件路径
+                swf: 'https://cdn.bootcss.com/webuploader/0.1.1/Uploader.swf',
+                // 文件接收服务端。
+                server: '/common/file/fileUpload',
+                // 请求参数
+                formData: {
+                    md5: '',
+                    chunkSize: chunkSize
+                },
+
+                resize: false,
+                duplicate:true,       // 是否可重复选择同一文件
+                compress: null,       // 图片不压缩
+                auto: false,          // 是否自动上传
+                chunked: true,        // 是否分片
+                chunkSize: chunkSize, // 分片大小
+                checkRetry: false,    // 失败，不重试
+                thread: 1,            // 上传并发数
+
+                disableGlobalDnd: true,                // 禁掉全局的拖拽功能。这样不会出现图片拖进页面的时候，把图片打开。
+                fileNumLimit: 1024,                    // 文件总数量
+                fileSizeLimit: 200 * 1024 * 1024,      // 文件总大小限制  200 M
+                fileSingleSizeLimit: 50 * 1024 * 1024  // 单个文件大小限制  50 M
+            });
+
+            $btn.on('click',function () {
+                console.log("上传...");
+                uploader.upload();
+                console.log("上传成功");
+            });
+            uploader.on( 'fileQueued', function( file ) {
+                $list.append( '<div id="' + file.id + '" class="item">' +
+                    '<h4 class="info">' + file.name + '</h4>' +
+                    '<p class="state">等待上传...</p>' +
+                    '</div>' );
+            });
+            uploader.on( 'uploadProgress', function( file, percentage ) {
+                getProgressBar(file,percentage,"FILE","上传进度")
+            });
+            uploader.on('uploadSuccess',function (file) {
+                var text = '已上传';
+                if (file.pass) {
+                    text = "文件秒传功能，文件已上传。"
+                }
+                $('#' + file.id).find('p.state').text(text);
+            });
+            uploader.on('uploadError',function (file) {
+                $( '#'+file.id ).find('p.state').text('上传出错');
+            });
+            uploader.on('uploadComplete',function (file) {
+
+            });
+
+            function getProgressBar(file,percentage,id_prefix,titleName) {
+                var $li = $( '#'+file.id ),
+                    $percent = $li.find('#' + id_prefix + '-progress-bar');
+
+                // 避免重复创建
+                if ( !$percent.length ) {
+                    $percent = $('<div id="'+ id_prefix + '-progress" class="progress progress-striped active">' +
+                        '<div id="'+ id_prefix + '-progress-bar" class="progress-bar" role="progressbar" style="width: 0%">' +
+                        '</div>' +
+                        '</div>').appendTo( $li ).find('#' + id_prefix + '-progress-bar');
+                }
+
+                var progressPercentage = percentage * 100 + '%';
+                $percent.css('width', progressPercentage);
+                $percent.html(titleName + ':' + progressPercentage);
+            }
+
+            // 隐藏进度条
+            function fadeOutProgressBar(file,id_Prefix) {
+                $( '#'+file.id ).find('.progress').fadeOut();
+            }
+            
+        </script>
+    </body>
+</html>

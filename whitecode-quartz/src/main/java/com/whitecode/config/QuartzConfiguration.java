@@ -1,18 +1,18 @@
 package com.whitecode.config;
 
+import com.whitecode.factory.SpringJobFactory;
 import org.quartz.Scheduler;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.beans.factory.config.PropertiesFactoryBean;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.core.io.ClassPathResource;
-import org.springframework.scheduling.annotation.EnableScheduling;
 import org.springframework.scheduling.quartz.SchedulerFactoryBean;
 
 import javax.sql.DataSource;
-import java.io.IOException;
 import java.util.Properties;
 
 /**
@@ -23,6 +23,9 @@ import java.util.Properties;
 public class QuartzConfiguration {
     private static final Logger logger = LoggerFactory.getLogger(QuartzConfiguration.class);
 
+    @Autowired
+    private SpringJobFactory springJobFactory;
+
     @Bean(name = "schedulerFactoryBean")
     public SchedulerFactoryBean schedulerFactory(@Qualifier("masterDataSource") DataSource masterDataSource) throws Exception {
         logger.info("schedulerFactoryBean 初始化...");
@@ -31,6 +34,7 @@ public class QuartzConfiguration {
 //        factoryBean.setConfigLocation(new ClassPathResource("config/quartz.properties"));
         factoryBean.setQuartzProperties(quartzProperties());
         factoryBean.setSchedulerName("ClusterScheduler");
+        factoryBean.setJobFactory(springJobFactory);
         // 延时启动
         factoryBean.setStartupDelay(5);
         factoryBean.setApplicationContextSchedulerContextKey("applicationContextKey");
