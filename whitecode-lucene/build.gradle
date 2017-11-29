@@ -1,0 +1,12 @@
+archivesBaseName = 'whitecode-lucene'
+dependencies {
+	// 模块包含
+	compile(
+			project(':whitecode-core')
+	)
+	compile('org.apache.lucene:lucene-core:7.1.0')
+	compile('org.apache.lucene:lucene-queryparser:7.1.0')
+	compile('org.apache.lucene:lucene-analyzers-common:7.1.0')
+	compile('org.apache.lucene:lucene-analyzers-smartcn:7.1.0')
+	compile('org.apache.lucene:lucene-highlighter:7.1.0')
+}
