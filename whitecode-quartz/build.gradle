@@ -6,6 +6,6 @@ dependencies {
 	)
 	// Quartz任务框架
 	compile('org.quartz-scheduler:quartz:2.2.1')
-//	compile('org.quartz-scheduler:quartz-jobs:2.2.1')
-//	compile('com.quartzdesk:quartzdesk-api:3.0.1')
+	compile('org.quartz-scheduler:quartz-jobs:2.2.1')
+	compile('com.quartzdesk:quartzdesk-api:3.0.1')
 }
