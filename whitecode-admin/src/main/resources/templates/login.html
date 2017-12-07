@@ -1,47 +1,73 @@
 <!DOCTYPE html>
-<html lang="en" xmlns:th="http://www.thymeleaf.org">
-<head>
-    <meta charset="UTF-8" />
-    <title>Title</title>
-    <script>
-        function refreshCaptcha(){
-            $("#kaptcha-img").attr("src", "/kaptcha.jpg?t=" + Math.floor(Math.random() * 100));
-        }
-    </script>
-</head>
-<body>
-<!--<h4 th:if="${message != null}" th:text="${message}"></h4>
-<form th:action="@{/login}" method="post" id="loginForm">
-    <p>账号：<input type="text" name="username" value="admin"/></p>
-    <p>密码：<input type="text" name="password" value="123"/></p>
-    <p><input type="checkbox" name="rememberMe" />记住我</p>
-    <p><input type="submit" value="登录"/></p>
-</form>-->
-<form method="post" id="loginForm">
-    <p>账号：<input type="text" name="username" value="admin"/></p>
-    <p>密码：<input type="text" name="password" value="123"/></p>
-    <div><label> 验证码 : <input type="text" name="captcha" placeholder="验证码"/> </label></div>
-    <div><img style="width: 10%; display: inline;" th:src="@{/kaptcha.jpg}" title="点击切换" id="kaptcha-img"/></div>
-    <div><a onclick="refreshCaptcha()">看不清?换一个试试</a></div>
-    <p><input type="checkbox" name="rememberMe" />记住我</p>
-    <p><input type="button" value="登录" id="btn_submit"/></p>
-    <hr/>
-    <a th:href="@{/findPassword}">找回密码?</a>
-</form>
-<a th:href="@{/logout}">退出</a>
-<script src="http://libs.baidu.com/jquery/2.0.0/jquery.min.js"></script>
-<script>
-    $("#btn_submit").click(function () {
-       $.ajax({
-           url: "/login",
-           type: "POST",
-           data: $("#loginForm").serialize(),
-           success: function (data) {
-               alert(JSON.stringify(data));
-               window.open("/index","_self");
-           }
-       });
-    });
-</script>
-</body>
+<html lang="en" xmlns:th="http://www.thymeleaf.org" >
+    <head>
+        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+        <meta http-equiv="X-UA-Compatible" content="IE=edge"/>
+        <meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport"/>
+        <meta content="权限系统，后台管理系统" name="description"/>
+        <meta content="思雨制作" name="author"/>
+        <title>登 录</title>
+        <!-- 常用CSS -->
+        <link rel="shortcut icon" href="" showDefaultImage="true" icon="true" type="image/x-icon"/>
+        <link rel="stylesheet" href="https://github.com/WhiteCode2016/AdminLTE/bower_components/bootstrap/dist/css/bootstrap.min.css">
+        <link rel="stylesheet" href="https://github.com/WhiteCode2016/AdminLTE/bower_components/font-awesome/css/font-awesome.min.css">
+        <link rel="stylesheet" href="https://github.com/WhiteCode2016/AdminLTE/bower_components/Ionicons/css/ionicons.min.css">
+        <link rel="stylesheet" href="https://github.com/WhiteCode2016/AdminLTE/dist/css/AdminLTE.min.css">
+        <link rel="stylesheet" href="https://github.com/WhiteCode2016/AdminLTE/dist/css/skins/_all-skins.min.css">
+        <!-- iCheck -->
+        <link rel="stylesheet" href="https://github.com/WhiteCode2016/AdminLTE/plugins/iCheck/square/blue.css">
+    </head>
+    <body class="hold-transition login-page">
+        <div class="login-box">
+            <!-- 登录logo -->
+            <div class="login-logo">
+                <a href="#"><b>后台管理</b></a>
+            </div>
+            <div class="login-box-body">
+                <!-- 错误信息以及登出提示 -->
+               <!-- <div th:if="${param.error}" th:text="${session.SPRING_SECURITY_LAST_EXCEPTION.message}"></div>
+                <div th:if="${param.logout}">您已注销成功</div>-->
+                <p class="login-box-msg">Sign in to start your session</p>
+                <form th:action="@{/login}" method="post">
+                    <div class="form-group has-feedback">
+                        <input type="text" class="form-control" name="username" placeholder="用户名">
+                        <span class="glyphicon glyphicon-user form-control-feedback"></span>
+                    </div>
+                    <div class="form-group has-feedback">
+                        <input type="password" class="form-control" name="password" placeholder="密码">
+                        <span class="glyphicon glyphicon-lock form-control-feedback"></span>
+                    </div>
+                    <div class="row">
+                        <div class="col-xs-8">
+                            <div class="checkbox icheck">
+                                <label>
+                                    <input type="checkbox"> 记住密码
+                                </label>
+                            </div>
+                        </div>
+                        <div class="col-xs-4">
+                            <button type="submit" class="btn btn-primary btn-block btn-flat">登 录</button>
+                        </div>
+                    </div>
+                </form>
+
+                <a href="#">忘记密码</a><br>
+                <a th:href="@{/register}" class="text-center">注册新账号</a>
+            </div>
+        </div>
+        <!-- 常用JS -->
+        <script src="https://github.com/WhiteCode2016/AdminLTE/bower_components/jquery/dist/jquery.min.js"></script>
+        <script src="https://github.com/WhiteCode2016/AdminLTE/bower_components/bootstrap/dist/js/bootstrap.min.js"></script>
+        <!-- iCheck -->
+        <script src="https://github.com/WhiteCode2016/AdminLTE/plugins/iCheck/icheck.min.js"></script>
+        <script>
+            $(function () {
+                $('input').iCheck({
+                    checkboxClass: 'icheckbox_square-blue',
+                    radioClass: 'iradio_square-blue',
+                    increaseArea: '20%' // optional
+                });
+            });
+        </script>
+    </body>
 </html>
