@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" th:fragment="modal_v1(title,links,content,scripts)">
+    <head>
+        <title th:replace="${title}">自定义Modal模板</title>
+        <!-- 常用CSS -->
+        <link rel="stylesheet" th:href="@{/static/AdminLTE-2.3.11/plugins/layui/css/layui.css}" media="all">
+        <!-- 其他CSS -->
+        <th:block th:replace="${links}" />
+    </head>
+    <body style="font-size: 12px;margin: 10px 10px 0;">
+        <!-- 各个模块要显示的内容 -->
+        <div th:replace="${content}">
+
+        </div>
+        <!-- 常用JS -->
+        <script th:src="@{/static/AdminLTE-2.3.11/plugins/layui/layui.js}" charset="utf-8"></script>
+        <!-- 其他JS -->
+        <th:block th:replace="${scripts}" />
+    </body>
+</html>

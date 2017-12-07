@@ -1,0 +1,20 @@
+<body class="hold-transition skin-blue sidebar-mini" th:fragment="body(content,scripts)" xmlns:th="http://www.thymeleaf.org">
+    <div class="wrapper">
+        <!-- 头部 -->
+        <div th:replace="common/header :: header"></div>
+        <!-- 侧边菜单栏 -->
+        <div th:replace="common/sidebar_menu :: sidebar_menu"></div>
+        <!-- 主体内容 -->
+        <div class="content-wrapper" th:replace="${content}"></div>
+        <!-- 页脚 -->
+        <div th:replace="common/footer :: footer"></div>
+        <!-- 侧边设置栏 -->
+      <!--  <div th:replace="common/sidebar_setting :: sidebar_setting"></div>
+        <div class="control-sidebar-bg"></div>-->
+    </div>
+    <!-- 常用JS -->
+    <script src=" https://whitecode2016.github.io/AdminLTE/bower_components/jquery/dist/jquery.min.js"></script>
+    <script src=" https://whitecode2016.github.io/AdminLTE/bower_components/bootstrap/dist/js/bootstrap.min.js"></script>
+    <!-- 其他JS -->
+    <th:block th:replace="${scripts}" />
+</body>
