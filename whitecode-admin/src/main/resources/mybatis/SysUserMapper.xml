@@ -3,18 +3,23 @@
 <mapper namespace="com.whitecode.dao.mapper.SysUserMapper">
     <sql id="selectColumns">
         SELECT
-            su.uid,
+            su.user_id,
             su.username,
             su.password,
+            su.name,
             su.status,
             su.mail,
-            su.secret_key
+            su.secret_key,
+            su.creator,
+            su.create_date_time,
+            su.modifier,
+            su.modify_date_time
         FROM sys_user su
     </sql>
     <!-- 1、根据userId获取用户 -->
     <select id="getUserById" resultType="SysUser">
         <include refid="selectColumns" />
-        WHERE su.uid = #{userId}
+        WHERE su.user_id = #{userId}
     </select>
 
     <!-- 2、获取所有用户 -->
@@ -22,13 +27,37 @@
         <include refid="selectColumns" />
     </select>
 
-    <!-- 3、更新用户信息-->
+    <!-- 3.根据条件查询用户信息 -->
+    <select id="getUsersByCondition" resultType="SysUser">
+        <include refid="selectColumns" />
+        WHERE 1=1
+        <if test="username != null and username != ''">
+            <!--AND su.username like CONCAT('%', #{username}, '%')-->
+            AND su.username = #{username}
+        </if>
+        <if test="status != null and status != ''">
+            AND su.status = #{status}
+        </if>
+        ORDER BY su.create_date_time
+    </select>
+
+    <!-- 4.添加用户信息 -->
+    <insert id="insertUser">
+        INSERT INTO sys_user(user_id,username,password,status,mail,secret_key)
+        VALUES (#{userId},#{username},#{password},#{status},#{mail},#{secretKey})
+    </insert>
+
+    <!-- 5、更新用户信息-->
     <update id="updateUser">
         UPDATE sys_user
         <set>
             secret_key = #{secretKey}
         </set>
-        WHERE uid = #{uid}
+        WHERE user_id = #{userId}
     </update>
 
+    <!-- 6、删除用户信息 -->
+    <delete id="deleteUser">
+        DELETE FROM sys_user WHERE user_id = #{userId}
+    </delete>
 </mapper>

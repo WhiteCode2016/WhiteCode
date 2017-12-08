@@ -1,11 +1,50 @@
 <!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8" />
-    <title>Title</title>
-</head>
-<body>
-<h1>index</h1>
-<a th:href="@{/logout}">退出</a>
-</body>
-</html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org" th:replace="layout/layout_v1 :: layout_v1(~{::title},_,~{::div},_)">
+<title>主页</title>
+<div class="content-wrapper">
+    <section class="content-header">
+        <h1>控制面板</h1>
+        <ol class="breadcrumb">
+            <li><a href="#"><i class="fa fa-dashboard"></i> 主页</a></li>
+            <li class="active">控制面板</li>
+        </ol>
+    </section>
+    <section class="content">
+        <div class="row">
+            <div class="col-lg-12">
+                <div class="table-responsive">
+                    <table class="table">
+                        <tr>
+                            <th>服务器地址:</th>
+                            <td th:text="${#request.getServerName()}"></td>
+                        </tr>
+                        <tr>
+                            <th>服务器端口:</th>
+                            <td th:text="${#request.getServerPort()}"></td>
+                        </tr>
+                        <tr>
+                            <th>项目名称:</th>
+                            <td th:text="${#request.getContextPath()}"></td>
+                        </tr>
+                        <tr>
+                            <th>项目所在服务器的全路径:</th>
+                            <td th:text="${#request.getRealPath('/')}"></td>
+                        </tr>
+                        <tr>
+                            <th>本地地址:</th>
+                            <td th:text="${#request.getLocalAddr()}"></td>
+                        </tr>
+                        <tr>
+                            <th>本地IP映射名:</th>
+                            <td th:text="${#request.getLocalName()}"></td>
+                        </tr>
+                        <tr>
+                            <th>本地端口:</th>
+                            <td th:text="${#request.getLocalPort()}"></td>
+                        </tr>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </section>
+</div>

@@ -38,8 +38,8 @@ public class SystemShiroRealm extends AuthorizingRealm {
         SimpleAuthorizationInfo authorizationInfo  = new SimpleAuthorizationInfo ();
         SysUser sysUser = (SysUser) principals.getPrimaryPrincipal();
         for (SysRole role : sysUser.getRoleList()) {
-            authorizationInfo .addRole(role.getRole());
-            logger.info(role.getRole());
+            authorizationInfo .addRole(role.getRoleName());
+            logger.info(role.getRoleName());
             for (SysPermission permission : role.getPermissions()) {
                 authorizationInfo.addStringPermission(permission.getPermission());
             }

@@ -1,5 +1,7 @@
 package com.whitecode.entity;
 
+import com.whitecode.common.WhiteCodeAdminContants;
+
 import javax.persistence.*;
 import java.io.Serializable;
 import java.util.List;
@@ -9,53 +11,61 @@ import java.util.List;
  * Created by White on 2017/9/7.
  */
 @Entity
-@Table(name = "sys_permission")
-public class SysPermission extends DateEntity {
+@Table(name = "sys_permission",schema = WhiteCodeAdminContants.DB_SCHEMA_NAME)
+public class SysPermission extends AuditableEntity {
     @Id
-    @GeneratedValue
-    // 主键.
-    private Integer id;
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "PER_ID",length = 11)
+    // 主键
+    private Long perId;
     // 名称.
-    private String name;
+    @Column(name = "PER_NAME",length = 30)
+    private String preName;
     // 资源类型，[menu|button]
-    @Column(columnDefinition = "enum('menu','button')")
-    private String resourceType;
+    @Column(name = "TYPE",columnDefinition = "enum('menu','button')")
+    private String type;
     // 资源路径.
+    @Column(name = "URL")
     private String url;
     // 权限字符串,menu例子：role:*，button例子：role:create,role:update,role:delete,role:view
+    @Column(name = "PERMISSION")
     private String permission;
     // 父编号
+    @Column(name = "PARENT_ID")
     private Long parentId;
     // 父编号列表
+    @Column(name = "PARENT_IDS")
     private String parentIds;
     // 是否可用
-    private Boolean available = Boolean.FALSE;
+    @Column(name = "ENABLE")
+    private Boolean enable = Boolean.FALSE;
+
     @ManyToMany
-    @JoinTable(name = "SysRolePermission", joinColumns = {@JoinColumn(name = "permissionId")}, inverseJoinColumns = {@JoinColumn(name = "roleId")})
+    @JoinTable(name = "SysRolePermission", joinColumns = {@JoinColumn(name = "PER_ID")}, inverseJoinColumns = {@JoinColumn(name = "ROLE_ID")})
     private List<SysRole> roles;
 
-    public Integer getId() {
-        return id;
+    public Long getPerId() {
+        return perId;
     }
 
-    public void setId(Integer id) {
-        this.id = id;
+    public void setPerId(Long perId) {
+        this.perId = perId;
     }
 
-    public String getName() {
-        return name;
+    public String getPreName() {
+        return preName;
     }
 
-    public void setName(String name) {
-        this.name = name;
+    public void setPreName(String preName) {
+        this.preName = preName;
     }
 
-    public String getResourceType() {
-        return resourceType;
+    public String getType() {
+        return type;
     }
 
-    public void setResourceType(String resourceType) {
-        this.resourceType = resourceType;
+    public void setType(String type) {
+        this.type = type;
     }
 
     public String getUrl() {
@@ -90,12 +100,12 @@ public class SysPermission extends DateEntity {
         this.parentIds = parentIds;
     }
 
-    public Boolean getAvailable() {
-        return available;
+    public Boolean getEnable() {
+        return enable;
     }
 
-    public void setAvailable(Boolean available) {
-        this.available = available;
+    public void setEnable(Boolean enable) {
+        this.enable = enable;
     }
 
     public List<SysRole> getRoles() {
@@ -105,5 +115,4 @@ public class SysPermission extends DateEntity {
     public void setRoles(List<SysRole> roles) {
         this.roles = roles;
     }
-
 }

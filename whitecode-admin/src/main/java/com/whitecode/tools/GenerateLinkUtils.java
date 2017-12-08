@@ -20,7 +20,7 @@ public class GenerateLinkUtils {
      */
     public static String generateActivateLink(SysUser sysUser) {
         return "http://localhost:8080/AccountActivate/activateAccount" +
-                "?id=" + sysUser.getId() + "&" +
+                "?id=" + sysUser.getUserId() + "&" +
                 "checkCode=" + generateCheckcode(sysUser);
     }
 

@@ -5,6 +5,7 @@ package com.whitecode.common;
  * Created by White on 2017/11/7.
  */
 public abstract class WhiteCodeAdminContants extends WhiteContants {
+    public static final String DB_SCHEMA_NAME = "whitecode2016";
     // 系统邮箱地址
     public static final String SYSTEM_MAIL = "18855971263@163.com";
     // 邮箱链接地址前缀

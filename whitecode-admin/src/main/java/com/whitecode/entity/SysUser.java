@@ -1,5 +1,6 @@
 package com.whitecode.entity;
 
+import com.whitecode.common.WhiteCodeAdminContants;
 import com.whitecode.enums.StatusEnum;
 
 import javax.persistence.*;
@@ -11,40 +12,42 @@ import java.util.List;
  * Created by White on 2017/9/7.
  */
 @Entity
-@Table(name = "sys_user")
-public class SysUser implements Serializable{
+@Table(name = "sys_user",schema = WhiteCodeAdminContants.DB_SCHEMA_NAME)
+public class SysUser extends AuditableEntity{
     @Id
-    @GeneratedValue
-    private Integer id;
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "USER_ID",length = 11)
+    private Long userId;
     // 帐号
-    @Column(name = "username", unique = true)
+    @Column(name = "USER_NAME", unique = true)
     private String username;
-    // 名称（昵称或者真实姓名）
-    @Column(name = "name")
-    private String name;
     // 密码
-    @Column(name = "password")
+    @Column(name = "PASSWORD")
     private String password;
-    // 用户状态
-    @Column(name = "status")
+    // 名称（昵称或者真实姓名）
+    @Column(name = "NAME")
+    private String name;
+    // 用户状态（锁定、正常）
+    @Column(name = "STATUS")
     @Enumerated(EnumType.STRING)
     private StatusEnum status;
     // 邮箱
-    @Column(name = "mail")
+    @Column(name = "MAIL")
     private String email;
     // 密钥（用于密码找回）
-    @Column(name = "secret_key")
+    @Column(name = "SECRET_KEY")
     private String secretKey;
+
     @ManyToMany(fetch= FetchType.EAGER)//立即从数据库中进行加载数据;
-    @JoinTable(name = "SysUserRole", joinColumns = { @JoinColumn(name = "userId") }, inverseJoinColumns ={@JoinColumn(name = "roleId") })
+    @JoinTable(name = "SysUserRole", joinColumns = { @JoinColumn(name = "USER_ID") }, inverseJoinColumns ={@JoinColumn(name = "ROLE_ID") })
     private List<SysRole> roleList;// 一个用户具有多个角色
 
-    public Integer getId() {
-        return id;
+    public Long getUserId() {
+        return userId;
     }
 
-    public void setId(Integer id) {
-        this.id = id;
+    public void setUserId(Long userId) {
+        this.userId = userId;
     }
 
     public String getUsername() {
@@ -55,20 +58,20 @@ public class SysUser implements Serializable{
         this.username = username;
     }
 
-    public String getName() {
-        return name;
-    }
-
-    public void setName(String name) {
-        this.name = name;
-    }
-
     public String getPassword() {
         return password;
     }
 
     public void setPassword(String password) {
         this.password = password;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
     }
 
     public StatusEnum getStatus() {
@@ -102,5 +105,4 @@ public class SysUser implements Serializable{
     public void setRoleList(List<SysRole> roleList) {
         this.roleList = roleList;
     }
-
 }

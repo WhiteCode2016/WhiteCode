@@ -1,6 +1,7 @@
 package com.whitecode.entity;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.whitecode.common.WhiteCodeAdminContants;
 
 import javax.persistence.*;
 import java.io.Serializable;
@@ -11,42 +12,55 @@ import java.util.List;
  * Created by White on 2017/9/7.
  */
 @Entity
-@Table(name = "sys_role")
-public class SysRole implements Serializable {
+@Table(name = "sys_role",schema = WhiteCodeAdminContants.DB_SCHEMA_NAME)
+public class SysRole extends AuditableEntity {
     @Id
-    @GeneratedValue
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "ROLE_ID",length = 11)
     // 编号
-    private Integer id;
-    // 角色标识程序中判断使用,如"admin",这个是唯一的:
-    private String role;
+    private Long roleId;
+    // 角色名称
+    @Column(name = "ROLE_NAME",length = 30)
+    private String roleName;
+    // 是否可用
+    @Column(name = "ENABLE")
+    private Boolean enable = Boolean.FALSE;
     // 角色描述
+    @Column(name = "DESCRIPTION")
     private String description;
-    // 是否可用,如果不可用将不会添加给用户
-    private Boolean available = Boolean.FALSE;
+
     // 角色 -- 权限关系：多对多关系;
     @ManyToMany(fetch= FetchType.EAGER)
-    @JoinTable(name = "SysRolePermission", joinColumns = {@JoinColumn(name = "roleId")}, inverseJoinColumns = {@JoinColumn(name = "permissionId")})
+    @JoinTable(name = "SysRolePermission", joinColumns = {@JoinColumn(name = "ROLE_ID")}, inverseJoinColumns = {@JoinColumn(name = "PER_ID")})
     private List<SysPermission> permissions;
 
     // 用户 - 角色关系定义;
     @ManyToMany
-    @JoinTable(name = "SysUserRole", joinColumns = {@JoinColumn(name = "roleId")}, inverseJoinColumns = {@JoinColumn(name = "userId")})
+    @JoinTable(name = "SysUserRole", joinColumns = {@JoinColumn(name = "ROLE_ID")}, inverseJoinColumns = {@JoinColumn(name = "USER_ID")})
     private List<SysUser> sysUsers;// 一个角色对应多个用户
 
-    public Integer getId() {
-        return id;
+    public Long getRoleId() {
+        return roleId;
     }
 
-    public void setId(Integer id) {
-        this.id = id;
+    public void setRoleId(Long roleId) {
+        this.roleId = roleId;
     }
 
-    public String getRole() {
-        return role;
+    public String getRoleName() {
+        return roleName;
     }
 
-    public void setRole(String role) {
-        this.role = role;
+    public void setRoleName(String roleName) {
+        this.roleName = roleName;
+    }
+
+    public Boolean getEnable() {
+        return enable;
+    }
+
+    public void setEnable(Boolean enable) {
+        this.enable = enable;
     }
 
     public String getDescription() {
@@ -57,15 +71,6 @@ public class SysRole implements Serializable {
         this.description = description;
     }
 
-    public Boolean getAvailable() {
-        return available;
-    }
-
-    public void setAvailable(Boolean available) {
-        this.available = available;
-    }
-
-    @JsonBackReference // 防止Json无限循环
     public List<SysPermission> getPermissions() {
         return permissions;
     }
@@ -74,7 +79,6 @@ public class SysRole implements Serializable {
         this.permissions = permissions;
     }
 
-    @JsonBackReference
     public List<SysUser> getSysUsers() {
         return sysUsers;
     }

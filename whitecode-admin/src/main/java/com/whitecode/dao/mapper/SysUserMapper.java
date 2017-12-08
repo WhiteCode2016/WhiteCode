@@ -1,5 +1,6 @@
 package com.whitecode.dao.mapper;
 
+import com.whitecode.dto.SysUserDto;
 import com.whitecode.entity.SysUser;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
@@ -17,7 +18,6 @@ public interface SysUserMapper {
      * @param userId
      * @return
      */
-//    @Select("select * from sys_user where uid = #{userId}")
     SysUser getUserById(@Param("userId") Integer userId);
 
     /**
@@ -27,8 +27,27 @@ public interface SysUserMapper {
     List<SysUser> getUsers();
 
     /**
+     * 根据条件查询用户信息
+     * @param sysUserDto
+     * @return
+     */
+    List<SysUser> getUsersByCondition(SysUserDto sysUserDto);
+
+    /**
+     * 添加用户信息
+     * @param sysUser
+     */
+    void insertUser(SysUser sysUser);
+
+    /**
      * 更新用户信息
      * @param sysUser
      */
     void updateUser(SysUser sysUser);
+
+    /**
+     * 删除用户信息
+     * @param userId
+     */
+    void deleteUser(Integer userId);
 }

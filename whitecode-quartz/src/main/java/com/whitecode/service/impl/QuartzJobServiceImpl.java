@@ -61,7 +61,7 @@ public class QuartzJobServiceImpl implements QuartzJobService {
         List<ScheduleJob> scheduleJobList = quartzJobMapper.getAllJobs();
         if (!CollectionUtils.isEmpty(scheduleJobList)) {
             for (ScheduleJob scheduleJob : scheduleJobList) {
-                CronTrigger cronTrigger = quartzManager.getCronTrigger(scheduleJob.getJobName(), scheduleJob.getJobGroup());
+                CronTrigger cronTrigger = (CronTrigger) quartzManager.getCronTrigger(scheduleJob.getJobName(), scheduleJob.getJobGroup());
                 if (cronTrigger == null) {
                     // 不存在，创建一个
                     quartzManager.createScheduleJob(scheduleJob);

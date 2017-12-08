@@ -4,6 +4,8 @@ dependencies {
 	compile(
 			project(':whitecode-core')
 	)
+	// Thymeleaf
+	compile('org.springframework.boot:spring-boot-starter-thymeleaf')
 	// Quartz任务框架
 	compile('org.quartz-scheduler:quartz:2.2.1')
 	compile('org.quartz-scheduler:quartz-jobs:2.2.1')
