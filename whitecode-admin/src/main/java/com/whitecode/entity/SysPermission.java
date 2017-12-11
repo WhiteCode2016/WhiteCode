@@ -1,9 +1,9 @@
 package com.whitecode.entity;
 
 import com.whitecode.common.WhiteCodeAdminContants;
+import com.whitecode.enums.IfEnum;
 
 import javax.persistence.*;
-import java.io.Serializable;
 import java.util.List;
 
 /**
@@ -38,7 +38,11 @@ public class SysPermission extends AuditableEntity {
     private String parentIds;
     // 是否可用
     @Column(name = "ENABLE")
-    private Boolean enable = Boolean.FALSE;
+    @Enumerated(EnumType.STRING)
+    private IfEnum enable;
+    // 描述
+    @Column(name = "DESCRIPTION")
+    private String description;
 
     @ManyToMany
     @JoinTable(name = "SysRolePermission", joinColumns = {@JoinColumn(name = "PER_ID")}, inverseJoinColumns = {@JoinColumn(name = "ROLE_ID")})
@@ -100,11 +104,11 @@ public class SysPermission extends AuditableEntity {
         this.parentIds = parentIds;
     }
 
-    public Boolean getEnable() {
+    public IfEnum getEnable() {
         return enable;
     }
 
-    public void setEnable(Boolean enable) {
+    public void setEnable(IfEnum enable) {
         this.enable = enable;
     }
 
@@ -114,5 +118,13 @@ public class SysPermission extends AuditableEntity {
 
     public void setRoles(List<SysRole> roles) {
         this.roles = roles;
+    }
+
+    public String getDescription() {
+        return description;
+    }
+
+    public void setDescription(String description) {
+        this.description = description;
     }
 }

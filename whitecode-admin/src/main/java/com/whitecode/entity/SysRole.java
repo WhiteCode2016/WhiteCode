@@ -1,10 +1,9 @@
 package com.whitecode.entity;
 
-import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.whitecode.common.WhiteCodeAdminContants;
+import com.whitecode.enums.IfEnum;
 
 import javax.persistence.*;
-import java.io.Serializable;
 import java.util.List;
 
 /**
@@ -24,7 +23,8 @@ public class SysRole extends AuditableEntity {
     private String roleName;
     // 是否可用
     @Column(name = "ENABLE")
-    private Boolean enable = Boolean.FALSE;
+    @Enumerated(EnumType.STRING)
+    private IfEnum enable;
     // 角色描述
     @Column(name = "DESCRIPTION")
     private String description;
@@ -55,11 +55,11 @@ public class SysRole extends AuditableEntity {
         this.roleName = roleName;
     }
 
-    public Boolean getEnable() {
+    public IfEnum getEnable() {
         return enable;
     }
 
-    public void setEnable(Boolean enable) {
+    public void setEnable(IfEnum enable) {
         this.enable = enable;
     }
 

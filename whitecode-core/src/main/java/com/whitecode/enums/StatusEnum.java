@@ -4,7 +4,7 @@ package com.whitecode.enums;
  * 状态
  * Created by White on 2017/9/27.
  */
-public enum  StatusEnum {
+public enum StatusEnum {
     /** 未激活 */
     NOT_ACTIVATION,
     /** 正常 */

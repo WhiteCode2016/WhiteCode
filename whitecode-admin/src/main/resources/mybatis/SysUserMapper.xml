@@ -7,9 +7,12 @@
             su.username,
             su.password,
             su.name,
-            su.status,
+            su.sex,
+            su.date_of_birth,
             su.mail,
             su.secret_key,
+            su.status,
+            su.description,
             su.creator,
             su.create_date_time,
             su.modifier,
@@ -43,8 +46,10 @@
 
     <!-- 4.添加用户信息 -->
     <insert id="insertUser">
-        INSERT INTO sys_user(user_id,username,password,status,mail,secret_key)
-        VALUES (#{userId},#{username},#{password},#{status},#{mail},#{secretKey})
+        INSERT INTO sys_user(user_id,username,password,name,sex,date_of_birth,mail,secret_key,status,descriptioncreator,
+        create_date_time,modifier,modify_date_time)
+        VALUES (#{userId},#{username},#{password},#{name},#{sex},#{dateOfBirth},#{mail},#{secretKey},#{status},
+        #{creator},#{createDateTime},#{modifier},#{modifyDateTime})
     </insert>
 
     <!-- 5、更新用户信息-->

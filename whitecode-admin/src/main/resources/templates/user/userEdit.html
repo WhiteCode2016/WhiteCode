@@ -1,17 +1,15 @@
 <!DOCTYPE html>
-<html lang="en" xmlns:th="http://www.thymeleaf.org"
-      th:replace="layout/layout_v1 :: layout_v1(_,~{::link},~{::div},~{::script})"
-      xmlns:form="http://www.w3.org/1999/html">
+<html lang="en" xmlns:th="http://www.thymeleaf.org" th:replace="layout/layout_v1 :: layout_v1(_,~{::link},~{::div},~{::script})">
     <!-- bootstrap datepicker -->
     <link rel="stylesheet" href="https://whitecode2016.github.io/AdminLTE/bower_components/bootstrap-daterangepicker/daterangepicker.css"/>
     <link rel="stylesheet" href="https://whitecode2016.github.io/AdminLTE/bower_components/bootstrap-datepicker/dist/css/bootstrap-datepicker.min.css"/>
 
     <div class="content-wrapper">
         <section class="content-header">
-            <h1>用户添加</h1>
+            <h1>用户编辑</h1>
             <ol class="breadcrumb">
                 <li><a href="#"><i class="fa fa-dashboard"></i> 系统管理</a></li>
-                <li class="active">用户添加</li>
+                <li class="active">用户编辑</li>
             </ol>
         </section>
         <section class="content">
@@ -19,29 +17,29 @@
                 <div class="col-md-12">
                     <div class="box box-primary">
                         <div class="box-header with-border">
-                            <h3 class="box-title">用户添加</h3>
+                            <h3 class="box-title">用户编辑</h3>
                         </div>
                         <form role="form" th:action="@{/user/}" method="post" id="addForm" enctype="multipart/form-data" >
                             <div class="box-body">
                                 <div class="col-md-3">
                                     <div class="form-group">
                                         <label for="userId">编号</label>
-                                        <input type="text" class="form-control" placeholder="账号" id="userId" name="userId"/>
+                                        <input type="text" class="form-control" disabled="disabled" placeholder="编号" id="userId" name="userId" th:value="${sysUser.userId}"/>
                                     </div>
                                     <div class="form-group">
                                         <label for="username">账号</label>
-                                        <input type="text" class="form-control" placeholder="账号" id="username" name="username"/>
+                                        <input type="text" class="form-control" disabled="disabled" placeholder="账号" id="username" name="username" th:value="${sysUser.username}"/>
                                     </div>
                                     <div class="form-group">
                                         <label for="name">姓名</label>
-                                        <input type="text" class="form-control" placeholder="姓名" id="name" name="name"/>
+                                        <input type="text" class="form-control" placeholder="姓名" id="name" name="name" th:value="${sysUser.name}"/>
                                     </div>
                                 </div>
                                 <div class="col-md-3">
                                     <div class="form-group">
                                         <label for="sex">性别</label>
                                         <!--<input type="text" class="form-control" placeholder="性别" id="sex" name="sex"/>-->
-                                        <select class="form-control" name="sex" id="sex">
+                                        <select class="form-control" name="sex" id="sex" th:field="${sysUser.status}">
                                             <option th:each="sex : ${allSex}"
                                                     th:value="${sex.value}"
                                                     th:text="${sex.label}">
@@ -54,18 +52,18 @@
                                             <div class="input-group-addon">
                                                 <i class="fa fa-calendar"></i>
                                             </div>
-                                            <input type="text" class="form-control pull-right datepicker" placeholder="出生日期" id="dateOfBirth" name="dateOfBirth">
+                                            <input type="text" class="form-control pull-right datepicker" placeholder="出生日期" id="dateOfBirth" name="dateOfBirth" th:value="${#dates.format(sysUser.dateOfBirth,'yyyy/MM/dd')}"/>
                                         </div>
                                     </div>
                                     <div class="form-group">
-                                        <label for="mail">邮箱</label>
-                                        <input type="text" class="form-control" placeholder="邮箱" id="mail" name="mail"/>
+                                        <label for="email">邮箱</label>
+                                        <input type="text" class="form-control" placeholder="邮箱" id="email" name="email" th:value="${sysUser.email}"/>
                                     </div>
                                 </div>
                                 <div class="col-md-3">
                                     <div class="form-group">
                                         <label>用户状态</label>
-                                        <select class="form-control" name="status" id="status">
+                                        <select class="form-control" name="status" id="status" >
                                             <option th:each="status : ${allStatus}"
                                                     th:value="${status.value}"
                                                     th:text="${status.label}">
@@ -82,7 +80,7 @@
                                 <div class="col-md-3">
                                     <div class="form-group">
                                         <label for="creator">创建人</label>
-                                        <input type="text" class="form-control" placeholder="创建人" id="creator" name="creator"/>
+                                        <input type="text" class="form-control" placeholder="创建人" id="creator" name="creator" th:value="${sysUser.creator}"/>
                                     </div>
                                     <div class="form-group">
                                         <label>创建时间:</label>
@@ -90,14 +88,14 @@
                                             <div class="input-group-addon">
                                                 <i class="fa fa-calendar"></i>
                                             </div>
-                                            <input type="text" class="form-control pull-right datepicker" placeholder="创建时间" id="creatorDateTime" name="creatorDateTime">
+                                            <input type="text" class="form-control pull-right datepicker" placeholder="创建时间" id="createDateTime" name="createDateTime" th:value="${#dates.format(sysUser.createDateTime,'yyyy/MM/dd')}"/>
                                         </div>
                                     </div>
                                 </div>
                                 <div class="col-md-12">
                                     <div class="form-group">
                                         <label for="description">备注</label>
-                                        <textarea rows="5" cols="10" class="form-control" placeholder="请简单说明一下..." id="description" name="description"></textarea>
+                                        <textarea rows="5" cols="10" class="form-control" placeholder="请简单说明一下..." id="description" name="description" th:text="${sysUser.description}"></textarea>
                                     </div>
                                 </div>
                             </div>

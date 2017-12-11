@@ -3,7 +3,7 @@
         xmlns:th="http://www.thymeleaf.org"
         th:fragment="header">
     <!-- 系统logo -->
-    <a href="index2.html" class="logo">
+    <a th:href="@{/index}" class="logo">
         <!-- 侧边栏未展开显示的mini_logo -->
         <span class="logo-mini"><b>A</b>LT</span>
         <!-- 侧边栏展开后显示的logo -->
@@ -17,7 +17,7 @@
         <!-- 其他功能 -->
         <div class="navbar-custom-menu">
             <ul class="nav navbar-nav">
-                <!-- 消息 -->
+              <!--  &lt;!&ndash; 消息 &ndash;&gt;
                 <li class="dropdown messages-menu">
                     <a href="#" class="dropdown-toggle" data-toggle="dropdown">
                         <i class="fa fa-envelope-o"></i>
@@ -56,7 +56,7 @@
                         <li class="footer"><a href="#">See All Messages</a></li>
                     </ul>
                 </li>
-                <!-- 通知 -->
+                &lt;!&ndash; 通知 &ndash;&gt;
                 <li class="dropdown notifications-menu">
                     <a href="#" class="dropdown-toggle" data-toggle="dropdown">
                         <i class="fa fa-bell-o"></i>
@@ -82,7 +82,7 @@
                         <li class="footer"><a href="#">View all</a></li>
                     </ul>
                 </li>
-                <!-- 任务 -->
+                &lt;!&ndash; 任务 &ndash;&gt;
                 <li class="dropdown tasks-menu">
                     <a href="#" class="dropdown-toggle" data-toggle="dropdown">
                         <i class="fa fa-flag-o"></i>
@@ -124,7 +124,7 @@
                             <a href="#">View all tasks</a>
                         </li>
                     </ul>
-                </li>
+                </li>-->
                 <!-- 用户信息 -->
                 <li class="dropdown user user-menu" sec:authorize="isAuthenticated()">
                     <a href="#" class="dropdown-toggle" data-toggle="dropdown">
@@ -168,9 +168,9 @@
                     </ul>
                 </li>
                 <!-- 设置 -->
-                <li>
+              <!--  <li>
                     <a href="#" data-toggle="control-sidebar"><i class="fa fa-gears"></i></a>
-                </li>
+                </li>-->
             </ul>
         </div>
     </nav>

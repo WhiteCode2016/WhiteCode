@@ -1,11 +1,12 @@
-package com.whitecode.entity;
+package com.whitecode.dto;
 
 import com.whitecode.common.WhiteCodeAdminContants;
+import com.whitecode.entity.AuditableEntity;
+import com.whitecode.entity.SysRole;
 import com.whitecode.enums.SexEnum;
 import com.whitecode.enums.StatusEnum;
 
 import javax.persistence.*;
-import java.io.Serializable;
 import java.util.Date;
 import java.util.List;
 
@@ -13,47 +14,21 @@ import java.util.List;
  * 用户基本信息类
  * Created by White on 2017/9/7.
  */
-@Entity
-@Table(name = "sys_user",schema = WhiteCodeAdminContants.DB_SCHEMA_NAME)
-public class SysUser extends AuditableEntity{
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "USER_ID",length = 11)
+public class SysUserInfoDto {
+
     private Long userId;
-    // 帐号
-    @Column(name = "USERNAME", unique = true)
     private String username;
-    // 密码
-    @Column(name = "PASSWORD")
     private String password;
-    // 名称（昵称或者真实姓名）
-    @Column(name = "NAME")
     private String name;
-    // 性别
-    @Column(name = "SEX")
     @Enumerated(EnumType.STRING)
     private SexEnum sex;
-    // 出生日期
     @Temporal(TemporalType.DATE)
-    @Column(name = "DATE_OF_BIRTH")
     private Date dateOfBirth;
-    // 邮箱
-    @Column(name = "MAIL")
     private String email;
-    // 密钥（用于密码找回）
-    @Column(name = "SECRET_KEY")
     private String secretKey;
-    // 用户状态（锁定、正常）
-    @Column(name = "STATUS")
     @Enumerated(EnumType.STRING)
     private StatusEnum status;
-    // 用户描述
-    @Column(name = "DESCRIPTION")
     private String description;
-
-    @ManyToMany(fetch= FetchType.EAGER)//立即从数据库中进行加载数据;
-    @JoinTable(name = "SysUserRole", joinColumns = { @JoinColumn(name = "USER_ID") }, inverseJoinColumns ={@JoinColumn(name = "ROLE_ID") })
-    private List<SysRole> roleList;// 一个用户具有多个角色
 
     public Long getUserId() {
         return userId;
@@ -135,11 +110,19 @@ public class SysUser extends AuditableEntity{
         this.description = description;
     }
 
-    public List<SysRole> getRoleList() {
-        return roleList;
-    }
-
-    public void setRoleList(List<SysRole> roleList) {
-        this.roleList = roleList;
+    @Override
+    public String toString() {
+        return "SysUserInfoDto{" +
+                "userId=" + userId +
+                ", username='" + username + '\'' +
+                ", password='" + password + '\'' +
+                ", name='" + name + '\'' +
+                ", sex=" + sex +
+                ", dateOfBirth=" + dateOfBirth +
+                ", email='" + email + '\'' +
+                ", secretKey='" + secretKey + '\'' +
+                ", status=" + status +
+                ", description='" + description + '\'' +
+                '}';
     }
 }
