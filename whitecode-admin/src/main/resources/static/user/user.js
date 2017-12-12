@@ -9,9 +9,9 @@ $(document).ready(function () {
         "autoWidth": false,    //开启自适应宽度
         "processing": true,
         "serverSide": true,
-       /* "language": {
-            "url": "/static/AdminLTE-2.3.11/plugins/datatables/i18n/Chinese.json"
-        },*/
+        "language": {
+            "url": "https://cdn.datatables.net/plug-ins/1.10.16/i18n/Chinese.json"
+        },
         "ajax": {
             "url": "/user/listByPage",
             "type": "POST",
@@ -22,11 +22,20 @@ $(document).ready(function () {
         },
         "columns": [
             { "data": "userId" },
-            { "data": "username" },
+            {
+                "data": "username",
+                "render": function (data, type, row, meta) {
+                    return	data='<a href="/user/edit/'+row.userId+'">'+ row.username+'</a>';
+                }
+            },
             { "data": "name" },
+            { "data": "creator"},
+            {"data": "createDateTime"},
+            { "data": "modifier"},
+            { "data": "modifyDateTime"},
             {
                 "data": "status",
-                "render" : function(data, type, full, meta) {
+                "render" : function(data, type, row, meta) {
                     (data == "NORMAL") ?
                         data ="<span class='label label-primary'>正常</span>" :
                         data ="<span class='label label-danger'>锁定</span>";
@@ -37,34 +46,17 @@ $(document).ready(function () {
                 "data" : null,
                 "render":function(data, type, row, meta){
                     return	data='<button class="btn btn-primary btn-xs" id="deleteOne" title="删除" data-id='+ row.id +'><i class="glyphicon glyphicon-trash"></i></button> ' +
-                        '<button class="btn btn-primary btn-xs" id="editOne" title="编辑"  data-id='+ row.id +'><i class="glyphicon glyphicon-edit"></i></button> ' +
-                        '<button class="btn btn-primary btn-xs" id="detailOne" title="预览" data-id='+ row.id +'><i class="glyphicon glyphicon-th"></i></button> ';
+                        '<button class="btn btn-primary btn-xs" id="editOne" title="编辑"  data-id='+ row.id +'><i class="glyphicon glyphicon-edit"></i></button>';
                 }
             }
-        ],
+        ]
     });
 
-    // 打开添加页面
-    $(document).delegate('#addOne','click',function() {
-        window.open("/user/add","_self");
-    });
+
     // 打开编辑页面
     $(document).delegate('#editOne','click',function() {
         var id=$(this).data("id");
         window.open("/api/user/edit/"+id,"_self");
-    });
-    // 打开详情页面
-    $(document).delegate('#detailOne','click',function() {
-        var id = $(this).data("id");
-        var index = layer.open({
-            type: 2,
-            title: '用户详情',
-            shadeClose: false,
-            shade: 0.8,
-            maxmin: true, //开启最大化最小化按钮
-            area: ['600px', '650px'],
-            content: '/api/user/detail/' + id
-        });
     });
     // 重置查询条件
     $(document).delegate('#reset','click',function() {

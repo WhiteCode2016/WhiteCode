@@ -2,18 +2,12 @@
 <html lang="en" xmlns:th="http://www.thymeleaf.org" th:replace="layout/layout_v1 :: layout_v1(_,~{::link},~{::div},~{::script})">
     <!-- DataTables -->
     <link rel="stylesheet" href="https://whitecode2016.github.io/AdminLTE/bower_components/datatables.net-bs/css/dataTables.bootstrap.min.css">
-    <style type="text/css">
-        #topPlugin {
-            float: left;
-            margin-left: 10px;
-        }
-    </style>
     <div class="content-wrapper">
         <section class="content-header">
-            <h1>用户查询</h1>
+            <h1 th:utext="#{common.manage.user.query}">用户查询</h1>
             <ol class="breadcrumb">
-                <li><a href="#"><i class="fa fa-dashboard"></i> 系统管理</a></li>
-                <li class="active">用户查询</li>
+                <li><a href="#"><i class="fa fa-dashboard"></i> <span th:utext="#{common.manage.system}">系统管理</span></a></li>
+                <li class="active" th:utext="#{common.manage.user.query}">用户查询</li>
             </ol>
         </section>
         <section class="content">
@@ -22,9 +16,9 @@
                     <div class="box box-primary">
                         <div class="box-header with-border">
                             <i class="fa fa-search"></i>
-                            <h3 class="box-title">用户查询</h3>
+                            <h3 class="box-title" th:utext="#{common.manage.user.query}">用户查询</h3>
                             <div class="box-tools pull-right">
-                                <button class="btn btn-primary btn-sm" id="addOne"><i class="fa fa-plus"></i> 新增</button>
+                                <a class="btn btn-primary btn-sm" th:href="@{/user/add}"><i class="fa fa-plus"></i> 新增</a>
                             </div>
                         </div>
                         <div class="box-body">
@@ -37,11 +31,6 @@
                                     </div>
                                     <div class="form-group">
                                         <div class="col-sm-2">
-                                           <!-- <select class="form-control" id="status" name="status">
-                                                <option value="">&#45;&#45;所有状态&#45;&#45;</option>
-                                                <option value="NORMAL">正常</option>
-                                                <option value="LOCKED">锁定</option>
-                                            </select>-->
                                             <select class="form-control" id="status" name="status">
                                                 <option th:each="status : ${allStatus}"
                                                         th:value="${status.value}"
@@ -62,11 +51,24 @@
                                 <thead>
                                 <tr>
                                     <!--<th><input type="checkbox" name="allChecked" /></th>-->
-                                    <th>编号</th>
-                                    <th>账号</th>
-                                    <th>姓名</th>
-                                    <th>状态</th>
-                                    <th>操作</th>
+                                    <!-- 编号 -->
+                                    <th th:utext="#{user.userId}"></th>
+                                    <!-- 账号 -->
+                                    <th th:utext="#{user.username}"></th>
+                                    <!-- 姓名 -->
+                                    <th th:utext="#{user.name}"></th>
+                                    <!-- 创建人 -->
+                                    <th th:utext="#{common.creator}"></th>
+                                    <!-- 创建日期 -->
+                                    <th th:utext="#{common.createDateTime}"></th>
+                                    <!-- 修改人 -->
+                                    <th th:utext="#{common.modifier}"></th>
+                                    <!-- 修改日期 -->
+                                    <th th:utext="#{common.modifyDateTime}"></th>
+                                    <!-- 状态 -->
+                                    <th th:utext="#{user.status}"></th>
+                                    <!-- 操作 -->
+                                    <th th:utext="#{common.operation}"></th>
                                 </tr>
                                 </thead>
                             </table>

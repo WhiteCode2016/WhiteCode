@@ -80,6 +80,7 @@ public class UserController extends BaseController {
     public ModelAndView enterEditUser(@PathVariable Integer id) {
         ModelAndView modelAndView = new ModelAndView();
         SysUser sysUser = sysUserService.getUserById(id);
+        System.out.println(sysUser.getStatus());
         modelAndView.addObject("sysUser",sysUser);
         modelAndView.addObject("allStatus", EnumHelper.createLabelValueBeanList(StatusEnum.class,getMessageSource(),false));
         modelAndView.addObject("allSex", EnumHelper.createLabelValueBeanList(SexEnum.class,getMessageSource(),false));

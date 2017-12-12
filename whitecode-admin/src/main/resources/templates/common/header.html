@@ -126,37 +126,23 @@
                     </ul>
                 </li>-->
                 <!-- 用户信息 -->
-                <li class="dropdown user user-menu" sec:authorize="isAuthenticated()">
+                <li class="dropdown user user-menu">
                     <a href="#" class="dropdown-toggle" data-toggle="dropdown">
                         <img src="https://whitecode2016.github.io/AdminLTE/dist/img/user2-160x160.jpg" class="user-image" alt="User Image"/>
                         <!-- 当前用户名 -->
                         <span class="hidden-xs">Administrator</span>
                     </a>
                     <ul class="dropdown-menu">
-                        <li class="user-header">
-                            <!-- 用户图像 -->
+                       <!-- <li class="user-header">
+                            &lt;!&ndash; 用户图像 &ndash;&gt;
                             <img src="https://whitecode2016.github.io/AdminLTE/dist/img/user2-160x160.jpg" class="img-circle" alt="User Image"/>
-                            <!-- 用户简介 -->
+                            &lt;!&ndash; 用户简介 &ndash;&gt;
                             <p>
                                 Administrator - Web Developer
                                 <small>Member since Nov. 2012</small>
                             </p>
                         </li>
-                        <!-- Menu Body -->
-                       <!-- <li class="user-body">
-                            <div class="row">
-                                <div class="col-xs-4 text-center">
-                                    <a href="#">Followers</a>
-                                </div>
-                                <div class="col-xs-4 text-center">
-                                    <a href="#">Sales</a>
-                                </div>
-                                <div class="col-xs-4 text-center">
-                                    <a href="#">Friends</a>
-                                </div>
-                            </div>
-                        </li>-->
-                        <!-- Menu Footer-->
+                        &lt;!&ndash; Menu Footer&ndash;&gt;
                         <li class="user-footer">
                             <div class="pull-left">
                                 <a th:href="@{/profile}" class="btn btn-default btn-flat">个人信息</a>
@@ -164,7 +150,54 @@
                             <div class="pull-right">
                                 <a th:href="@{/logout}" class="btn btn-default btn-flat">退 出</a>
                             </div>
-                        </li>
+                        </li>-->
+                        <div class="box box-widget widget-user">
+                            <!-- Add the bg color to the header using any of the bg-* classes -->
+                            <div class="widget-user-header bg-aqua-active">
+                                <h3 class="widget-user-username">admin</h3>
+                                <h5 class="widget-user-desc">Founder &amp; CEO</h5>
+                            </div>
+                            <div class="widget-user-image">
+                                <img class="img-circle" src="https://whitecode2016.github.io/AdminLTE/dist/img/user2-160x160.jpg" alt="User Avatar">
+                            </div>
+                            <div class="box-footer">
+                                <div class="row">
+                                    <div class="col-sm-4 border-right">
+                                        <div class="description-block">
+                                            <h5 class="description-header">3,200</h5>
+                                            <span class="description-text">SALES</span>
+                                        </div>
+                                        <!-- /.description-block -->
+                                    </div>
+                                    <!-- /.col -->
+                                    <div class="col-sm-4 border-right">
+                                        <div class="description-block">
+                                            <h5 class="description-header">13,000</h5>
+                                            <span class="description-text">FOLLOWERS</span>
+                                        </div>
+                                        <!-- /.description-block -->
+                                    </div>
+                                    <!-- /.col -->
+                                    <div class="col-sm-4">
+                                        <div class="description-block">
+                                            <h5 class="description-header">35</h5>
+                                            <span class="description-text">PRODUCTS</span>
+                                        </div>
+                                        <!-- /.description-block -->
+                                    </div>
+                                    <!-- /.col -->
+                                </div>
+                                <!-- /.row -->
+                            </div>
+                        </div>
+                    </ul>
+                </li>
+                <!-- 切换语言-->
+                <li class="dropdown">
+                    <a href="#" class="dropdown-toggle" data-toggle="dropdown" aria-expanded="false">切换语言 <span class="caret"></span></a>
+                    <ul class="dropdown-menu" role="menu">
+                        <li><a href="?lang=zh_CN">简体中文</a></li>
+                        <li><a href="?lang=en_US">English</a></li>
                     </ul>
                 </li>
                 <!-- 设置 -->

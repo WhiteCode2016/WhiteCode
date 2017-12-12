@@ -39,7 +39,7 @@
                                     <div class="form-group">
                                         <label for="sex">性别</label>
                                         <!--<input type="text" class="form-control" placeholder="性别" id="sex" name="sex"/>-->
-                                        <select class="form-control" name="sex" id="sex" th:field="${sysUser.status}">
+                                        <select class="form-control" name="sex" id="sex" th:field="${sysUser.sex}">
                                             <option th:each="sex : ${allSex}"
                                                     th:value="${sex.value}"
                                                     th:text="${sex.label}">
@@ -63,7 +63,7 @@
                                 <div class="col-md-3">
                                     <div class="form-group">
                                         <label>用户状态</label>
-                                        <select class="form-control" name="status" id="status" >
+                                        <select class="form-control" name="status" id="status" th:field="${sysUser.status}">
                                             <option th:each="status : ${allStatus}"
                                                     th:value="${status.value}"
                                                     th:text="${status.label}">
@@ -80,7 +80,7 @@
                                 <div class="col-md-3">
                                     <div class="form-group">
                                         <label for="creator">创建人</label>
-                                        <input type="text" class="form-control" placeholder="创建人" id="creator" name="creator" th:value="${sysUser.creator}"/>
+                                        <input type="text" class="form-control" disabled="disabled" placeholder="创建人" id="creator" name="creator" th:value="${sysUser.creator}"/>
                                     </div>
                                     <div class="form-group">
                                         <label>创建时间:</label>
@@ -88,7 +88,7 @@
                                             <div class="input-group-addon">
                                                 <i class="fa fa-calendar"></i>
                                             </div>
-                                            <input type="text" class="form-control pull-right datepicker" placeholder="创建时间" id="createDateTime" name="createDateTime" th:value="${#dates.format(sysUser.createDateTime,'yyyy/MM/dd')}"/>
+                                            <input type="text" class="form-control pull-right datepicker" disabled="disabled" placeholder="创建时间" id="createDateTime" name="createDateTime" th:value="${#dates.format(sysUser.createDateTime,'yyyy/MM/dd')}"/>
                                         </div>
                                     </div>
                                 </div>

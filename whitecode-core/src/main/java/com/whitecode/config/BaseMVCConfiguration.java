@@ -1,7 +1,17 @@
 package com.whitecode.config;
 
+import org.springframework.boot.web.servlet.MultipartConfigFactory;
+import org.springframework.context.annotation.Bean;
+import org.springframework.context.support.ResourceBundleMessageSource;
+import org.springframework.web.servlet.LocaleResolver;
 import org.springframework.web.servlet.config.annotation.CorsRegistry;
+import org.springframework.web.servlet.config.annotation.InterceptorRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurerAdapter;
+import org.springframework.web.servlet.i18n.LocaleChangeInterceptor;
+import org.springframework.web.servlet.i18n.SessionLocaleResolver;
+
+import javax.servlet.MultipartConfigElement;
+import java.util.Locale;
 
 /**
  * WebMVC基本配置
@@ -24,4 +34,15 @@ public class BaseMVCConfiguration extends WebMvcConfigurerAdapter {
 //                .allowedMethods("GET", "POST", "DELETE", "PUT")
 //                .maxAge(1728000);
     }
+
+    /*// 文件上传配置
+    @Bean
+    public MultipartConfigElement multipartConfigElement() {
+        MultipartConfigFactory factory = new MultipartConfigFactory();
+        // 单文件文件最大大小
+        factory.setMaxFileSize("50MB"); //KB,MB
+        // 设置总上传数据总大小
+        factory.setMaxRequestSize("200MB");
+        return factory.createMultipartConfig();
+    }*/
 }
