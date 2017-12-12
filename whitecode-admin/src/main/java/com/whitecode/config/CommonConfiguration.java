@@ -2,17 +2,31 @@ package com.whitecode.config;
 
 import com.google.code.kaptcha.Constants;
 import com.google.code.kaptcha.servlet.KaptchaServlet;
+import org.springframework.boot.web.servlet.MultipartConfigFactory;
 import org.springframework.boot.web.servlet.ServletRegistrationBean;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
+import javax.servlet.MultipartConfigElement;
+
 /**
- * 验证码配置
- * Created by White on 2017/9/22.
+ * Created by White on 2017/12/12.
  */
 @Configuration
-public class CaptchaConfiguration {
+public class CommonConfiguration {
 
+    /**************************文件上传下载相关配置**************************/
+    @Bean
+    public MultipartConfigElement multipartConfigElement() {
+        MultipartConfigFactory factory = new MultipartConfigFactory();
+        // 单文件文件最大大小
+        factory.setMaxFileSize("50MB"); //KB,MB
+        // 设置总上传数据总大小
+        factory.setMaxRequestSize("200MB");
+        return factory.createMultipartConfig();
+    }
+
+    /**************************验证码配置**************************/
     @Bean
     public ServletRegistrationBean kaptchaServlet() {
         ServletRegistrationBean registrationBean = new ServletRegistrationBean(new KaptchaServlet(), "/kaptcha.jpg");
