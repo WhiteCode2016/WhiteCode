@@ -1,6 +1,7 @@
 package com.whitecode.dao.mapper;
 
 import com.whitecode.dto.SysUserDto;
+import com.whitecode.dto.SysUserInfoDto;
 import com.whitecode.entity.SysUser;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
@@ -35,15 +36,17 @@ public interface SysUserMapper {
 
     /**
      * 添加用户信息
-     * @param sysUser
+     * @param sysUserInfoDto
      */
-    void insertUser(SysUser sysUser);
+//    void insertUser(SysUser sysUser);
+    void insertUser(SysUserInfoDto sysUserInfoDto);
 
     /**
      * 更新用户信息
-     * @param sysUser
+     * @param sysUserInfoDto
      */
-    void updateUser(SysUser sysUser);
+//    void updateUser(SysUser sysUser);
+    void updateUser(SysUserInfoDto sysUserInfoDto);
 
     /**
      * 删除用户信息

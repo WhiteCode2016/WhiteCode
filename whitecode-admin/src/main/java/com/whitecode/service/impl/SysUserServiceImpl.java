@@ -5,6 +5,7 @@ import com.github.pagehelper.PageInfo;
 import com.whitecode.dao.SysUserRepository;
 import com.whitecode.dao.mapper.SysUserMapper;
 import com.whitecode.dto.SysUserDto;
+import com.whitecode.dto.SysUserInfoDto;
 import com.whitecode.entity.SysUser;
 import com.whitecode.page.DataTablePage;
 import com.whitecode.service.SysUserService;
@@ -71,13 +72,18 @@ public class SysUserServiceImpl implements SysUserService {
     }
 
     @Override
-    public void insertUser(SysUser sysUser) {
-        sysUserMapper.insertUser(sysUser);
+    public void insertUser(SysUserInfoDto sysUserInfoDto) {
+        sysUserMapper.insertUser(sysUserInfoDto);
     }
 
     @Override
     public void updateUser(SysUser sysUser) {
-        sysUserMapper.updateUser(sysUser);
+//        sysUserMapper.updateUser(sysUser);
+    }
+
+    @Override
+    public void updateUser(SysUserInfoDto sysUserInfoDto) {
+        sysUserMapper.updateUser(sysUserInfoDto);
     }
 
     @Override

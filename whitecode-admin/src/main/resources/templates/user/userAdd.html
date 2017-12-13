@@ -1,17 +1,16 @@
 <!DOCTYPE html>
 <html lang="en" xmlns:th="http://www.thymeleaf.org"
-      th:replace="layout/layout_v1 :: layout_v1(_,~{::link},~{::div},~{::script})"
-      xmlns:form="http://www.w3.org/1999/html">
+      th:replace="layout/layout_v1 :: layout_v1(_,~{::link},~{::div},~{::script})">
     <!-- bootstrap datepicker -->
     <link rel="stylesheet" href="https://whitecode2016.github.io/AdminLTE/bower_components/bootstrap-daterangepicker/daterangepicker.css"/>
     <link rel="stylesheet" href="https://whitecode2016.github.io/AdminLTE/bower_components/bootstrap-datepicker/dist/css/bootstrap-datepicker.min.css"/>
 
     <div class="content-wrapper">
         <section class="content-header">
-            <h1>用户添加</h1>
+            <h1 th:utext="#{common.manage.user.add}"></h1>
             <ol class="breadcrumb">
-                <li><a href="#"><i class="fa fa-dashboard"></i> 系统管理</a></li>
-                <li class="active">用户添加</li>
+                <li><a href="#"><i class="fa fa-dashboard"></i> <span th:utext="#{common.manage.system}"></span></a></li>
+                <li class="active"><span th:utext="#{common.manage.user.add}"></span></li>
             </ol>
         </section>
         <section class="content">
@@ -19,27 +18,27 @@
                 <div class="col-md-12">
                     <div class="box box-primary">
                         <div class="box-header with-border">
-                            <h3 class="box-title">用户添加</h3>
+                            <h3 class="box-title" th:utext="#{common.manage.user.add}"></h3>
                         </div>
-                        <form role="form" th:action="@{/user/}" method="post" id="addForm" enctype="multipart/form-data" >
+                        <form role="form" th:action="@{/user/}" method="post" id="addForm"  >
                             <div class="box-body">
                                 <div class="col-md-3">
                                     <div class="form-group">
-                                        <label for="userId">编号</label>
-                                        <input type="text" class="form-control" placeholder="账号" id="userId" name="userId"/>
+                                        <label for="userId" th:utext="#{system.user.userId}"></label>
+                                        <input type="text" class="form-control" th:placeholder="#{system.user.userId}" id="userId" name="userId"/>
                                     </div>
                                     <div class="form-group">
-                                        <label for="username">账号</label>
-                                        <input type="text" class="form-control" placeholder="账号" id="username" name="username"/>
+                                        <label for="username" th:utext="#{system.user.username}"></label>
+                                        <input type="text" class="form-control" th:placeholder="#{system.user.username}" id="username" name="username"/>
                                     </div>
                                     <div class="form-group">
-                                        <label for="name">姓名</label>
-                                        <input type="text" class="form-control" placeholder="姓名" id="name" name="name"/>
+                                        <label for="name" th:utext="#{system.user.name}">姓名</label>
+                                        <input type="text" class="form-control" th:placeholder="#{system.user.name}" id="name" name="name"/>
                                     </div>
                                 </div>
                                 <div class="col-md-3">
                                     <div class="form-group">
-                                        <label for="sex">性别</label>
+                                        <label for="sex" th:utext="#{system.user.sex}"></label>
                                         <!--<input type="text" class="form-control" placeholder="性别" id="sex" name="sex"/>-->
                                         <select class="form-control" name="sex" id="sex">
                                             <option th:each="sex : ${allSex}"
@@ -49,22 +48,22 @@
                                         </select>
                                     </div>
                                     <div class="form-group">
-                                        <label for="dateOfBirth">出生日期:</label>
+                                        <label for="dateOfBirth" th:utext="#{system.user.dateOfBirth}"></label>
                                         <div class="input-group date">
                                             <div class="input-group-addon">
                                                 <i class="fa fa-calendar"></i>
                                             </div>
-                                            <input type="text" class="form-control pull-right datepicker" placeholder="出生日期" id="dateOfBirth" name="dateOfBirth">
+                                            <input type="text" class="form-control pull-right datepicker" th:placeholder="#{system.user.dateOfBirth}" id="dateOfBirth" name="dateOfBirth">
                                         </div>
                                     </div>
                                     <div class="form-group">
-                                        <label for="mail">邮箱</label>
-                                        <input type="text" class="form-control" placeholder="邮箱" id="mail" name="mail"/>
+                                        <label for="mail" th:utext="#{system.user.email}"></label>
+                                        <input type="text" class="form-control" th:placeholder="#{system.user.email}" id="mail" name="mail"/>
                                     </div>
                                 </div>
                                 <div class="col-md-3">
                                     <div class="form-group">
-                                        <label>用户状态</label>
+                                        <label for="status" th:utext="#{system.user.status}"></label>
                                         <select class="form-control" name="status" id="status">
                                             <option th:each="status : ${allStatus}"
                                                     th:value="${status.value}"
@@ -81,28 +80,29 @@
                                 </div>
                                 <div class="col-md-3">
                                     <div class="form-group">
-                                        <label for="creator">创建人</label>
-                                        <input type="text" class="form-control" placeholder="创建人" id="creator" name="creator"/>
+                                        <label for="creator" th:utext="#{common.creator}"></label>
+                                        <input type="text" class="form-control" th:placeholder="#{common.creator}" id="creator" name="creator"/>
                                     </div>
                                     <div class="form-group">
-                                        <label>创建时间:</label>
+                                        <label for="createDateTime" th:utext="#{common.createDateTime}"></label>
                                         <div class="input-group date">
                                             <div class="input-group-addon">
                                                 <i class="fa fa-calendar"></i>
                                             </div>
-                                            <input type="text" class="form-control pull-right datepicker" placeholder="创建时间" id="creatorDateTime" name="creatorDateTime">
+                                            <input type="text" class="form-control pull-right datepicker" th:placeholder="#{common.createDateTime}" id="createDateTime" name="createDateTime">
                                         </div>
                                     </div>
                                 </div>
                                 <div class="col-md-12">
                                     <div class="form-group">
-                                        <label for="description">备注</label>
-                                        <textarea rows="5" cols="10" class="form-control" placeholder="请简单说明一下..." id="description" name="description"></textarea>
+                                        <label for="description" th:utext="#{system.user.description}"></label>
+                                        <textarea rows="5" cols="10" class="form-control" th:placeholder="#{system.user.description}" id="description" name="description"></textarea>
                                     </div>
                                 </div>
                             </div>
                             <div class="box-footer">
-                                <button type="submit" class="btn btn-primary pull-right" id="btn_add">保 存</button>
+                                <button type="submit" class="btn btn-primary pull-right"><i class="fa fa-check"></i> <span th:utext="#{common.button.save}"></span></button>
+                                <a type="button" class="btn btn-danger pull-right" style="margin-right: 10px;" th:href="@{/user/list}"><i class="fa fa-times"></i> <span th:utext="#{common.button.cancel}"></span></a>
                             </div>
                         </form>
                     </div>

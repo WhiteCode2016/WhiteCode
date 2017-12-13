@@ -46,17 +46,29 @@
 
     <!-- 4.添加用户信息 -->
     <insert id="insertUser">
-        INSERT INTO sys_user(user_id,username,password,name,sex,date_of_birth,mail,secret_key,status,descriptioncreator,
-        create_date_time,modifier,modify_date_time)
-        VALUES (#{userId},#{username},#{password},#{name},#{sex},#{dateOfBirth},#{mail},#{secretKey},#{status},
-        #{creator},#{createDateTime},#{modifier},#{modifyDateTime})
+        INSERT INTO sys_user(user_id,username,password,name,sex,date_of_birth,mail,secret_key,status,description)
+        VALUES (#{userId},#{username},#{password},#{name},#{sex},#{dateOfBirth},#{mail},#{secretKey},#{status},#{description})
     </insert>
 
     <!-- 5、更新用户信息-->
-    <update id="updateUser">
+  <!--  <update id="updateUser">
         UPDATE sys_user
         <set>
             secret_key = #{secretKey}
+        </set>
+        WHERE user_id = #{userId}
+    </update>-->
+
+    <update id="updateUser">
+        UPDATE sys_user
+        <set>
+            name = #{name},
+            sex = #{sex},
+            date_of_birth = #{dateOfBirth},
+            mail = #{mail},
+            secret_key = #{secretKey},
+            status = #{status},
+            description = #{description}
         </set>
         WHERE user_id = #{userId}
     </update>

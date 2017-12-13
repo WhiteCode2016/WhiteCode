@@ -39,7 +39,7 @@ public class SysUser extends AuditableEntity{
     private Date dateOfBirth;
     // 邮箱
     @Column(name = "MAIL")
-    private String email;
+    private String mail;
     // 密钥（用于密码找回）
     @Column(name = "SECRET_KEY")
     private String secretKey;
@@ -103,12 +103,12 @@ public class SysUser extends AuditableEntity{
         this.dateOfBirth = dateOfBirth;
     }
 
-    public String getEmail() {
-        return email;
+    public String getMail() {
+        return mail;
     }
 
-    public void setEmail(String email) {
-        this.email = email;
+    public void setMail(String mail) {
+        this.mail = mail;
     }
 
     public String getSecretKey() {

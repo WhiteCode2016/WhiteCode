@@ -1,19 +1,7 @@
 <!DOCTYPE html>
-<html lang="en" xmlns:th="http://www.thymeleaf.org" >
-    <head>
-        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
-        <meta http-equiv="X-UA-Compatible" content="IE=edge"/>
-        <meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport"/>
-        <meta content="权限系统，后台管理系统" name="description"/>
-        <meta content="思雨制作" name="author"/>
-        <title>登 录</title>
-        <!-- 常用CSS -->
-        <link rel="shortcut icon" href="" showDefaultImage="true" icon="true" type="image/x-icon"/>
-        <link rel="stylesheet" href=" https://whitecode2016.github.io/AdminLTE/bower_components/bootstrap/dist/css/bootstrap.min.css"/>
-        <link rel="stylesheet" href=" https://whitecode2016.github.io/AdminLTE/bower_components/font-awesome/css/font-awesome.min.css"/>
-        <link rel="stylesheet" href=" https://whitecode2016.github.io/AdminLTE/bower_components/Ionicons/css/ionicons.min.css"/>
-        <link rel="stylesheet" href=" https://whitecode2016.github.io/AdminLTE/dist/css/AdminLTE.min.css"/>
-        <link rel="stylesheet" href=" https://whitecode2016.github.io/AdminLTE/dist/css/skins/_all-skins.min.css"/>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+    <head th:replace="common/head :: head(~{::title}, ~{::link})">
+        <title th:utext="#{common.login}"></title>
         <!-- iCheck -->
         <link rel="stylesheet" href=" https://whitecode2016.github.io/AdminLTE/plugins/iCheck/square/blue.css"/>
     </head>
@@ -27,29 +15,29 @@
                 <p class="login-box-msg">欢迎使用</p>
                 <form th:action="@{/login}" method="post" id="loginForm">
                     <div class="form-group has-feedback">
-                        <input type="text" class="form-control" name="username" placeholder="用户名"/>
+                        <input type="text" class="form-control" name="username" th:placeholder="#{system.user.username}"/>
                         <span class="glyphicon glyphicon-user form-control-feedback"></span>
                     </div>
                     <div class="form-group has-feedback">
-                        <input type="password" class="form-control" name="password" placeholder="密码"/>
+                        <input type="password" class="form-control" name="password" th:placeholder="#{system.user.password}"/>
                         <span class="glyphicon glyphicon-lock form-control-feedback"></span>
                     </div>
                     <div class="row">
                         <div class="col-xs-8">
                             <div class="checkbox icheck">
                                 <label>
-                                    <input type="checkbox" name="rememberMe"/> 记住密码
+                                    <input type="checkbox" name="rememberMe"/> <span th:utext="#{common.remember.password}"></span>
                                 </label>
                             </div>
                         </div>
                         <div class="col-xs-4">
-                            <button type="button" class="btn btn-primary btn-block btn-flat" id="btn_login">登 录</button>
+                            <button type="button" class="btn btn-primary btn-block btn-flat" id="btn_login" th:utext="#{common.login}"></button>
                         </div>
                     </div>
                 </form>
 
-                <a th:href="@{/findPassword}">忘记密码</a><br/>
-                <a th:href="@{/register}" class="text-center">注册新账号</a>
+                <a th:href="@{/common/findPassword}" th:utext="#{common.forgot.password}"></a><br/>
+                <a th:href="@{/common/register}" class="text-center" th:utext="#{common.register}"></a>
             </div>
         </div>
         <!-- 常用JS -->

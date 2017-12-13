@@ -6,10 +6,10 @@
 
     <div class="content-wrapper">
         <section class="content-header">
-            <h1>用户编辑</h1>
+            <h1 th:utext="#{common.manage.user.edit}"></h1>
             <ol class="breadcrumb">
-                <li><a href="#"><i class="fa fa-dashboard"></i> 系统管理</a></li>
-                <li class="active">用户编辑</li>
+                <li><a href="#"><i class="fa fa-dashboard"></i> <span th:utext="#{common.manage.system}"></span></a></li>
+                <li class="active" th:utext="#{common.manage.user.edit}"></li>
             </ol>
         </section>
         <section class="content">
@@ -17,28 +17,32 @@
                 <div class="col-md-12">
                     <div class="box box-primary">
                         <div class="box-header with-border">
-                            <h3 class="box-title">用户编辑</h3>
+                            <h3 class="box-title" th:utext="#{common.manage.user.edit}"></h3>
                         </div>
-                        <form role="form" th:action="@{/user/}" method="post" id="addForm" enctype="multipart/form-data" >
+                        <form role="form" th:action="@{/user/}" method="post" id="editForm" >
                             <div class="box-body">
                                 <div class="col-md-3">
                                     <div class="form-group">
-                                        <label for="userId">编号</label>
-                                        <input type="text" class="form-control" disabled="disabled" placeholder="编号" id="userId" name="userId" th:value="${sysUser.userId}"/>
+                                        <input type="hidden" name="userId" th:value="${sysUser.userId}"/>
+                                        <input type="hidden" name="username" th:value="${sysUser.username}"/>
+                                        <label for="userId" th:utext="#{system.user.userId}"></label>
+                                        <input type="text" class="form-control" disabled="disabled" th:placeholder="#{system.user.userId}"
+                                               id="userId" name="userId" th:value="${sysUser.userId}"/>
                                     </div>
                                     <div class="form-group">
-                                        <label for="username">账号</label>
-                                        <input type="text" class="form-control" disabled="disabled" placeholder="账号" id="username" name="username" th:value="${sysUser.username}"/>
+                                        <label for="username" th:utext="#{system.user.username}"></label>
+                                        <input type="text" class="form-control" disabled="disabled" th:placeholder="#{system.user.username}"
+                                               id="username" name="username" th:value="${sysUser.username}"/>
                                     </div>
                                     <div class="form-group">
-                                        <label for="name">姓名</label>
-                                        <input type="text" class="form-control" placeholder="姓名" id="name" name="name" th:value="${sysUser.name}"/>
+                                        <label for="name" th:utext="#{system.user.name}"></label>
+                                        <input type="text" class="form-control" th:placeholder="#{system.user.name}"
+                                               id="name" name="name" th:value="${sysUser.name}"/>
                                     </div>
                                 </div>
                                 <div class="col-md-3">
                                     <div class="form-group">
-                                        <label for="sex">性别</label>
-                                        <!--<input type="text" class="form-control" placeholder="性别" id="sex" name="sex"/>-->
+                                        <label for="sex" th:utext="#{system.user.sex}"></label>
                                         <select class="form-control" name="sex" id="sex" th:field="${sysUser.sex}">
                                             <option th:each="sex : ${allSex}"
                                                     th:value="${sex.value}"
@@ -47,22 +51,24 @@
                                         </select>
                                     </div>
                                     <div class="form-group">
-                                        <label for="dateOfBirth">出生日期:</label>
+                                        <label for="dateOfBirth" th:utext="#{system.user.dateOfBirth}"></label>
                                         <div class="input-group date">
                                             <div class="input-group-addon">
                                                 <i class="fa fa-calendar"></i>
                                             </div>
-                                            <input type="text" class="form-control pull-right datepicker" placeholder="出生日期" id="dateOfBirth" name="dateOfBirth" th:value="${#dates.format(sysUser.dateOfBirth,'yyyy/MM/dd')}"/>
+                                            <input type="text" class="form-control pull-right datepicker" th:placeholder="#{system.user.dateOfBirth}"
+                                                   id="dateOfBirth" name="dateOfBirth" th:value="${#dates.format(sysUser.dateOfBirth,'yyyy/MM/dd')}"/>
                                         </div>
                                     </div>
                                     <div class="form-group">
-                                        <label for="email">邮箱</label>
-                                        <input type="text" class="form-control" placeholder="邮箱" id="email" name="email" th:value="${sysUser.email}"/>
+                                        <label for="mail" th:utext="#{system.user.email}"></label>
+                                        <input type="text" class="form-control" th:placeholder="#{system.user.email}"
+                                               id="mail" name="mail" th:value="${sysUser.mail}"/>
                                     </div>
                                 </div>
                                 <div class="col-md-3">
                                     <div class="form-group">
-                                        <label>用户状态</label>
+                                        <label for="status" th:utext="#{system.user.status}"></label>
                                         <select class="form-control" name="status" id="status" th:field="${sysUser.status}">
                                             <option th:each="status : ${allStatus}"
                                                     th:value="${status.value}"
@@ -79,28 +85,32 @@
                                 </div>
                                 <div class="col-md-3">
                                     <div class="form-group">
-                                        <label for="creator">创建人</label>
-                                        <input type="text" class="form-control" disabled="disabled" placeholder="创建人" id="creator" name="creator" th:value="${sysUser.creator}"/>
+                                        <label for="creator" th:utext="#{common.creator}"></label>
+                                        <input type="text" class="form-control" disabled="disabled" th:placeholder="#{common.creator}"
+                                               id="creator" name="creator" th:value="${sysUser.creator}"/>
                                     </div>
                                     <div class="form-group">
-                                        <label>创建时间:</label>
+                                        <label for="createDateTime" th:utext="#{common.createDateTime}"></label>
                                         <div class="input-group date">
                                             <div class="input-group-addon">
                                                 <i class="fa fa-calendar"></i>
                                             </div>
-                                            <input type="text" class="form-control pull-right datepicker" disabled="disabled" placeholder="创建时间" id="createDateTime" name="createDateTime" th:value="${#dates.format(sysUser.createDateTime,'yyyy/MM/dd')}"/>
+                                            <input type="text" class="form-control pull-right datepicker" disabled="disabled" th:placeholder="#{common.createDateTime}"
+                                                   id="createDateTime" name="createDateTime" th:value="${#dates.format(sysUser.createDateTime,'yyyy/MM/dd')}"/>
                                         </div>
                                     </div>
                                 </div>
                                 <div class="col-md-12">
                                     <div class="form-group">
-                                        <label for="description">备注</label>
-                                        <textarea rows="5" cols="10" class="form-control" placeholder="请简单说明一下..." id="description" name="description" th:text="${sysUser.description}"></textarea>
+                                        <label for="description" th:utext="#{system.user.description}"></label>
+                                        <textarea rows="5" cols="10" class="form-control" th:placeholder="#{system.user.description}"
+                                                  id="description" name="description" th:text="${sysUser.description}"></textarea>
                                     </div>
                                 </div>
                             </div>
                             <div class="box-footer">
-                                <button type="submit" class="btn btn-primary pull-right" id="btn_add">保 存</button>
+                                <button type="button" class="btn btn-primary pull-right" id="btn_edit"><i class="fa fa-check"></i> <span th:utext="#{common.button.save}"></span></button>
+                                <a type="button" class="btn btn-danger pull-right" style="margin-right: 10px;" th:href="@{/user/list}"><i class="fa fa-times"></i> <span th:utext="#{common.button.cancel}"></span></a>
                             </div>
                         </form>
                     </div>
@@ -120,6 +130,31 @@
                 todayHighlight:true,
                 autoclose: true
             });
-        })
+
+            $(document).delegate("#btn_edit", 'click',function () {
+                var formData = new FormData($("#editForm")[0]);
+                $.ajax({
+                    url: "/user/edit",
+                    type: "POST",
+                    async: true,
+                    cache: false,
+                    contentType: false,
+                    processData: false,
+                    data: formData,
+                    success: function (data) {
+                        if (data.code == 100) {
+                            alert("编辑成功")
+                        } else {
+                            alert("编辑失败")
+                        }
+                    },
+                    error: function (data) {
+                        alert("请求异常")
+                    }
+                });
+            });
+        });
+
+
     </script>
 </html>

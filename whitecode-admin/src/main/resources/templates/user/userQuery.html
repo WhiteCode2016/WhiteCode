@@ -18,7 +18,7 @@
                             <i class="fa fa-search"></i>
                             <h3 class="box-title" th:utext="#{common.manage.user.query}">用户查询</h3>
                             <div class="box-tools pull-right">
-                                <a class="btn btn-primary btn-sm" th:href="@{/user/add}"><i class="fa fa-plus"></i> 新增</a>
+                                <a class="btn btn-primary btn-sm" th:href="@{/user/add}"><i class="fa fa-plus"></i> <span th:utext="#{common.button.insert}"></span></a>
                             </div>
                         </div>
                         <div class="box-body">
@@ -26,7 +26,7 @@
                                 <form method="post">
                                     <div class="form-group">
                                         <div class="col-sm-2">
-                                            <input type="text" class="form-control" id="username" name="username" placeholder="用户名称">
+                                            <input type="text" class="form-control" id="username" name="username" th:placeholder="#{system.user.username}">
                                         </div>
                                     </div>
                                     <div class="form-group">
@@ -41,8 +41,8 @@
                                     </div>
                                     <div class="form-group">
                                         <div class="col-sm-3">
-                                            <button type="button" class="btn btn-sm btn-success" id="search"><i class="fa fa-search"></i> 查询</button>
-                                            <button type="button" class="btn btn-sm btn-primary" id="reset"><i class="fa fa-refresh"></i> 重置</button>
+                                            <button type="button" class="btn btn-sm btn-success" id="search"><i class="fa fa-search"></i> <span th:utext="#{common.button.query}"></span></button>
+                                            <button type="button" class="btn btn-sm btn-primary" id="reset"><i class="fa fa-refresh"></i> <span th:utext="#{common.button.reset}"></span></button>
                                         </div>
                                     </div>
                                 </form>
@@ -52,11 +52,11 @@
                                 <tr>
                                     <!--<th><input type="checkbox" name="allChecked" /></th>-->
                                     <!-- 编号 -->
-                                    <th th:utext="#{user.userId}"></th>
+                                    <th th:utext="#{system.user.userId}"></th>
                                     <!-- 账号 -->
-                                    <th th:utext="#{user.username}"></th>
+                                    <th th:utext="#{system.user.username}"></th>
                                     <!-- 姓名 -->
-                                    <th th:utext="#{user.name}"></th>
+                                    <th th:utext="#{system.user.name}"></th>
                                     <!-- 创建人 -->
                                     <th th:utext="#{common.creator}"></th>
                                     <!-- 创建日期 -->
@@ -66,7 +66,7 @@
                                     <!-- 修改日期 -->
                                     <th th:utext="#{common.modifyDateTime}"></th>
                                     <!-- 状态 -->
-                                    <th th:utext="#{user.status}"></th>
+                                    <th th:utext="#{system.user.status}"></th>
                                     <!-- 操作 -->
                                     <th th:utext="#{common.operation}"></th>
                                 </tr>

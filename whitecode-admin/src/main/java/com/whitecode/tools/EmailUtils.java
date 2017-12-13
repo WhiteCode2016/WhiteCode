@@ -25,7 +25,7 @@ public class EmailUtils {
             message.setSubject("帐户激活邮件");
             message.setSentDate(new Date());
             message.setFrom(new InternetAddress(WhiteCodeAdminContants.SYSTEM_MAIL));
-            message.setRecipient(Message.RecipientType.TO, new InternetAddress(user.getEmail()));
+            message.setRecipient(Message.RecipientType.TO, new InternetAddress(user.getMail()));
             message.setContent("<a href='" + GenerateLinkUtils.generateActivateLink(user)+"'>点击激活帐户</a>","text/html;charset=utf-8");
             // 发送邮件
             Transport.send(message);
@@ -43,7 +43,7 @@ public class EmailUtils {
             message.setSubject("找回您的帐户与密码");
             message.setSentDate(new Date());
             message.setFrom(new InternetAddress(WhiteCodeAdminContants.SYSTEM_MAIL));
-            message.setRecipient(Message.RecipientType.TO, new InternetAddress(user.getEmail()));
+            message.setRecipient(Message.RecipientType.TO, new InternetAddress(user.getMail()));
             message.setContent("要使用新的密码, 请使用以下链接启用密码:<br/><a href='" + GenerateLinkUtils.generateResetPwdLink(user) +"'>点击重新设置密码</a>","text/html;charset=utf-8");
             // 发送邮件
             Transport.send(message);

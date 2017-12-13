@@ -24,6 +24,11 @@ public class HomeController {
         return "/login";
     }
 
+    @RequestMapping(value = "/common/register", method = RequestMethod.GET)
+    public String register() {
+        return "/register";
+    }
+
     @RequestMapping(value = "/403", method = RequestMethod.GET)
     public String unauthorizedRole(){
         return "/403";

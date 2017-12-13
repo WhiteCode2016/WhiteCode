@@ -1,6 +1,7 @@
 package com.whitecode.service;
 
 import com.whitecode.dto.SysUserDto;
+import com.whitecode.dto.SysUserInfoDto;
 import com.whitecode.entity.SysUser;
 import com.whitecode.page.DataTablePage;
 
@@ -23,9 +24,10 @@ public interface SysUserService {
     /** 按条件查询用户信息(DataTable分页) */
     DataTablePage<SysUser> getUsersByPage(SysUserDto sysUserDto, HttpServletRequest request);
     /** 添加用户信息 */
-    void insertUser(SysUser sysUser);
+    void insertUser(SysUserInfoDto sysUserInfoDto);
     /** 更新用户信息 */
     void updateUser(SysUser sysUser);
+    void updateUser(SysUserInfoDto sysUserInfoDto);
     /**  删除用户信息 */
     void deleteUser(Integer userId);
 }

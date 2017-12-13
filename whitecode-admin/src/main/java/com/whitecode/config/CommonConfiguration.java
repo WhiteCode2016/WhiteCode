@@ -4,12 +4,17 @@ import com.google.code.kaptcha.Constants;
 import com.google.code.kaptcha.servlet.KaptchaServlet;
 import org.springframework.boot.web.servlet.MultipartConfigFactory;
 import org.springframework.boot.web.servlet.ServletRegistrationBean;
+import org.springframework.context.ApplicationContext;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
-
+import org.thymeleaf.spring4.SpringTemplateEngine;
+import org.thymeleaf.spring4.templateresolver.SpringResourceTemplateResolver;
+import org.thymeleaf.spring4.view.ThymeleafViewResolver;
+import org.thymeleaf.templatemode.TemplateMode;
 import javax.servlet.MultipartConfigElement;
 
 /**
+ * 常用配置
  * Created by White on 2017/12/12.
  */
 @Configuration
@@ -59,4 +64,33 @@ public class CommonConfiguration {
 //      kaptcha.image.height  验证码图片高度  默认为50
         return registrationBean;
     }
+
+   /* *//**************************Thymeleaf配置**************************//*
+    // 模板解析引擎
+    @Bean
+    public SpringResourceTemplateResolver templateResolver() {
+        SpringResourceTemplateResolver templateResolver = new SpringResourceTemplateResolver();
+        templateResolver.setPrefix("/templates");      //地址前缀
+        templateResolver.setSuffix(".html");           //后缀
+        templateResolver.setCacheable(Boolean.FALSE);  //不缓存
+        templateResolver.setTemplateMode(TemplateMode.HTML);
+        return templateResolver;
+    }
+
+    // 模板引擎
+    @Bean
+    public SpringTemplateEngine templateEngine(SpringResourceTemplateResolver templateResolver) {
+        SpringTemplateEngine templateEngine = new SpringTemplateEngine();
+        templateEngine.setTemplateResolver(templateResolver);
+        templateEngine.setEnableSpringELCompiler(Boolean.TRUE);
+        return templateEngine;
+    }
+
+    // 设置视图解析器
+    @Bean
+    public ThymeleafViewResolver viewResolver(SpringTemplateEngine templateEngine) {
+        ThymeleafViewResolver viewResolver = new ThymeleafViewResolver();
+        viewResolver.setTemplateEngine(templateEngine);
+        return viewResolver;
+    }*/
 }

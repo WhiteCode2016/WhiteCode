@@ -1,10 +1,8 @@
 package com.whitecode.tools;
 
 import com.whitecode.bean.LabelValueBean;
-import com.whitecode.enums.StatusEnum;
 import org.springframework.context.MessageSource;
 import org.springframework.context.i18n.LocaleContextHolder;
-
 import java.util.ArrayList;
 import java.util.EnumSet;
 import java.util.List;

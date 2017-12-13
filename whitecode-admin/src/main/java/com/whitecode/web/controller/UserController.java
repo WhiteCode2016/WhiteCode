@@ -53,8 +53,14 @@ public class UserController extends BaseController {
 
     @RequestMapping(value = "/", method = RequestMethod.POST)
     public JsonResult addUser(SysUserInfoDto sysUserInfoDto) {
+        sysUserService.insertUser(sysUserInfoDto);
+        return JsonResultUtils.success();
+    }
+
+    @RequestMapping(value = "/edit", method = RequestMethod.POST)
+    public JsonResult upadteUser(SysUserInfoDto sysUserInfoDto) {
         System.out.println(sysUserInfoDto);
-//        sysUserService.insertUser(sysUser);
+        sysUserService.updateUser(sysUserInfoDto);
         return JsonResultUtils.success();
     }
 

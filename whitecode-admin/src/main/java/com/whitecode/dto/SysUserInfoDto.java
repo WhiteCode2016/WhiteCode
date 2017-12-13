@@ -24,7 +24,7 @@ public class SysUserInfoDto {
     private SexEnum sex;
     @Temporal(TemporalType.DATE)
     private Date dateOfBirth;
-    private String email;
+    private String mail;
     private String secretKey;
     @Enumerated(EnumType.STRING)
     private StatusEnum status;
@@ -78,12 +78,12 @@ public class SysUserInfoDto {
         this.dateOfBirth = dateOfBirth;
     }
 
-    public String getEmail() {
-        return email;
+    public String getMail() {
+        return mail;
     }
 
-    public void setEmail(String email) {
-        this.email = email;
+    public void setMail(String mail) {
+        this.mail = mail;
     }
 
     public String getSecretKey() {
@@ -119,7 +119,7 @@ public class SysUserInfoDto {
                 ", name='" + name + '\'' +
                 ", sex=" + sex +
                 ", dateOfBirth=" + dateOfBirth +
-                ", email='" + email + '\'' +
+                ", mail='" + mail + '\'' +
                 ", secretKey='" + secretKey + '\'' +
                 ", status=" + status +
                 ", description='" + description + '\'' +
