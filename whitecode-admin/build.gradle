@@ -8,6 +8,7 @@ dependencies {
 	compile("org.thymeleaf:thymeleaf:3.0.2.RELEASE")
 	compile("org.thymeleaf:thymeleaf-spring4:3.0.2.RELEASE")
 	compile("nz.net.ultraq.thymeleaf:thymeleaf-layout-dialect:2.1.1")
+	compile("com.github.theborakompanioni:thymeleaf-extras-shiro:2.0.0")
 	// 邮件
 	compile('org.springframework.boot:spring-boot-starter-mail')
 	// Shiro安全框架

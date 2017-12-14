@@ -1,5 +1,5 @@
 <header class="main-header"
-        xmlns:sec="http://www.thymeleaf.org/extras/spring-security"
+        xmlns:shiro="http://www.pollix.at/thymeleaf/shiro"
         xmlns:th="http://www.thymeleaf.org"
         th:fragment="header">
     <!-- 系统logo -->
@@ -130,7 +130,8 @@
                     <a href="#" class="dropdown-toggle" data-toggle="dropdown">
                         <img src="https://whitecode2016.github.io/AdminLTE/dist/img/user2-160x160.jpg" class="user-image" alt="User Image"/>
                         <!-- 当前用户名 -->
-                        <span class="hidden-xs">Administrator</span>
+                        <!--<span class="hidden-xs">Administrator</span>-->
+                        <span class="hidden-xs"><shiro:principal property="name"/></span>
                     </a>
                     <ul class="dropdown-menu">
                        <!-- <li class="user-header">
@@ -154,8 +155,8 @@
                         <div class="box box-widget widget-user">
                             <!-- Add the bg color to the header using any of the bg-* classes -->
                             <div class="widget-user-header bg-aqua-active">
-                                <h3 class="widget-user-username">admin</h3>
-                                <h5 class="widget-user-desc">Founder &amp; CEO</h5>
+                                <h3 class="widget-user-username"><shiro:principal property="name"/></h3>
+                                <h5 class="widget-user-desc"><shiro:principal property="description"/></h5>
                             </div>
                             <div class="widget-user-image">
                                 <img class="img-circle" src="https://whitecode2016.github.io/AdminLTE/dist/img/user2-160x160.jpg" alt="User Avatar">

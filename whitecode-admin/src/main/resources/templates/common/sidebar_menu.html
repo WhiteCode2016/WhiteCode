@@ -1,4 +1,5 @@
 <aside class="main-sidebar"
+       xmlns:shiro="http://www.pollix.at/thymeleaf/shiro"
        xmlns:th="http://www.thymeleaf.org"
        th:fragment="sidebar_menu">
     <section class="sidebar">
@@ -9,7 +10,7 @@
             </div>
             <div class="pull-left info">
                 <!-- 当前用户名 -->
-                <p>Administrator</p>
+                <p><shiro:principal property="name" /></p>
                 <a href="#"><i class="fa fa-circle text-success"></i> Online</a>
             </div>
         </div>
@@ -35,7 +36,7 @@
                 </a>
                 <ul class="treeview-menu">
                     <li><a th:href="@{/user/list}"><i class="glyphicon glyphicon-user"></i> 用户管理</a></li>
-                    <li><a href="#"><i class="fa fa-circle-o"></i> 角色管理</a></li>
+                    <li><a th:href="@{/role/list}"><i class="fa fa-circle-o"></i> 角色管理</a></li>
                     <li><a href="#"><i class="glyphicon glyphicon-list-alt"></i> 菜单管理</a></li>
                     <li><a href="#"><i class="fa fa-circle-o"></i> 日志管理</a></li>
                 </ul>

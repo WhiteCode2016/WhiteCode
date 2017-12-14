@@ -5,55 +5,153 @@
         <!-- iCheck -->
         <link rel="stylesheet" href=" https://whitecode2016.github.io/AdminLTE/plugins/iCheck/square/blue.css"/>
     </head>
-    <body class="hold-transition register-page">
-        <div class="register-box">
-            <div class="register-logo">
-                <a href="#"><b th:utext="#{common.register}"></b></a>
-            </div>
-
-            <div class="register-box-body">
-                <p class="login-box-msg">Register a new membership</p>
-
-                <form action="" method="post">
-                    <div class="form-group has-feedback">
-                        <input type="text" class="form-control" th:placeholder="#{system.user.username}">
-                        <span class="glyphicon glyphicon-user form-control-feedback"></span>
+    <body>
+    <div class="container">
+        <div class="row">
+            <div class="col-sm-8 col-sm-offset-2">
+                <div class="page-header">
+                    <div class="alert alert-info" role="alert">
+                        <h4>This demo shows how to integrate JQuery-validation and the Bootstrap framework.</h4>
+                        <ul>
+                            <li><a href="https://getbootstrap.com/" class="alert-link">Bootstrap home project</a>.</li>
+                        </ul>
                     </div>
-                    <div class="form-group has-feedback">
-                        <input type="email" class="form-control" th:placeholder="#{system.user.email}">
-                        <span class="glyphicon glyphicon-envelope form-control-feedback"></span>
-                    </div>
-                    <div class="form-group has-feedback">
-                        <input type="password" class="form-control" th:placeholder="#{system.user.password}">
-                        <span class="glyphicon glyphicon-lock form-control-feedback"></span>
-                    </div>
-                    <div class="form-group has-feedback">
-                        <input type="password" class="form-control" th:placeholder="#{system.user.retype.password}">
-                        <span class="glyphicon glyphicon-log-in form-control-feedback"></span>
-                    </div>
-                    <div class="row">
-                        <div class="col-xs-8">
-                            <div class="checkbox icheck">
-                                <label>
-                                    <input type="checkbox"> I agree to the <a href="#">terms</a>
-                                </label>
-                            </div>
-                        </div>
-                        <div class="col-xs-4">
-                            <button type="submit" class="btn btn-primary btn-block btn-flat" th:utext="#{common.register}"></button>
-                        </div>
-                    </div>
-                </form>
-
-                <div class="social-auth-links text-center">
-                    <p>- 第三方登录 -</p>
-                    <a href="#" class="btn btn-block btn-social btn-facebook btn-flat"><i class="fa fa-github"></i> Github</a>
-                    <a href="#" class="btn btn-block btn-social btn-google btn-flat"><i class="fa fa-google-plus"></i> Sign up using
-                        Google+</a>
                 </div>
 
-                <a th:href="@{/login}" class="text-center">I already have a account</a>
+                <div class="panel panel-default">
+                    <div class="panel-heading">
+                        <h3 class="panel-title" th:utext="#{common.register}"></h3>
+                    </div>
+                    <div class="panel-body">
+                        <form id="registerForm" method="post" class="form-horizontal" action="">
+                            <div class="form-group">
+                                <label class="col-sm-4 control-label" for="username" th:utext="#{system.user.username}"></label>
+                                <div class="col-sm-5">
+                                    <input type="text" class="form-control" id="username" name="username" th:placeholder="#{system.user.username}" />
+                                </div>
+                            </div>
+
+                            <div class="form-group">
+                                <label class="col-sm-4 control-label" for="mail" th:utext="#{system.user.email}"></label>
+                                <div class="col-sm-5">
+                                    <input type="text" class="form-control" id="mail" name="mail" th:placeholder="#{system.user.email}" />
+                                </div>
+                            </div>
+
+                            <div class="form-group">
+                                <label class="col-sm-4 control-label" for="password" th:utext="#{system.user.password}"></label>
+                                <div class="col-sm-5">
+                                    <input type="password" class="form-control" id="password" name="password" th:placeholder="#{system.user.password}" />
+                                </div>
+                            </div>
+
+                            <div class="form-group">
+                                <label class="col-sm-4 control-label" for="retypePassword" th:utext="#{system.user.retype.password}"></label>
+                                <div class="col-sm-5">
+                                    <input type="password" class="form-control" id="retypePassword" name="retypePassword" th:placeholder="#{system.user.retype.password}" />
+                                </div>
+                            </div>
+
+                            <div class="form-group">
+                                <div class="col-sm-5 col-sm-offset-4">
+                                    <div class="checkbox">
+                                        <label>
+                                            <input type="checkbox" id="agree" name="agree" value="agree" /> I agree to the <a href="#">terms</a>
+                                        </label>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="form-group">
+                                <div class="col-sm-9 col-sm-offset-4">
+                                    <button type="submit" class="btn btn-primary" th:utext="#{common.register}"></button>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                </div>
             </div>
         </div>
+    </div>
+        <!-- 常用JS -->
+        <script src=" https://whitecode2016.github.io/AdminLTE/bower_components/jquery/dist/jquery.min.js"></script>
+        <script src=" https://whitecode2016.github.io/AdminLTE/bower_components/bootstrap/dist/js/bootstrap.min.js"></script>
+        <!-- iCheck -->
+        <script src=" https://whitecode2016.github.io/AdminLTE/plugins/iCheck/icheck.min.js"></script>
+        <script th:src="@{/static/plugins/jquery-validation/jquery.validate.min.js}"></script>
+        <script type="text/javascript">
+            $(function () {
+                $( "#registerForm" ).validate( {
+                    rules: {
+                        username: {
+                            required: true,
+                            minlength: 2
+                        },
+                        mail: {
+                            required: true,
+                            email: true
+                        },
+                        password: {
+                            required: true,
+                            minlength: 5
+                        },
+                        retypePassword: {
+                            required: true,
+                            minlength: 5,
+                            equalTo: "#password"
+                        },
+                        agree: "required"
+                    },
+                    messages: {
+                        username: {
+                            required: "Please enter a username",
+                            minlength: jQuery.validator.format("Your username must consist of at least {0} characters")
+                        },
+                        mail: "Please enter a valid email address",
+                        password: {
+                            required: "Please provide a password",
+                            minlength: "Your password must be at least 5 characters long"
+                        },
+                        retypePassword: {
+                            required: "Please provide a password",
+                            minlength: "Your password must be at least 5 characters long",
+                            equalTo: "Please enter the same password as above"
+                        },
+                        agree: "Please accept our policy"
+                    },
+                    errorElement: "em",
+                    errorPlacement: function ( error, element ) {
+                        error.addClass( "help-block" );
+                        element.parents( ".col-sm-5" ).addClass( "has-feedback" );
+
+                        if ( element.prop( "type" ) === "checkbox" ) {
+                            error.insertAfter( element.parent( "label" ) );
+                        } else {
+                            error.insertAfter( element );
+                        }
+
+                        if ( !element.next( "span" )[ 0 ] ) {
+                            $( "<span class='glyphicon glyphicon-remove form-control-feedback'></span>" ).insertAfter( element );
+                        }
+                    },
+                    success: function ( label, element ) {
+                        if ( !$( element ).next( "span" )[ 0 ] ) {
+                            $( "<span class='glyphicon glyphicon-ok form-control-feedback'></span>" ).insertAfter( $( element ) );
+                        }
+                    },
+                    highlight: function ( element, errorClass, validClass ) {
+                        $( element ).parents( ".col-sm-5" ).addClass( "has-error" ).removeClass( "has-success" );
+                        $( element ).next( "span" ).addClass( "glyphicon-remove" ).removeClass( "glyphicon-ok" );
+                    },
+                    unhighlight: function ( element, errorClass, validClass ) {
+                        $( element ).parents( ".col-sm-5" ).addClass( "has-success" ).removeClass( "has-error" );
+                        $( element ).next( "span" ).addClass( "glyphicon-ok" ).removeClass( "glyphicon-remove" );
+                    }
+                    submitHandler: function (form) {
+                        form.submit();
+                    }
+                } );
+            });
+        </script>
     </body>
 </html>

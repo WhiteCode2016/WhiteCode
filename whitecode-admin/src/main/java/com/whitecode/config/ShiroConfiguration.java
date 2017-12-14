@@ -1,5 +1,6 @@
 package com.whitecode.config;
 
+import at.pollux.thymeleaf.shiro.dialect.ShiroDialect;
 import com.whitecode.shiro.SystemShiroRealm;
 import com.whitecode.shiro.filter.LoginFilter;
 import net.sf.ehcache.CacheManager;
@@ -151,6 +152,15 @@ public class ShiroConfiguration {
         r.setDefaultErrorView("error");    // No default
         r.setExceptionAttribute("ex");     // Default is "exception"
         return r;
+    }
+
+    /**
+     * ShiroDialect，为了在thymeleaf里使用shiro的标签的bean
+     * @return
+     */
+    @Bean
+    public ShiroDialect shiroDialect() {
+        return new ShiroDialect();
     }
 
 }
