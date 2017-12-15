@@ -1,5 +1,9 @@
 package com.whitecode.entity;
 
+import com.whitecode.enums.QuartzStatusEnum;
+
+import javax.persistence.EnumType;
+import javax.persistence.Enumerated;
 import java.io.Serializable;
 
 /**
@@ -15,7 +19,8 @@ public class ScheduleJob implements Serializable {
     // 任务分组
     private String jobGroup;
     // 任务状态 0禁用 1启用 2删除
-    private String jobStatus;
+    @Enumerated(EnumType.STRING)
+    private QuartzStatusEnum jobStatus;
     // 任务类型（是否异步）
     private String jobType;
     // 任务运行时间表达式
@@ -55,11 +60,11 @@ public class ScheduleJob implements Serializable {
         this.jobGroup = jobGroup;
     }
 
-    public String getJobStatus() {
+    public QuartzStatusEnum getJobStatus() {
         return jobStatus;
     }
 
-    public void setJobStatus(String jobStatus) {
+    public void setJobStatus(QuartzStatusEnum jobStatus) {
         this.jobStatus = jobStatus;
     }
 

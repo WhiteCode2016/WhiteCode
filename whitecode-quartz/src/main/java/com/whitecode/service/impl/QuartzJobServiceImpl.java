@@ -3,12 +3,13 @@ package com.whitecode.service.impl;
 import com.whitecode.QuartzManager;
 import com.whitecode.dao.mapper.QuartzJobMapper;
 import com.whitecode.entity.ScheduleJob;
+import com.whitecode.enums.QuartzStatusEnum;
 import com.whitecode.service.QuartzJobService;
 import org.apache.commons.collections4.CollectionUtils;
+import org.quartz.CronTrigger;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.scheduling.support.CronTrigger;
 import org.springframework.stereotype.Service;
 import java.util.List;
 
@@ -24,7 +25,8 @@ public class QuartzJobServiceImpl implements QuartzJobService {
 
     @Override
     public List<ScheduleJob> getAllJobs() {
-        return quartzManager.getAllJobDetail();
+//        return quartzManager.getAllJobDetail();
+        return quartzJobMapper.getAllJobs();
     }
 
     @Override
@@ -61,7 +63,7 @@ public class QuartzJobServiceImpl implements QuartzJobService {
         List<ScheduleJob> scheduleJobList = quartzJobMapper.getAllJobs();
         if (!CollectionUtils.isEmpty(scheduleJobList)) {
             for (ScheduleJob scheduleJob : scheduleJobList) {
-                CronTrigger cronTrigger = (CronTrigger) quartzManager.getCronTrigger(scheduleJob.getJobName(), scheduleJob.getJobGroup());
+                CronTrigger cronTrigger = quartzManager.getCronTrigger(scheduleJob.getJobName(), scheduleJob.getJobGroup());
                 if (cronTrigger == null) {
                     // 不存在，创建一个
                     quartzManager.createScheduleJob(scheduleJob);
@@ -82,6 +84,8 @@ public class QuartzJobServiceImpl implements QuartzJobService {
     @Override
     public void pauseJob(String jobId) {
         ScheduleJob scheduleJob = getScheduleJobById(jobId);
+        scheduleJob.setJobStatus(QuartzStatusEnum.PAUSE);
+        quartzJobMapper.updateJob(scheduleJob);
         quartzManager.pauseJob(scheduleJob.getJobName(),scheduleJob.getJobGroup());
     }
 
@@ -94,6 +98,8 @@ public class QuartzJobServiceImpl implements QuartzJobService {
     @Override
     public void resumeJob(String jobId) {
         ScheduleJob scheduleJob = getScheduleJobById(jobId);
+        scheduleJob.setJobStatus(QuartzStatusEnum.NORMAL);
+        quartzJobMapper.updateJob(scheduleJob);
         quartzManager.resumeJob(scheduleJob.getJobName(),scheduleJob.getJobGroup());
     }
 

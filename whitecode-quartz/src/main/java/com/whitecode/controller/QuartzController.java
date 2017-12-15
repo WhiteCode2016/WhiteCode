@@ -129,6 +129,7 @@ public class QuartzController {
     @RequestMapping("/quartzList")
     public String listJob(Model model) {
         List<ScheduleJob> scheduleJobList = quartzJobService.getAllJobs();
+        System.out.println(scheduleJobList);
         model.addAttribute("scheduleJobList",scheduleJobList);
         return "/quartz/quartz_list";
     }

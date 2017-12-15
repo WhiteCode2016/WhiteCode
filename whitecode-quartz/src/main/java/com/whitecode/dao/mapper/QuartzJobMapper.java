@@ -16,5 +16,4 @@ public interface QuartzJobMapper {
     void updateJob(ScheduleJob scheduleJob);
     // 删除job
     void deleteJob(String jobId);
-
 }

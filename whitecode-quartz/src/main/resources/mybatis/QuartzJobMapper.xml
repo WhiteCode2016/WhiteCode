@@ -7,7 +7,7 @@
             job_name,
             job_group,
             job_status,
-             job_type,
+            job_type,
             cron_expression,
             bean_class,
             execute_method,

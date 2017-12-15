@@ -1,6 +1,7 @@
 package com.whitecode;
 
 import com.whitecode.entity.ScheduleJob;
+import com.whitecode.enums.QuartzStatusEnum;
 import com.whitecode.factory.AsyncQuartzJobFactory;
 import com.whitecode.factory.SyncQuartzJobFactory;
 import org.quartz.*;
@@ -65,19 +66,10 @@ public class QuartzManager {
      * @param scheduleJob
      */
     public void createScheduleJob(ScheduleJob scheduleJob) {
-        String jobId = scheduleJob.getJobId();
         String jobName = scheduleJob.getJobName();
         String jobGroup = scheduleJob.getJobGroup();
         String cronExpression = scheduleJob.getCronExpression();
         String jobType = scheduleJob.getJobType();
-        String jobDesc = scheduleJob.getJobDesc();
-        String beanClass = scheduleJob.getBeanClass();
-        String executeMethod = scheduleJob.getExecuteMethod();
-        JobDataMap jobDataMap = new JobDataMap();
-        jobDataMap.put("jobId",jobId);
-        jobDataMap.put("jobType",jobType);
-        jobDataMap.put("beanClass",beanClass);
-        jobDataMap.put("executeMethod",executeMethod);
 
         Class<? extends Job> jobClass = jobType.equals("ASYNC") ? AsyncQuartzJobFactory.class : SyncQuartzJobFactory.class;
 
@@ -85,16 +77,12 @@ public class QuartzManager {
         JobDetail jobDetail = JobBuilder.newJob(jobClass)
                 .withIdentity(jobName, jobGroup)
                 .storeDurably(true)
-                .usingJobData(jobDataMap)
-                .withDescription(jobDesc)
                 .build();
         // 表达式调度构建器
         CronScheduleBuilder scheduleBuilder = CronScheduleBuilder.cronSchedule(cronExpression);
         // 按新的cronExpression表达式构建一个新的trigger
         CronTrigger trigger = TriggerBuilder.newTrigger()
                 .withIdentity(jobName, jobGroup)
-                .usingJobData(jobDataMap)
-                .withDescription(jobDesc)
                 .forJob(jobDetail)
                 .withSchedule(scheduleBuilder)
                 .build();
@@ -265,7 +253,8 @@ public class QuartzManager {
                     job.setBeanClass(jobDataMap.getString("beanClass"));
                     job.setExecuteMethod(jobDataMap.getString("executeMethod"));
                     Trigger.TriggerState triggerState = scheduler.getTriggerState(trigger.getKey());
-                    job.setJobStatus(triggerState.name());
+//                    job.setJobStatus(triggerState.name());
+                    job.setJobStatus(QuartzStatusEnum.valueOf(triggerState.name()));
                     if (trigger instanceof CronTrigger) {
                         CronTrigger cronTrigger = (CronTrigger)trigger;
                         String cronExpression = cronTrigger.getCronExpression();
@@ -302,7 +291,8 @@ public class QuartzManager {
                     job.setBeanClass(jobDataMap.getString("beanClass"));
                     job.setExecuteMethod(jobDataMap.getString("excuteMethod"));
                     Trigger.TriggerState triggerState = scheduler.getTriggerState(trigger.getKey());
-                    job.setJobStatus(triggerState.name());
+//                    job.setJobStatus(triggerState.name());
+                    job.setJobStatus(QuartzStatusEnum.valueOf(triggerState.name()));
                     job.setJobDesc(jobDetail.getDescription());
                     if (trigger instanceof CronTrigger) {
                         CronTrigger cronTrigger = (CronTrigger)trigger;

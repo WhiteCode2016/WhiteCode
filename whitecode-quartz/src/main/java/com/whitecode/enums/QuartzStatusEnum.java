@@ -4,7 +4,7 @@ package com.whitecode.enums;
  * 任务的状态
  * Created by White on 2017/10/18.
  */
-public enum QuartzEnum {
+public enum QuartzStatusEnum {
     /** 正常 */
     NORMAL,
     /** 暂停 */
