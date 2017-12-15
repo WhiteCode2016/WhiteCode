@@ -44,8 +44,8 @@ $(document).ready(function () {
             {
                 "data" : null,
                 "render":function(data, type, row, meta){
-                    return	data='<button class="btn btn-primary btn-xs" id="deleteOne" title="删除" data-id='+ row.id +'><i class="glyphicon glyphicon-trash"></i></button> ' +
-                        '<button class="btn btn-primary btn-xs" id="editOne" title="编辑"  data-id='+ row.id +'><i class="glyphicon glyphicon-edit"></i></button>';
+                    return	data='<button class="btn btn-primary btn-xs" id="deleteOne" title="删除" data-id='+ row.roleId +'><i class="glyphicon glyphicon-trash"></i></button> ' +
+                        '<button class="btn btn-primary btn-xs" id="editOne" title="编辑"  data-id='+ row.roleId +'><i class="glyphicon glyphicon-edit"></i></button>';
                 }
             }
         ]

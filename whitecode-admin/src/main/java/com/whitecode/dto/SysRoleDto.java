@@ -1,17 +1,12 @@
 package com.whitecode.dto;
 
-import com.whitecode.enums.IfEnum;
-
 /**
  * Created by White on 2017/12/14.
  */
 public class SysRoleDto {
 
-    // 角色名称
     private String roleName;
-    // 是否可用
-    private IfEnum enable;
-
+    private String enable;
 
     public String getRoleName() {
         return roleName;
@@ -21,19 +16,11 @@ public class SysRoleDto {
         this.roleName = roleName;
     }
 
-    public IfEnum getEnable() {
+    public String getEnable() {
         return enable;
     }
 
-    public void setEnable(IfEnum enable) {
+    public void setEnable(String enable) {
         this.enable = enable;
-    }
-
-    @Override
-    public String toString() {
-        return "SysRoleDto{" +
-                "roleName='" + roleName + '\'' +
-                ", enable=" + enable +
-                '}';
     }
 }

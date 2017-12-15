@@ -1,6 +1,7 @@
 package com.whitecode.service;
 
 import com.whitecode.dto.SysRoleDto;
+import com.whitecode.dto.SysRoleInfoDto;
 import com.whitecode.entity.SysRole;
 import com.whitecode.page.DataTablePage;
 
@@ -11,8 +12,11 @@ import java.util.List;
  * Created by White on 2017/12/14.
  */
 public interface SysRoleService {
+    SysRole getRoleById(Integer roleId);
     /** 根据条件查询用户 */
     List<SysRole> getRolesByCondition(SysRoleDto sysRoleDto);
     /** 按条件查询用户信息(DataTable分页) */
     DataTablePage<SysRole> getRolesByPage(SysRoleDto sysRoleDto, HttpServletRequest request);
+    void insertRole(SysRoleInfoDto sysRoleInfoDto);
+    void updateRole(SysRoleInfoDto sysRoleInfoDto);
 }

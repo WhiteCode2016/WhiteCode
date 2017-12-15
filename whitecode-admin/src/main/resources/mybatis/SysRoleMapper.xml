@@ -3,9 +3,8 @@
 <mapper namespace="com.whitecode.dao.mapper.SysRoleMapper">
     <sql id="selectColumns">
         SELECT
-            sr.role_id
+            sr.role_id,
             sr.role_name,
-            sr.password,
             sr.enable,
             sr.description,
             sr.creator,
@@ -15,8 +14,13 @@
         FROM sys_role sr
     </sql>
 
+    <select id="getRoleById" resultType="SysRole">
+        <include refid="selectColumns" />
+        WHERE sr.role_id = #{roleId}
+    </select>
+
     <!-- 3.根据条件查询用户信息 -->
-    <select id="getUsersByCondition" resultType="SysRole">
+    <select id="getRolesByCondition" resultType="SysRole">
         <include refid="selectColumns" />
         WHERE 1=1
         <if test="roleName != null and roleName != ''">
@@ -28,4 +32,21 @@
         </if>
         ORDER BY sr.create_date_time
     </select>
+
+    <!-- 4.添加用户信息 -->
+    <insert id="insertRole">
+        INSERT INTO sys_role(role_id,role_name,enable,description)
+        VALUES (#{roleId},#{roleName},#{enable},#{description})
+    </insert>
+
+    <update id="updateRole">
+        UPDATE sys_role
+        <set>
+            role_Name = #{roleName},
+            enable = #{enable},
+            description = #{description}
+        </set>
+        WHERE role_id = #{roleId}
+    </update>
+
 </mapper>

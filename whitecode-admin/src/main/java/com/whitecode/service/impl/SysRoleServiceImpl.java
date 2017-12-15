@@ -4,6 +4,7 @@ import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
 import com.whitecode.dao.mapper.SysRoleMapper;
 import com.whitecode.dto.SysRoleDto;
+import com.whitecode.dto.SysRoleInfoDto;
 import com.whitecode.entity.SysRole;
 import com.whitecode.page.DataTablePage;
 import com.whitecode.service.SysRoleService;
@@ -21,6 +22,11 @@ public class SysRoleServiceImpl implements SysRoleService {
 
     @Resource
     private SysRoleMapper sysRoleMapper;
+
+    @Override
+    public SysRole getRoleById(Integer roleId) {
+        return sysRoleMapper.getRoleById(roleId);
+    }
 
     @Override
     public List<SysRole> getRolesByCondition(SysRoleDto sysRoleDto) {
@@ -46,5 +52,15 @@ public class SysRoleServiceImpl implements SysRoleService {
 
         //返回数据到页面
         return dataTable;
+    }
+
+    @Override
+    public void insertRole(SysRoleInfoDto sysRoleInfoDto) {
+        sysRoleMapper.insertRole(sysRoleInfoDto);
+    }
+
+    @Override
+    public void updateRole(SysRoleInfoDto sysRoleInfoDto) {
+        sysRoleMapper.updateRole(sysRoleInfoDto);
     }
 }

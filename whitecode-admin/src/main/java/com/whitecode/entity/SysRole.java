@@ -86,4 +86,16 @@ public class SysRole extends AuditableEntity {
     public void setSysUsers(List<SysUser> sysUsers) {
         this.sysUsers = sysUsers;
     }
+
+    @Override
+    public String toString() {
+        return "SysRole{" +
+                "roleId=" + roleId +
+                ", roleName='" + roleName + '\'' +
+                ", enable=" + enable +
+                ", description='" + description + '\'' +
+                ", permissions=" + permissions +
+                ", sysUsers=" + sysUsers +
+                '}';
+    }
 }
