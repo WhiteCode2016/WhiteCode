@@ -1,54 +1,26 @@
-package com.whitecode.entity;
+package com.whitecode.dto;
 
-import com.whitecode.common.WhiteCodeAdminContants;
 import com.whitecode.enums.IfEnum;
 import com.whitecode.enums.TypeEnum;
 
-import javax.persistence.*;
-import java.util.List;
+import javax.persistence.EnumType;
+import javax.persistence.Enumerated;
 
 /**
- * 权限基本信息类
- * Created by White on 2017/9/7.
+ * Created by White on 2017/12/18.
  */
-@Entity
-@Table(name = "sys_permission",schema = WhiteCodeAdminContants.DB_SCHEMA_NAME)
-public class SysPermission extends AuditableEntity {
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "PER_ID",length = 11)
-    // 主键
+public class SysPermissionInfoDto {
     private Long perId;
-    // 名称.
-    @Column(name = "PER_NAME",length = 30)
     private String perName;
-    // 资源类型，[menu|button]
-    @Column(name = "TYPE")//columnDefinition = "enum('menu','button')"
     @Enumerated(EnumType.STRING)
     private TypeEnum type;
-    // 资源路径.
-    @Column(name = "URL")
     private String url;
-    // 权限字符串,menu例子：role:*，button例子：role:create,role:update,role:delete,role:view
-    @Column(name = "PERMISSION")
     private String permission;
-    // 父编号
-    @Column(name = "PARENT_ID")
     private Long parentId;
-    // 父编号列表
-    @Column(name = "PARENT_IDS")
     private String parentIds;
-    // 是否可用
-    @Column(name = "ENABLE")
     @Enumerated(EnumType.STRING)
     private IfEnum enable;
-    // 描述
-    @Column(name = "DESCRIPTION")
     private String description;
-
-    @ManyToMany
-    @JoinTable(name = "SysRolePermission", joinColumns = {@JoinColumn(name = "PER_ID")}, inverseJoinColumns = {@JoinColumn(name = "ROLE_ID")})
-    private List<SysRole> roles;
 
     public Long getPerId() {
         return perId;
@@ -114,19 +86,26 @@ public class SysPermission extends AuditableEntity {
         this.enable = enable;
     }
 
-    public List<SysRole> getRoles() {
-        return roles;
-    }
-
-    public void setRoles(List<SysRole> roles) {
-        this.roles = roles;
-    }
-
     public String getDescription() {
         return description;
     }
 
     public void setDescription(String description) {
         this.description = description;
+    }
+
+    @Override
+    public String toString() {
+        return "SysPermissionInfoDto{" +
+                "perId=" + perId +
+                ", perName='" + perName + '\'' +
+                ", type=" + type +
+                ", url='" + url + '\'' +
+                ", permission='" + permission + '\'' +
+                ", parentId=" + parentId +
+                ", parentIds='" + parentIds + '\'' +
+                ", enable=" + enable +
+                ", description='" + description + '\'' +
+                '}';
     }
 }

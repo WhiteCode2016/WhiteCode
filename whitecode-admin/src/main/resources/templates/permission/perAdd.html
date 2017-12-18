@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org" th:replace="layout/layout_v1 :: layout_v1(_,~{::link},~{::div},~{::script})">
+    <!-- bootstrap datepicker -->
+    <link rel="stylesheet" href="https://whitecode2016.github.io/AdminLTE/bower_components/bootstrap-daterangepicker/daterangepicker.css"/>
+    <link rel="stylesheet" href="https://whitecode2016.github.io/AdminLTE/bower_components/bootstrap-datepicker/dist/css/bootstrap-datepicker.min.css"/>
+
+    <div class="content-wrapper">
+        <section class="content-header">
+            <h1 th:utext="#{common.manage.permission.add}"></h1>
+            <ol class="breadcrumb">
+                <li><a href="#"><i class="fa fa-dashboard"></i> <span th:utext="#{common.manage.system}"></span></a></li>
+                <li class="active" th:utext="#{common.manage.permission.add}"></li>
+            </ol>
+        </section>
+        <section class="content">
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="box box-primary">
+                        <div class="box-header with-border">
+                            <h3 class="box-title" th:utext="#{common.manage.permission.edit}"></h3>
+                        </div>
+                        <form role="form" th:action="@{/permission/}" method="post" id="addForm" >
+                            <div class="box-body">
+                                <div class="col-md-3">
+                                    <div class="form-group">
+                                        <label for="perId" th:utext="#{system.permission.perId}"></label>
+                                        <input type="text" class="form-control" th:placeholder="#{system.permission.perId}"
+                                               id="perId" name="perId"/>
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="perName" th:utext="#{system.permission.perName}"></label>
+                                        <input type="text" class="form-control" th:placeholder="#{system.permission.perName}"
+                                               id="perName" name="perName"/>
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="parentId" th:utext="#{system.permission.parentId}"></label>
+                                        <input type="text" class="form-control" th:placeholder="#{system.permission.parentId}"
+                                               id="parentId" name="parentId"/>
+                                    </div>
+                                </div>
+                                <div class="col-md-3">
+                                    <div class="form-group">
+                                        <label for="type" th:utext="#{system.permission.type}"></label>
+                                        <select class="form-control" name="type" id="type">
+                                            <option th:each="type : ${allType}"
+                                                    th:value="${type.value}"
+                                                    th:text="${type.label}">
+                                            </option>
+                                        </select>
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="url" th:utext="#{system.permission.url}"></label>
+                                        <input type="text" class="form-control" th:placeholder="#{system.permission.url}"
+                                               id="url" name="url"/>
+                                    </div>
+                                </div>
+                                <div class="col-md-3">
+                                    <div class="form-group">
+                                        <label for="enable" th:utext="#{system.permission.enable}"></label>
+                                        <select class="form-control" name="enable" id="enable">
+                                            <option th:each="enable : ${allEnable}"
+                                                    th:value="${enable.value}"
+                                                    th:text="${enable.label}">
+                                            </option>
+                                        </select>
+                                    </div>
+                                </div>
+                                <div class="col-md-12">
+                                    <div class="form-group">
+                                        <label for="description" th:utext="#{system.permission.description}"></label>
+                                        <textarea rows="5" cols="10" class="form-control" th:placeholder="#{system.permission.description}"
+                                                  id="description" name="description"></textarea>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="box-footer">
+                                <button type="submit" class="btn btn-primary pull-right" id="btn_edit"><i class="fa fa-check"></i> <span th:utext="#{common.button.save}"></span></button>
+                                <a type="button" class="btn btn-danger pull-right" style="margin-right: 10px;" th:href="@{/permission/list}"><i class="fa fa-times"></i> <span th:utext="#{common.button.cancel}"></span></a>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </div>
+
+    <script src="https://whitecode2016.github.io/AdminLTE/bower_components/bootstrap-datepicker/dist/js/bootstrap-datepicker.min.js"></script>
+    <script src="https://whitecode2016.github.io/AdminLTE/bower_components/bootstrap-datepicker/dist/locales/bootstrap-datepicker.zh-CN.min.js"></script>
+    <script>
+        $(function () {
+            $(".datepicker").datepicker({
+                startDate: '-d',// 设置开始时间为当前日期
+                format: 'yyyy/mm/dd',
+                language: 'zh-CN',
+                todayHighlight: true,
+                autoclose: true
+            });
+        })
+    </script>
+</html>

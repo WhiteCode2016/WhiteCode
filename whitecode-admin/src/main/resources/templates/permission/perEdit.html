@@ -1,0 +1,143 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org" th:replace="layout/layout_v1 :: layout_v1(_,~{::link},~{::div},~{::script})">
+    <!-- bootstrap datepicker -->
+    <link rel="stylesheet" href="https://whitecode2016.github.io/AdminLTE/bower_components/bootstrap-daterangepicker/daterangepicker.css"/>
+    <link rel="stylesheet" href="https://whitecode2016.github.io/AdminLTE/bower_components/bootstrap-datepicker/dist/css/bootstrap-datepicker.min.css"/>
+
+    <div class="content-wrapper">
+        <section class="content-header">
+            <h1 th:utext="#{common.manage.permission.edit}"></h1>
+            <ol class="breadcrumb">
+                <li><a href="#"><i class="fa fa-dashboard"></i> <span th:utext="#{common.manage.system}"></span></a></li>
+                <li class="active" th:utext="#{common.manage.permission.edit}"></li>
+            </ol>
+        </section>
+        <section class="content">
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="box box-primary">
+                        <div class="box-header with-border">
+                            <h3 class="box-title" th:utext="#{common.manage.permission.edit}"></h3>
+                        </div>
+                        <form role="form" th:action="@{/permission/edit}" method="post" id="editForm" >
+                            <div class="box-body">
+                                <div class="col-md-3">
+                                    <div class="form-group">
+                                        <label for="perId" th:utext="#{system.permission.perId}"></label>
+                                        <input type="hidden" name="perId" th:value="${sysPermission.perId}">
+                                        <input type="text" class="form-control" disabled="disabled" th:placeholder="#{system.permission.perId}"
+                                               id="perId" name="perId" th:value="${sysPermission.perId}"/>
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="perName" th:utext="#{system.permission.perName}"></label>
+                                        <input type="text" class="form-control" th:placeholder="#{system.permission.perName}"
+                                               id="perName" name="perName" th:value="${sysPermission.perName}"/>
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="parentId" th:utext="#{system.permission.parentId}"></label>
+                                        <input type="text" class="form-control" th:placeholder="#{system.permission.parentId}"
+                                               id="parentId" name="parentId" th:value="${sysPermission.parentId}"/>
+                                    </div>
+                                </div>
+                                <div class="col-md-3">
+                                    <div class="form-group">
+                                        <label for="type" th:utext="#{system.permission.type}"></label>
+                                        <select class="form-control" name="type" id="type" th:field="${sysPermission.type}">
+                                            <option th:each="type : ${allType}"
+                                                    th:value="${type.value}"
+                                                    th:text="${type.label}">
+                                            </option>
+                                        </select>
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="url" th:utext="#{system.permission.url}"></label>
+                                        <input type="text" class="form-control" th:placeholder="#{system.permission.url}"
+                                               id="url" name="url" th:value="${sysPermission.url}"/>
+                                    </div>
+                                </div>
+                                <div class="col-md-3">
+                                    <div class="form-group">
+                                        <label for="enable" th:utext="#{system.permission.enable}"></label>
+                                        <select class="form-control" name="enable" id="enable" th:field="${sysPermission.enable}">
+                                            <option th:each="enable : ${allEnable}"
+                                                    th:value="${enable.value}"
+                                                    th:text="${enable.label}">
+                                            </option>
+                                        </select>
+                                    </div>
+                                </div>
+                                <div class="col-md-3">
+                                    <div class="form-group">
+                                        <label for="creator" th:utext="#{common.creator}"></label>
+                                        <input type="text" class="form-control" disabled="disabled" th:placeholder="#{common.creator}"
+                                               id="creator" name="creator" th:value="${sysPermission.creator}"/>
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="createDateTime" th:utext="#{common.createDateTime}"></label>
+                                        <div class="input-group date">
+                                            <div class="input-group-addon">
+                                                <i class="fa fa-calendar"></i>
+                                            </div>
+                                            <input type="text" class="form-control pull-right datepicker" disabled="disabled" th:placeholder="#{common.createDateTime}"
+                                                   id="createDateTime" name="createDateTime" th:value="${#dates.format(sysPermission.createDateTime,'yyyy/MM/dd')}"/>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-md-12">
+                                    <div class="form-group">
+                                        <label for="description" th:utext="#{system.permission.description}"></label>
+                                        <textarea rows="5" cols="10" class="form-control" th:placeholder="#{system.permission.description}"
+                                                  id="description" name="description" th:text="${sysPermission.description}"></textarea>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="box-footer">
+                                <button type="button" class="btn btn-primary pull-right" id="btn_edit"><i class="fa fa-check"></i> <span th:utext="#{common.button.save}"></span></button>
+                                <a type="button" class="btn btn-danger pull-right" style="margin-right: 10px;" th:href="@{/permission/list}"><i class="fa fa-times"></i> <span th:utext="#{common.button.cancel}"></span></a>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </div>
+
+    <script src="https://whitecode2016.github.io/AdminLTE/bower_components/bootstrap-datepicker/dist/js/bootstrap-datepicker.min.js"></script>
+    <script src="https://whitecode2016.github.io/AdminLTE/bower_components/bootstrap-datepicker/dist/locales/bootstrap-datepicker.zh-CN.min.js"></script>
+    <script>
+        $(function () {
+            $(".datepicker").datepicker({
+                startDate: '-d',// 设置开始时间为当前日期
+                format:'yyyy/mm/dd',
+                language: 'zh-CN',
+                todayHighlight:true,
+                autoclose: true
+            });
+
+            $(document).delegate("#btn_edit", 'click',function () {
+                var formData = new FormData($("#editForm")[0]);
+                $.ajax({
+                    url: "/permission/edit",
+                    type: "POST",
+                    async: true,
+                    cache: false,
+                    contentType: false,
+                    processData: false,
+                    data: formData,
+                    success: function (data) {
+                        if (data.code == 100) {
+                            alert("编辑成功")
+                        } else {
+                            alert("编辑失败")
+                        }
+                    },
+                    error: function (data) {
+                        alert("请求异常")
+                    }
+                });
+            });
+        });
+
+
+    </script>
+</html>

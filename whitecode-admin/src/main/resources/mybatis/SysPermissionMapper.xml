@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.whitecode.dao.mapper.SysPermissionMapper">
+    <sql id="selectColumns">
+        SELECT
+            sp.per_id,
+            sp.per_name,
+            sp.type,
+            sp.url,
+            sp.permission,
+            sp.parent_Id,
+            sp.parent_Ids,
+            sp.enable,
+            sp.description,
+            sp.creator,
+            sp.create_date_time,
+            sp.modifier,
+            sp.modify_date_time
+        FROM sys_permission sp
+    </sql>
+
+    <select id="getPermissionById" resultType="SysPermission">
+        <include refid="selectColumns" />
+        WHERE per_id = #{perId}
+    </select>
+
+    <!-- 3.根据条件查询用户信息 -->
+    <select id="getPermissionsByCondition" resultType="SysPermission">
+        <include refid="selectColumns" />
+        WHERE 1=1
+        <if test="perName != null and perName != ''">
+            AND sp.per_name like CONCAT('%', #{perName}, '%')
+            <!-- AND sr.role_name = #{roleName} -->
+        </if>
+        <if test="type != null and type != ''">
+            AND sp.type = #{type}
+        </if>
+        <if test="enable != null and enable != ''">
+            AND sp.enable = #{enable}
+        </if>
+        ORDER BY sp.create_date_time
+    </select>
+
+    <insert id="insertPermission">
+        INSERT INTO sys_permission(per_id,per_name,type,url,permission,parent_id,parent_ids,enable,description)
+        VALUES (#{perId},#{perName},#{type},#{url},#{permission},#{parentId},#{parentIds},#{enable},#{description})
+    </insert>
+
+
+    <update id="updatePermission">
+        UPDATE sys_permission
+        <set>
+            per_name = #{perName},
+            type = #{type},
+            url = #{url},
+            permission = #{permission},
+            parent_id = #{parentId},
+            parent_ids = #{parentIds},
+            enable = #{enable},
+            description = #{description}
+        </set>
+        WHERE per_id = #{perId}
+    </update>
+</mapper>

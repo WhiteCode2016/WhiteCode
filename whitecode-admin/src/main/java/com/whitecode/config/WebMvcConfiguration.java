@@ -46,6 +46,7 @@ public class WebMvcConfiguration extends BaseMVCConfiguration {
                 "i18n/common",
                 "i18n/user",
                 "i18n/role",
+                "i18n/permission",
                 "i18n/enum"
         );
         messageSource.setDefaultEncoding("UTF-8");
