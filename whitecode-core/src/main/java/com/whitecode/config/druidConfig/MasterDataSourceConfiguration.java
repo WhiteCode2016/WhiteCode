@@ -2,23 +2,22 @@ package com.whitecode.config.druidConfig;
 
 import com.alibaba.druid.spring.boot.autoconfigure.DruidDataSourceBuilder;
 import com.github.pagehelper.PageHelper;
-import com.whitecode.common.WhiteContants;
 import org.apache.ibatis.plugin.Interceptor;
 import org.apache.ibatis.session.SqlSessionFactory;
 import org.mybatis.spring.SqlSessionFactoryBean;
+import org.mybatis.spring.SqlSessionTemplate;
+import org.mybatis.spring.annotation.MapperScan;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.boot.context.properties.ConfigurationProperties;
 import org.springframework.context.annotation.Bean;
-import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Primary;
 import org.springframework.core.io.ClassPathResource;
 import org.springframework.core.io.support.PathMatchingResourcePatternResolver;
 import org.springframework.jdbc.datasource.DataSourceTransactionManager;
 import javax.sql.DataSource;
-import java.io.IOException;
 import java.util.Properties;
 
 /**
@@ -26,9 +25,13 @@ import java.util.Properties;
  * Created by White on 2017/9/8.
  */
 @Configuration
-@ComponentScan(basePackages = "com.whitecode")
+@MapperScan(basePackages = "com.whitecode.dao",sqlSessionFactoryRef = "masterSqlSessionFactory" )
 public class MasterDataSourceConfiguration {
     private static final Logger logger = LoggerFactory.getLogger(MasterDataSourceConfiguration.class);
+
+    public static final String MASTER_TYPE_ALIAS = "com.whitecode.entity";
+    public static final String MASTER_CONFIG_LOCATION = "config/mybatis-config.xml";
+    public static final String MASTER_MAPPER_LOCATIONS = "mybatis/*.xml";
 
     /**
      * 配置数据源
@@ -36,7 +39,7 @@ public class MasterDataSourceConfiguration {
      */
     @Bean(name = "masterDataSource")
     @Primary // 如果在多个同类 Bean 候选时，该Bean优先被考虑。（标识主数据源）
-    @ConfigurationProperties("spring.datasource")
+    @ConfigurationProperties("spring.datasource.master")
     public DataSource masterDataSource(){
         return DruidDataSourceBuilder.create().build();
     }
@@ -51,14 +54,14 @@ public class MasterDataSourceConfiguration {
     public SqlSessionFactory masterSqlSessionFactory() throws Exception {
         SqlSessionFactoryBean sqlSessionFactoryBean = new SqlSessionFactoryBean();
         // 设置mybatis-config路径
-        sqlSessionFactoryBean.setConfigLocation(new ClassPathResource(WhiteContants.MASTER_CONFIG_LOCATION));
+        sqlSessionFactoryBean.setConfigLocation(new ClassPathResource(MASTER_CONFIG_LOCATION));
         // 设置数据源
         sqlSessionFactoryBean.setDataSource(masterDataSource());
         // 设置typeAlias包扫描路径
-        sqlSessionFactoryBean.setTypeAliasesPackage(WhiteContants.MASTER_TYPE_ALIAS);
+        sqlSessionFactoryBean.setTypeAliasesPackage(MASTER_TYPE_ALIAS);
         // 设置mapper文件路径
         sqlSessionFactoryBean.setMapperLocations( new PathMatchingResourcePatternResolver()
-                .getResources(WhiteContants.MASTER_MAPPER_LOCATIONS));
+                .getResources(MASTER_MAPPER_LOCATIONS));
         // 添加分页插件PageHelper
         Interceptor[] plugins = new Interceptor[]{ pageHelper() };
         sqlSessionFactoryBean.setPlugins(plugins);
@@ -73,8 +76,14 @@ public class MasterDataSourceConfiguration {
      */
     @Bean(name = "masterTransactionManager")
     @Primary
-    public DataSourceTransactionManager transactionManager(@Qualifier("masterDataSource") DataSource masterDataSource) throws Exception {
+    public DataSourceTransactionManager masterTransactionManager(@Qualifier("masterDataSource") DataSource masterDataSource) throws Exception {
         return new DataSourceTransactionManager(masterDataSource);
+    }
+
+    @Bean(name = "masterSqlSessionTemplate")
+    @Primary
+    public SqlSessionTemplate masterSqlSessionTemplate() throws Exception {
+        return new SqlSessionTemplate(masterSqlSessionFactory());
     }
 
     /**
